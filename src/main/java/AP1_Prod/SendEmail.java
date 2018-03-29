@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
 public class SendEmail 
 {
 	
-	@Test
+	@AfterSuite
 	public void SendMail()
 	{
 		final String username = "priteshamit@gmail.com";
