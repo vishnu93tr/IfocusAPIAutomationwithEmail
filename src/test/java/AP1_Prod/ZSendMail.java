@@ -15,22 +15,17 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.Test;
 
 
-
-
-
-public class SendEmail 
+public class ZSendMail 
 {
-	
-	@AfterSuite
+	@Test
 	public void SendMail()
 	{
-		final String username = "priteshamit@gmail.com";
-		final String password = "Khusru29#";
+		final String username = "yourmail@gmail.com";
+		final String password = "password";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
@@ -50,8 +45,11 @@ public class SendEmail
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("priteshamit@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("karanam.vishnuvardhan@ifocussystec.in"));
-			message.setSubject("Testing Subject");
+				InternetAddress.parse("amit.mahato@ifocussystec.in"));
+//			message.setRecipients(Message.RecipientType.TO,
+//					InternetAddress.parse("vishnu26121993@gmail.com"));
+			
+			message.setSubject("AUTH API's Report");
 			message.setText("Dear Mail Crawler,"
 				+ "\n\n No spam to my email, please!");
 			
@@ -68,11 +66,12 @@ public class SendEmail
 
 	         // Part two is attachment
 	         messageBodyPart = new MimeBodyPart();
-	         String filename = "C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\test-output\\emailable-report.html";
+//	         String filename = "C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\test-output\\emailable-report.html";
 	         String filename1 = "C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\testdataV1.xls";
-	         GenericMethod.addAttachment(multipart, filename);
+//	         GenericMethod.addAttachment(multipart, filename);
 	         GenericMethod.addAttachment(multipart, filename1);
 	         // Send the complete message parts
+	        
 	         message.setContent(multipart);
 			
 			
@@ -85,5 +84,4 @@ public class SendEmail
 		}
 		
 	}
-	
 }
