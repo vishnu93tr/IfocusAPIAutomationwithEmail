@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="example suite 1" verbose="1" >
-<test name="AuthApitest" >
-    <packages>
-      <package name="AP1_Prod" />
-   </packages>
- </test>
-</suite>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+<listeners>
+<listener class-name="AP1_Prod.TestListener"/>
+</listeners>
+  <test thread-count="5" name="Test">
+    <classes>
+      <class name="AP1_Prod.CheckMail_Prod"/>
+      <class name="AP1_Prod.SetUsername_Prod"/>
+      <class name="AP1_Prod.Authentication_Prod"/>
+      <class name="AP1_Prod.EditUser_Prod"/>
+      <class name="AP1_Prod.GetProfileUser_Prod"/>
+      <class name="AP1_Prod.KUserReg_Prod"/>
+      <class name="AP1_Prod.GetAuthKey_Prod"/>
+      <class name="AP1_Prod.SetPassword_Prod"/>
+      <class name="AP1_Prod.KUserLogin_Prod"/>
+      <class name="AP1_Prod.ChangePassword_Prod"/>
+      <class name="AP1_Prod.Create_Prod"/>
+      <class name="AP1_Prod.ZSendMail"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

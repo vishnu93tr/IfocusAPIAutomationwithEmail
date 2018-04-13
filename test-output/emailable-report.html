@@ -1,39 +1,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-<title>TestNG Report</title>
-<style type="text/css">table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}th,td {border:1px solid #009;padding:.25em .5em}th {vertical-align:bottom}td {vertical-align:top}table a {font-weight:bold}.stripe td {background-color: #E6EBF9}.num {text-align:right}.passedodd td {background-color: #3F3}.passedeven td {background-color: #0A0}.skippedodd td {background-color: #DDD}.skippedeven td {background-color: #CCC}.failedodd td,.attn {background-color: #F33}.failedeven td,.stripe .attn {background-color: #D00}.stacktrace {white-space:pre;font-family:monospace}.totop {font-size:85%;text-align:center;border-bottom:2px solid #000}.invisible {display:none}</style>
-</head>
-<body>
-<table>
-<tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
-<tr><th colspan="7">example suite 1</th></tr>
-<tr><td><a href="#t0">AuthApitest</a></td><td class="num">7</td><td class="num">0</td><td class="num attn">5</td><td class="num">46,101</td><td></td><td></td></tr>
-</table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">example suite 1</th></tr></tbody><tbody id="t0"><tr><th colspan="4">AuthApitest &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">AP1_Prod.ChangePassword_Prod</td><td><a href="#m0">changePassword</a></td><td rowspan="1">1522305158656</td><td rowspan="1">4262</td></tr><tr class="failedodd"><td rowspan="1">AP1_Prod.CheckMail_Prod</td><td><a href="#m1">checkemail_V1</a></td><td rowspan="1">1522305172359</td><td rowspan="1">4212</td></tr><tr class="failedeven"><td rowspan="1">AP1_Prod.EditUser_Prod</td><td><a href="#m2">edituser</a></td><td rowspan="1">1522305181347</td><td rowspan="1">4226</td></tr><tr class="failedodd"><td rowspan="1">AP1_Prod.SetPassword_Prod</td><td><a href="#m3">SetPassword</a></td><td rowspan="1">1522305152308</td><td rowspan="1">6345</td></tr><tr class="failedeven"><td rowspan="1">AP1_Prod.SetUsername_Prod</td><td><a href="#m4">SetUsername</a></td><td rowspan="1">1522305168087</td><td rowspan="1">4271</td></tr><tr><th colspan="4">AuthApitest &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">AP1_Prod.Authentication_Prod</td><td><a href="#m5">authentication_positive</a></td><td rowspan="1">1522305139494</td><td rowspan="1">3375</td></tr><tr class="passedodd"><td rowspan="1">AP1_Prod.Create_Prod</td><td><a href="#m6">createapi</a></td><td rowspan="1">1522305177065</td><td rowspan="1">3301</td></tr><tr class="passedeven"><td rowspan="1">AP1_Prod.GetAuthKey_Prod</td><td><a href="#m7">getauthkey_positive</a></td><td rowspan="1">1522305142871</td><td rowspan="1">4526</td></tr><tr class="passedodd"><td rowspan="1">AP1_Prod.GetProfileUser_Prod</td><td><a href="#m8">getprofile_positive</a></td><td rowspan="1">1522305162920</td><td rowspan="1">5166</td></tr><tr class="passedeven"><td rowspan="1">AP1_Prod.KUserLogin_Prod</td><td><a href="#m9">kuserlogin_positive</a></td><td rowspan="1">1522305176572</td><td rowspan="1">492</td></tr><tr class="passedodd"><td rowspan="1">AP1_Prod.KUserReg_Prod</td><td><a href="#m10">kuserreg_positive</a></td><td rowspan="1">1522305180367</td><td rowspan="1">979</td></tr><tr class="passedeven"><td rowspan="1">AP1_Prod.SendEmail</td><td><a href="#m11">SendMail</a></td><td rowspan="1">1522305147399</td><td rowspan="1">4908</td></tr></tbody>
-</table>
-<h2>AuthApitest</h2><h3 id="m0">AP1_Prod.ChangePassword_Prod#changePassword</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: isPosted value is not as expected expected [false] but found [true]
-	at AP1_Prod.ChangePassword_Prod.changePassword(ChangePassword_Prod.java:70)
-... Removed 30 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m1">AP1_Prod.CheckMail_Prod#checkemail_V1</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: isExist value is not as expected expected [false] but found [true]
-	at AP1_Prod.CheckMail_Prod.checkemail_V1(CheckMail_Prod.java:65)
-... Removed 30 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m2">AP1_Prod.EditUser_Prod#edituser</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: isExist value is not as expected expected [false] but found [true]
-	at AP1_Prod.EditUser_Prod.edituser(EditUser_Prod.java:54)
-... Removed 30 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m3">AP1_Prod.SetPassword_Prod#SetPassword</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: isPosted value is not as expected expected [false] but found [true]
-	at AP1_Prod.SetPassword_Prod.SetPassword(SetPassword_Prod.java:63)
-... Removed 30 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m4">AP1_Prod.SetUsername_Prod#SetUsername</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: isPosted value is not as expected expected [false] but found [true]
-	at AP1_Prod.SetUsername_Prod.SetUsername(SetUsername_Prod.java:70)
-... Removed 30 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m5">AP1_Prod.Authentication_Prod#authentication_positive</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m6">AP1_Prod.Create_Prod#createapi</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m7">AP1_Prod.GetAuthKey_Prod#getauthkey_positive</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m8">AP1_Prod.GetProfileUser_Prod#getprofile_positive</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m9">AP1_Prod.KUserLogin_Prod#kuserlogin_positive</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m10">AP1_Prod.KUserReg_Prod#kuserreg_positive</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m11">AP1_Prod.SendEmail#SendMail</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-</body>
-</html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>TestNG Report</title><style type="text/css">table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}th,td {border:1px solid #009;padding:.25em .5em}th {vertical-align:bottom}td {vertical-align:top}table a {font-weight:bold}.stripe td {background-color: #E6EBF9}.num {text-align:right}.passedodd td {background-color: #3F3}.passedeven td {background-color: #0A0}.skippedodd td {background-color: #DDD}.skippedeven td {background-color: #CCC}.failedodd td,.attn {background-color: #F33}.failedeven td,.stripe .attn {background-color: #D00}.stacktrace {white-space:pre;font-family:monospace}.totop {font-size:85%;text-align:center;border-bottom:2px solid #000}</style></head><body><table><tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr><tr><th colspan="7">Default suite</th></tr><tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">3,757</td><td></td><td></td></tr></table><table><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">AP1_Prod.KUserReg_Prod</td><td><a href="#m0">kuserreg_positive</a></td><td rowspan="1">1523620996059</td><td rowspan="1">3743</td></tr></tbody></table><h2>Default test</h2><h3 id="m0">AP1_Prod.KUserReg_Prod#kuserreg_positive</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: The following asserts failed:
+	expected [Please enter email] but found [Please enter email1],
+	expected [Please enter UID] but found [Please enter UID1]
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:43)
+	at AP1_Prod.KUserReg_Prod.kuserreg_positive(KUserReg_Prod.java:132)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:86)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:643)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:820)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1128)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)
+	at org.testng.TestRunner.privateRun(TestRunner.java:782)
+	at org.testng.TestRunner.run(TestRunner.java:632)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:366)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:361)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:319)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:268)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1244)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1169)
+	at org.testng.TestNG.run(TestNG.java:1064)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p></body></html>

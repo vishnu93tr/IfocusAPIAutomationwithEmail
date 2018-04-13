@@ -1,33 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="-1" name="Failed suite [example suite 1]">
-  <test name="AuthApitest(failed)">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+  <test verbose="2" name="Default test">
     <classes>
-      <class name="AP1_Prod.SetPassword_Prod">
-        <methods>
-          <include name="SetPassword"/>
-        </methods>
-      </class> <!-- AP1_Prod.SetPassword_Prod -->
-      <class name="AP1_Prod.SetUsername_Prod">
-        <methods>
-          <include name="SetUsername"/>
-        </methods>
-      </class> <!-- AP1_Prod.SetUsername_Prod -->
-      <class name="AP1_Prod.ChangePassword_Prod">
-        <methods>
-          <include name="changePassword"/>
-        </methods>
-      </class> <!-- AP1_Prod.ChangePassword_Prod -->
-      <class name="AP1_Prod.CheckMail_Prod">
-        <methods>
-          <include name="checkemail_V1"/>
-        </methods>
-      </class> <!-- AP1_Prod.CheckMail_Prod -->
-      <class name="AP1_Prod.EditUser_Prod">
-        <methods>
-          <include name="edituser"/>
-        </methods>
-      </class> <!-- AP1_Prod.EditUser_Prod -->
+      <class name="AP1_Prod.KUserReg_Prod"/>
     </classes>
-  </test> <!-- AuthApitest(failed) -->
-</suite> <!-- Failed suite [example suite 1] -->
+  </test> <!-- Default test -->
+  <test name="Default test(failed)">
+    <classes>
+      <class name="AP1_Prod.KUserReg_Prod">
+        <methods>
+          <include name="kuserreg_positive"/>
+        </methods>
+      </class> <!-- AP1_Prod.KUserReg_Prod -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

@@ -1,123 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="5" ignored="0" total="12" passed="7">
+<testng-results skipped="0" failed="1" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="example suite 1" duration-ms="46101" started-at="2018-03-29T06:32:19Z" finished-at="2018-03-29T06:33:05Z">
+  <suite name="Default suite" duration-ms="3757" started-at="2018-04-13T12:03:16Z" finished-at="2018-04-13T12:03:19Z">
     <groups>
     </groups>
-    <test name="AuthApitest" duration-ms="46101" started-at="2018-03-29T06:32:19Z" finished-at="2018-03-29T06:33:05Z">
-      <class name="AP1_Prod.Authentication_Prod">
-        <test-method status="PASS" signature="authentication_positive()[pri:0, instance:AP1_Prod.Authentication_Prod@5abca1e0]" name="authentication_positive" duration-ms="3375" started-at="2018-03-29T12:02:19Z" finished-at="2018-03-29T12:02:22Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- authentication_positive -->
-      </class> <!-- AP1_Prod.Authentication_Prod -->
-      <class name="AP1_Prod.GetAuthKey_Prod">
-        <test-method status="PASS" signature="getauthkey_positive()[pri:0, instance:AP1_Prod.GetAuthKey_Prod@370736d9]" name="getauthkey_positive" duration-ms="4526" started-at="2018-03-29T12:02:22Z" finished-at="2018-03-29T12:02:27Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- getauthkey_positive -->
-      </class> <!-- AP1_Prod.GetAuthKey_Prod -->
-      <class name="AP1_Prod.SetPassword_Prod">
-        <test-method status="FAIL" signature="SetPassword()[pri:0, instance:AP1_Prod.SetPassword_Prod@520a3426]" name="SetPassword" duration-ms="6345" started-at="2018-03-29T12:02:32Z" finished-at="2018-03-29T12:02:38Z">
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[isPosted value is not as expected expected [false] but found [true]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: isPosted value is not as expected expected [false] but found [true]at org.testng.Assert.fail(Assert.java:96)at org.testng.Assert.failNotEquals(Assert.java:776)at org.testng.Assert.assertEqualsImpl(Assert.java:137)at org.testng.Assert.assertEquals(Assert.java:118)at org.testng.Assert.assertEquals(Assert.java:453)at AP1_Prod.SetPassword_Prod.SetPassword(SetPassword_Prod.java:63)at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)at java.lang.reflect.Method.invoke(Unknown Source)at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)at org.testng.internal.Invoker.invokeMethod(Invoker.java:571)at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:707)at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:979)at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)at org.testng.TestRunner.privateRun(TestRunner.java:648)at org.testng.TestRunner.run(TestRunner.java:505)at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)at org.testng.SuiteRunner.run(SuiteRunner.java:364)at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187)at org.testng.TestNG.runSuitesLocally(TestNG.java:1116)at org.testng.TestNG.runSuites(TestNG.java:1028)at org.testng.TestNG.run(TestNG.java:996)at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- SetPassword -->
-      </class> <!-- AP1_Prod.SetPassword_Prod -->
-      <class name="AP1_Prod.KUserLogin_Prod">
-        <test-method status="PASS" signature="kuserlogin_positive()[pri:0, instance:AP1_Prod.KUserLogin_Prod@63753b6d]" name="kuserlogin_positive" duration-ms="492" started-at="2018-03-29T12:02:56Z" finished-at="2018-03-29T12:02:57Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- kuserlogin_positive -->
-      </class> <!-- AP1_Prod.KUserLogin_Prod -->
-      <class name="AP1_Prod.ChangePassword_Prod">
-        <test-method status="FAIL" signature="changePassword()[pri:0, instance:AP1_Prod.ChangePassword_Prod@6d7b4f4c]" name="changePassword" duration-ms="4262" started-at="2018-03-29T12:02:38Z" finished-at="2018-03-29T12:02:42Z">
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[isPosted value is not as expected expected [false] but found [true]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: isPosted value is not as expected expected [false] but found [true]at org.testng.Assert.fail(Assert.java:96)at org.testng.Assert.failNotEquals(Assert.java:776)at org.testng.Assert.assertEqualsImpl(Assert.java:137)at org.testng.Assert.assertEquals(Assert.java:118)at org.testng.Assert.assertEquals(Assert.java:453)at AP1_Prod.ChangePassword_Prod.changePassword(ChangePassword_Prod.java:70)at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)at java.lang.reflect.Method.invoke(Unknown Source)at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)at org.testng.internal.Invoker.invokeMethod(Invoker.java:571)at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:707)at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:979)at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)at org.testng.TestRunner.privateRun(TestRunner.java:648)at org.testng.TestRunner.run(TestRunner.java:505)at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)at org.testng.SuiteRunner.run(SuiteRunner.java:364)at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187)at org.testng.TestNG.runSuitesLocally(TestNG.java:1116)at org.testng.TestNG.runSuites(TestNG.java:1028)at org.testng.TestNG.run(TestNG.java:996)at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- changePassword -->
-      </class> <!-- AP1_Prod.ChangePassword_Prod -->
-      <class name="AP1_Prod.Create_Prod">
-        <test-method status="PASS" signature="createapi()[pri:0, instance:AP1_Prod.Create_Prod@13a5fe33]" name="createapi" duration-ms="3301" started-at="2018-03-29T12:02:57Z" finished-at="2018-03-29T12:03:00Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- createapi -->
-      </class> <!-- AP1_Prod.Create_Prod -->
+    <test name="Default test" duration-ms="3757" started-at="2018-04-13T12:03:16Z" finished-at="2018-04-13T12:03:19Z">
       <class name="AP1_Prod.KUserReg_Prod">
-        <test-method status="PASS" signature="kuserreg_positive()[pri:0, instance:AP1_Prod.KUserReg_Prod@6b09bb57]" name="kuserreg_positive" duration-ms="979" started-at="2018-03-29T12:03:00Z" finished-at="2018-03-29T12:03:01Z">
+        <test-method status="FAIL" signature="kuserreg_positive()[pri:0, instance:AP1_Prod.KUserReg_Prod@25bbe1b6]" name="kuserreg_positive" duration-ms="3743" started-at="2018-04-13T17:33:16Z" finished-at="2018-04-13T17:33:19Z">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[The following asserts failed:
+	expected [Please enter email] but found [Please enter email1],
+	expected [Please enter UID] but found [Please enter UID1]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: The following asserts failed:
+	expected [Please enter email] but found [Please enter email1],
+	expected [Please enter UID] but found [Please enter UID1]
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:43)
+	at AP1_Prod.KUserReg_Prod.kuserreg_positive(KUserReg_Prod.java:132)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:86)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:643)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:820)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1128)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)
+	at org.testng.TestRunner.privateRun(TestRunner.java:782)
+	at org.testng.TestRunner.run(TestRunner.java:632)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:366)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:361)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:319)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:268)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1244)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1169)
+	at org.testng.TestNG.run(TestNG.java:1064)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- kuserreg_positive -->
       </class> <!-- AP1_Prod.KUserReg_Prod -->
-      <class name="AP1_Prod.SetUsername_Prod">
-        <test-method status="FAIL" signature="SetUsername()[pri:0, instance:AP1_Prod.SetUsername_Prod@18eed359]" name="SetUsername" duration-ms="4271" started-at="2018-03-29T12:02:48Z" finished-at="2018-03-29T12:02:52Z">
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[isPosted value is not as expected expected [false] but found [true]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: isPosted value is not as expected expected [false] but found [true]at org.testng.Assert.fail(Assert.java:96)at org.testng.Assert.failNotEquals(Assert.java:776)at org.testng.Assert.assertEqualsImpl(Assert.java:137)at org.testng.Assert.assertEquals(Assert.java:118)at org.testng.Assert.assertEquals(Assert.java:453)at AP1_Prod.SetUsername_Prod.SetUsername(SetUsername_Prod.java:70)at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)at java.lang.reflect.Method.invoke(Unknown Source)at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)at org.testng.internal.Invoker.invokeMethod(Invoker.java:571)at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:707)at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:979)at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)at org.testng.TestRunner.privateRun(TestRunner.java:648)at org.testng.TestRunner.run(TestRunner.java:505)at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)at org.testng.SuiteRunner.run(SuiteRunner.java:364)at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187)at org.testng.TestNG.runSuitesLocally(TestNG.java:1116)at org.testng.TestNG.runSuites(TestNG.java:1028)at org.testng.TestNG.run(TestNG.java:996)at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- SetUsername -->
-      </class> <!-- AP1_Prod.SetUsername_Prod -->
-      <class name="AP1_Prod.SendEmail">
-        <test-method status="PASS" signature="SendMail()[pri:0, instance:AP1_Prod.SendEmail@6536e911]" name="SendMail" duration-ms="4908" started-at="2018-03-29T12:02:27Z" finished-at="2018-03-29T12:02:32Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- SendMail -->
-      </class> <!-- AP1_Prod.SendEmail -->
-      <class name="AP1_Prod.GetProfileUser_Prod">
-        <test-method status="PASS" signature="getprofile_positive()[pri:0, instance:AP1_Prod.GetProfileUser_Prod@5f9d02cb]" name="getprofile_positive" duration-ms="5166" started-at="2018-03-29T12:02:42Z" finished-at="2018-03-29T12:02:48Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- getprofile_positive -->
-      </class> <!-- AP1_Prod.GetProfileUser_Prod -->
-      <class name="AP1_Prod.CheckMail_Prod">
-        <test-method status="FAIL" signature="checkemail_V1()[pri:0, instance:AP1_Prod.CheckMail_Prod@527740a2]" name="checkemail_V1" duration-ms="4212" started-at="2018-03-29T12:02:52Z" finished-at="2018-03-29T12:02:56Z">
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[isExist value is not as expected expected [false] but found [true]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: isExist value is not as expected expected [false] but found [true]at org.testng.Assert.fail(Assert.java:96)at org.testng.Assert.failNotEquals(Assert.java:776)at org.testng.Assert.assertEqualsImpl(Assert.java:137)at org.testng.Assert.assertEquals(Assert.java:118)at org.testng.Assert.assertEquals(Assert.java:453)at AP1_Prod.CheckMail_Prod.checkemail_V1(CheckMail_Prod.java:65)at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)at java.lang.reflect.Method.invoke(Unknown Source)at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)at org.testng.internal.Invoker.invokeMethod(Invoker.java:571)at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:707)at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:979)at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)at org.testng.TestRunner.privateRun(TestRunner.java:648)at org.testng.TestRunner.run(TestRunner.java:505)at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)at org.testng.SuiteRunner.run(SuiteRunner.java:364)at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187)at org.testng.TestNG.runSuitesLocally(TestNG.java:1116)at org.testng.TestNG.runSuites(TestNG.java:1028)at org.testng.TestNG.run(TestNG.java:996)at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- checkemail_V1 -->
-      </class> <!-- AP1_Prod.CheckMail_Prod -->
-      <class name="AP1_Prod.EditUser_Prod">
-        <test-method status="FAIL" signature="edituser()[pri:0, instance:AP1_Prod.EditUser_Prod@3108bc]" name="edituser" duration-ms="4226" started-at="2018-03-29T12:03:01Z" finished-at="2018-03-29T12:03:05Z">
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[isExist value is not as expected expected [false] but found [true]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: isExist value is not as expected expected [false] but found [true]at org.testng.Assert.fail(Assert.java:96)at org.testng.Assert.failNotEquals(Assert.java:776)at org.testng.Assert.assertEqualsImpl(Assert.java:137)at org.testng.Assert.assertEquals(Assert.java:118)at org.testng.Assert.assertEquals(Assert.java:453)at AP1_Prod.EditUser_Prod.edituser(EditUser_Prod.java:54)at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)at java.lang.reflect.Method.invoke(Unknown Source)at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)at org.testng.internal.Invoker.invokeMethod(Invoker.java:571)at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:707)at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:979)at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)at org.testng.TestRunner.privateRun(TestRunner.java:648)at org.testng.TestRunner.run(TestRunner.java:505)at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)at org.testng.SuiteRunner.run(SuiteRunner.java:364)at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187)at org.testng.TestNG.runSuitesLocally(TestNG.java:1116)at org.testng.TestNG.runSuites(TestNG.java:1028)at org.testng.TestNG.run(TestNG.java:996)at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- edituser -->
-      </class> <!-- AP1_Prod.EditUser_Prod -->
-    </test> <!-- AuthApitest -->
-  </suite> <!-- example suite 1 -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>
