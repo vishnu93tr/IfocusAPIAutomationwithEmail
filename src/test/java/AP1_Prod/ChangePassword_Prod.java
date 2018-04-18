@@ -53,7 +53,7 @@ public class ChangePassword_Prod extends GenericMethod
 	    		Row row=sh.getRow(i);
 	    		String platform=row.getCell(1).getStringCellValue();
 	    		String pId=row.getCell(2).getStringCellValue();
-	    		String Uid=row.getCell(3).getStringCellValue();
+	    		String Uid=row.getCell(4).getStringCellValue();
 	    		if(Uid.equals("NA"))
 	    		{
 	    			Uid = resp.jsonPath().get("LoginRadius.Uid");
@@ -62,17 +62,17 @@ public class ChangePassword_Prod extends GenericMethod
 	    		{
 	    			Uid="";
 	    		}
-	    		String old_password=row.getCell(4).getStringCellValue();
+	    		String old_password=row.getCell(5).getStringCellValue();
 	    		if(old_password.equals("EMPTY"))
 	    		{
 	    			old_password ="";
 	    		}
-	    		String new_password=row.getCell(5).getStringCellValue();
+	    		String new_password=row.getCell(6).getStringCellValue();
 	    		if(new_password.equals("EMPTY"))
 	    		{
 	    			new_password ="";
 	    		}
-	    		String URL_changePassword =row.getCell(6).getStringCellValue();
+	    		String URL_changePassword =row.getCell(7).getStringCellValue();
 	    		String TestType =row.getCell(0).getStringCellValue();
 	    		String key2Test=row.getCell(8).getStringCellValue();
 	    		 Value2test=row.getCell(9).getStringCellValue();

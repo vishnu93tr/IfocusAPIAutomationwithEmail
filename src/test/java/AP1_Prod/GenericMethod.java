@@ -25,6 +25,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.testng.annotations.Parameters;
 import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
 
 import com.jayway.restassured.RestAssured;
@@ -32,10 +33,12 @@ import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 
+
+
 public class GenericMethod
 {
 	String path1="C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\testdataV1.xls";
-	
+	public static String platformname="";
 	public  Response createapi() throws EncryptedDocumentException, InvalidFormatException, IOException  {
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
 		 String SALTCHARS = "abcdefghijklmnopqrstuvwxyz123456789";
@@ -48,17 +51,17 @@ public class GenericMethod
 	        String saltStr = salt.toString();
 	       String emailid= saltStr+"@gmail.com";
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
-		String path1="C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\testdataV1.xls";
+		
 		FileInputStream fis=new FileInputStream(path1);
 		Workbook wb=WorkbookFactory.create(fis);
-		Sheet sh=wb.getSheet("Positive");
-		Row row=sh.getRow(4);
-		String platform=row.getCell(0).getStringCellValue();
-		String pId=row.getCell(1).getStringCellValue();
-		String password=row.getCell(3).getStringCellValue();
-		String firstname=row.getCell(3).getStringCellValue();
-		String lastname=row.getCell(3).getStringCellValue();
-		String URL=row.getCell(4).getStringCellValue();
+		Sheet sh=wb.getSheet("Create1");
+		Row row=sh.getRow(1);
+		String platform=row.getCell(1).getStringCellValue();
+		String pId=row.getCell(2).getStringCellValue();
+		String password=row.getCell(5).getStringCellValue();
+		String firstname=row.getCell(6).getStringCellValue();
+		String lastname=row.getCell(7).getStringCellValue();
+		String URL=row.getCell(8).getStringCellValue();
 	
 		
 		BasicConfigurator.configure();
@@ -106,10 +109,10 @@ public class GenericMethod
 		Row row=sh.getRow(1);
 		String platform=row.getCell(1).getStringCellValue();
 		String pId=row.getCell(2).getStringCellValue();
-		String password=row.getCell(4).getStringCellValue();
-		String firstname=row.getCell(5).getStringCellValue();
-		String lastname=row.getCell(6).getStringCellValue();
-		String URL=row.getCell(7).getStringCellValue();
+		String password=row.getCell(5).getStringCellValue();
+		String firstname=row.getCell(6).getStringCellValue();
+		String lastname=row.getCell(7).getStringCellValue();
+		String URL=row.getCell(8).getStringCellValue();
 	
 		
 		BasicConfigurator.configure();
@@ -148,8 +151,8 @@ public class GenericMethod
 		cel2.setCellValue("Pass");
 		
 		Row row3=sh1.getRow(1);
-		row3.createCell(3);
-		Cell cel3=	row3.getCell(3, MissingCellPolicy.CREATE_NULL_AS_BLANK);
+		row3.createCell(4);
+		Cell cel3=	row3.getCell(4, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 		cel3.setCellType(CellType.STRING);
 		cel3.setCellValue(act);
 		
@@ -171,7 +174,7 @@ public class GenericMethod
 	public String getSaltString() 
 	{
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
-		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+		String SALTCHARS = "abcdefghijklmnopqrstuvwxyz1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
         while (salt.length() < 10) { 

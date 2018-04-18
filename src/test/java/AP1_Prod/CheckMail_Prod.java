@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -30,20 +31,22 @@ public class CheckMail_Prod extends GenericMethod
 {
 		String str;
 		String Value2test;
+		@Parameters({"path","platformName"})
 		@Test
-		public void checkemail_V1() throws EncryptedDocumentException, InvalidFormatException, IOException 
+		public void checkemail_Traditional(String path, String platformName) throws EncryptedDocumentException, InvalidFormatException, IOException 
 		{
 			SoftAssert softAssert = new SoftAssert();
 			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
 		
-			
-			FileInputStream fis=new FileInputStream(path1);
+			GenericMethod.platformname=platformName;
+			//FileInputStream fis=new FileInputStream(path1);
+			FileInputStream fis=new FileInputStream(path);
 			Workbook wb=WorkbookFactory.create(fis);
 			//Excel sheet name Password Change
 			Sheet sh=wb.getSheet("CheckMail");
 			//count the no. of rows ignoring the 1st row
 			int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
-
+			
 			//started for loop
 			for(int i=1; i<=rowCount;i++)
 			{
@@ -51,13 +54,13 @@ public class CheckMail_Prod extends GenericMethod
 				Row row=sh.getRow(i);
 				String platform=row.getCell(1).getStringCellValue();
 				String pId=row.getCell(2).getStringCellValue();
-				String email=row.getCell(3).getStringCellValue();
+				String email=row.getCell(4).getStringCellValue();
 				if(email.equals("EMPTY"))
 				{
 					email = "";
 				}
 				
-				String URL_checkEmail =row.getCell(4).getStringCellValue();
+				String URL_checkEmail =row.getCell(5).getStringCellValue();
 				String TestType =row.getCell(0).getStringCellValue();
 				String key2Test=row.getCell(6).getStringCellValue();
 				Value2test=row.getCell(7).getStringCellValue();
@@ -85,7 +88,7 @@ public class CheckMail_Prod extends GenericMethod
 	    		}
 	    		
 				
-				FileInputStream fis2=new FileInputStream(path1);
+				FileInputStream fis2=new FileInputStream(path);
 				Workbook wb2=WorkbookFactory.create(fis2);
 			
 					Sheet sh2=wb2.getSheet("CheckMail");
@@ -106,7 +109,7 @@ public class CheckMail_Prod extends GenericMethod
 						cel3.setCellValue("Fail");
 					}
 				
-					FileOutputStream fos=new FileOutputStream(path1);
+					FileOutputStream fos=new FileOutputStream(path);
 					wb2.write(fos);
 				
 					fos.close();

@@ -47,7 +47,7 @@ public class SetUsername_Prod extends GenericMethod
 		Workbook wb=WorkbookFactory.create(fis);
 		Sheet sh=wb.getSheet("SetUsername");
 		int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
-		
+		System.out.println(rowCount);
 		for(int i=1; i<=rowCount;i++)
 		{
 			Row row=sh.getRow(i);

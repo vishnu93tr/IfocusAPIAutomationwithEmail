@@ -47,12 +47,12 @@ public class GetAuthKey_Prod extends GenericMethod
 		for(int i=1; i<=rowCount;i++)
 		{
 				Row row1=sh.getRow(i);
-				String UID=row1.getCell(1).getStringCellValue();
+				String UID=row1.getCell(2).getStringCellValue();
 				if(UID.equals("EMPTY"))
 				{
 					UID="";
 				}
-				String URL_getauthkey=row1.getCell(2).getStringCellValue();
+				String URL_getauthkey=row1.getCell(3).getStringCellValue();
 				String TestType=row1.getCell(0).getStringCellValue();
 				String key2Test=row1.getCell(4).getStringCellValue();
 				Value2test=row1.getCell(5).getStringCellValue();
@@ -75,10 +75,7 @@ public class GetAuthKey_Prod extends GenericMethod
 					str=resp1.then().extract().path(key2Test);
 					softAssert.assertEquals(Value2test,str);
 				}
-				String	str1=str;
-				System.out.println(str1);
-		
-		
+				
 				FileInputStream fis1=new FileInputStream(path1);
 				Workbook wb1=WorkbookFactory.create(fis1);
 		
@@ -93,11 +90,16 @@ public class GetAuthKey_Prod extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(7);
 				Cell cel3=row3.getCell(7, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(str1.equals(Value2test)) {
-				cel3.setCellValue("Pass");
-				}
-				else {
-					cel3.setCellValue("Fail");
+				if(TestType.equals("Negative"))
+				{	
+					if(str.equals(Value2test) )
+					{
+						cel3.setCellValue("Pass");
+					}
+					else 
+					{
+						cel3.setCellValue("Fail");
+					}
 				}
 		
 		
@@ -106,8 +108,6 @@ public class GetAuthKey_Prod extends GenericMethod
 		
 				fos.close();
 		}
-		
-		
 		softAssert.assertAll();	
 			
 	

@@ -1,56 +1,231 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="1" total="1" passed="0">
+<testng-results skipped="0" failed="0" total="12" passed="12">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="3757" started-at="2018-04-13T12:03:16Z" finished-at="2018-04-13T12:03:19Z">
+  <suite name="Suite" duration-ms="49304" started-at="2018-04-18T12:29:27Z" finished-at="2018-04-18T12:30:16Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="3757" started-at="2018-04-13T12:03:16Z" finished-at="2018-04-13T12:03:19Z">
-      <class name="AP1_Prod.KUserReg_Prod">
-        <test-method status="FAIL" signature="kuserreg_positive()[pri:0, instance:AP1_Prod.KUserReg_Prod@25bbe1b6]" name="kuserreg_positive" duration-ms="3743" started-at="2018-04-13T17:33:16Z" finished-at="2018-04-13T17:33:19Z">
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[The following asserts failed:
-	expected [Please enter email] but found [Please enter email1],
-	expected [Please enter UID] but found [Please enter UID1]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: The following asserts failed:
-	expected [Please enter email] but found [Please enter email1],
-	expected [Please enter UID] but found [Please enter UID1]
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:43)
-	at AP1_Prod.KUserReg_Prod.kuserreg_positive(KUserReg_Prod.java:132)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.lang.reflect.Method.invoke(Unknown Source)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:86)
-	at org.testng.internal.Invoker.invokeMethod(Invoker.java:643)
-	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:820)
-	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1128)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)
-	at org.testng.TestRunner.privateRun(TestRunner.java:782)
-	at org.testng.TestRunner.run(TestRunner.java:632)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:366)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:361)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:319)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:268)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1244)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1169)
-	at org.testng.TestNG.run(TestNG.java:1064)
-	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
+    <test name="Test1" duration-ms="17386" started-at="2018-04-18T12:29:27Z" finished-at="2018-04-18T12:29:44Z">
+      <class name="AP1_Prod.Authentication_Prod">
+        <test-method status="PASS" signature="Authentication_Traditional(java.lang.String, java.lang.String)[pri:0, instance:AP1_Prod.Authentication_Prod@11531931]" name="Authentication_Traditional" duration-ms="6739" started-at="2018-04-18T17:59:32Z" finished-at="2018-04-18T17:59:39Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Cellular.xls]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Cellular(Android APP)]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- kuserreg_positive -->
-      </class> <!-- AP1_Prod.KUserReg_Prod -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+        </test-method> <!-- Authentication_Traditional -->
+      </class> <!-- AP1_Prod.Authentication_Prod -->
+      <class name="AP1_Prod.KUserLogin_Prod">
+        <test-method status="PASS" signature="kuserlogin_SocialLogin(java.lang.String, java.lang.String)[pri:0, instance:AP1_Prod.KUserLogin_Prod@1fbc7afb]" name="kuserlogin_SocialLogin" duration-ms="2438" started-at="2018-04-18T17:59:42Z" finished-at="2018-04-18T17:59:44Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Cellular.xls]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Cellular(Android APP)]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- kuserlogin_SocialLogin -->
+      </class> <!-- AP1_Prod.KUserLogin_Prod -->
+      <class name="AP1_Prod.GetProfileUser_Prod">
+        <test-method status="PASS" signature="getprofile_SocialLogin(java.lang.String, java.lang.String)[pri:0, instance:AP1_Prod.GetProfileUser_Prod@5e025e70]" name="getprofile_SocialLogin" duration-ms="3043" started-at="2018-04-18T17:59:39Z" finished-at="2018-04-18T17:59:42Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Cellular.xls]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Cellular(Android APP)]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getprofile_SocialLogin -->
+      </class> <!-- AP1_Prod.GetProfileUser_Prod -->
+      <class name="AP1_Prod.CheckMail_Prod">
+        <test-method status="PASS" signature="checkemail_Traditional(java.lang.String, java.lang.String)[pri:0, instance:AP1_Prod.CheckMail_Prod@71c7db30]" name="checkemail_Traditional" duration-ms="5151" started-at="2018-04-18T17:59:27Z" finished-at="2018-04-18T17:59:32Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Cellular.xls]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Cellular(Android APP)]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkemail_Traditional -->
+      </class> <!-- AP1_Prod.CheckMail_Prod -->
+    </test> <!-- Test1 -->
+    <test name="Test2" duration-ms="15577" started-at="2018-04-18T12:29:44Z" finished-at="2018-04-18T12:30:00Z">
+      <class name="AP1_Prod.Authentication_Prod">
+        <test-method status="PASS" signature="Authentication_Traditional(java.lang.String, java.lang.String)[pri:0, instance:AP1_Prod.Authentication_Prod@6bdf28bb]" name="Authentication_Traditional" duration-ms="6427" started-at="2018-04-18T17:59:47Z" finished-at="2018-04-18T17:59:54Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Pwa.xls]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[PWA]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Authentication_Traditional -->
+      </class> <!-- AP1_Prod.Authentication_Prod -->
+      <class name="AP1_Prod.KUserLogin_Prod">
+        <test-method status="PASS" signature="kuserlogin_SocialLogin(java.lang.String, java.lang.String)[pri:0, instance:AP1_Prod.KUserLogin_Prod@2752f6e2]" name="kuserlogin_SocialLogin" duration-ms="3126" started-at="2018-04-18T17:59:57Z" finished-at="2018-04-18T18:00:00Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Pwa.xls]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[PWA]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- kuserlogin_SocialLogin -->
+      </class> <!-- AP1_Prod.KUserLogin_Prod -->
+      <class name="AP1_Prod.CheckMail_Prod">
+        <test-method status="PASS" signature="checkemail_Traditional(java.lang.String, java.lang.String)[pri:0, instance:AP1_Prod.CheckMail_Prod@2d209079]" name="checkemail_Traditional" duration-ms="3018" started-at="2018-04-18T17:59:44Z" finished-at="2018-04-18T17:59:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Pwa.xls]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[PWA]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkemail_Traditional -->
+      </class> <!-- AP1_Prod.CheckMail_Prod -->
+      <class name="AP1_Prod.GetProfileUser_Prod">
+        <test-method status="PASS" signature="getprofile_SocialLogin(java.lang.String, java.lang.String)[pri:0, instance:AP1_Prod.GetProfileUser_Prod@6b71769e]" name="getprofile_SocialLogin" duration-ms="3004" started-at="2018-04-18T17:59:54Z" finished-at="2018-04-18T17:59:57Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Pwa.xls]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[PWA]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getprofile_SocialLogin -->
+      </class> <!-- AP1_Prod.GetProfileUser_Prod -->
+    </test> <!-- Test2 -->
+    <test name="Test3" duration-ms="16324" started-at="2018-04-18T12:30:00Z" finished-at="2018-04-18T12:30:16Z">
+      <class name="AP1_Prod.Authentication_Prod">
+        <test-method status="PASS" signature="Authentication_Traditional(java.lang.String, java.lang.String)[pri:0, instance:AP1_Prod.Authentication_Prod@48140564]" name="Authentication_Traditional" duration-ms="6879" started-at="2018-04-18T18:00:03Z" finished-at="2018-04-18T18:00:10Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Web.xls]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Web]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Authentication_Traditional -->
+      </class> <!-- AP1_Prod.Authentication_Prod -->
+      <class name="AP1_Prod.KUserLogin_Prod">
+        <test-method status="PASS" signature="kuserlogin_SocialLogin(java.lang.String, java.lang.String)[pri:0, instance:AP1_Prod.KUserLogin_Prod@7c30a502]" name="kuserlogin_SocialLogin" duration-ms="2763" started-at="2018-04-18T18:00:13Z" finished-at="2018-04-18T18:00:16Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Web.xls]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Web]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- kuserlogin_SocialLogin -->
+      </class> <!-- AP1_Prod.KUserLogin_Prod -->
+      <class name="AP1_Prod.CheckMail_Prod">
+        <test-method status="PASS" signature="checkemail_Traditional(java.lang.String, java.lang.String)[pri:0, instance:AP1_Prod.CheckMail_Prod@1d251891]" name="checkemail_Traditional" duration-ms="3176" started-at="2018-04-18T18:00:00Z" finished-at="2018-04-18T18:00:03Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Web.xls]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Web]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkemail_Traditional -->
+      </class> <!-- AP1_Prod.CheckMail_Prod -->
+      <class name="AP1_Prod.GetProfileUser_Prod">
+        <test-method status="PASS" signature="getprofile_SocialLogin(java.lang.String, java.lang.String)[pri:0, instance:AP1_Prod.GetProfileUser_Prod@58ceff1]" name="getprofile_SocialLogin" duration-ms="3504" started-at="2018-04-18T18:00:10Z" finished-at="2018-04-18T18:00:13Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Web.xls]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Web]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getprofile_SocialLogin -->
+      </class> <!-- AP1_Prod.GetProfileUser_Prod -->
+    </test> <!-- Test3 -->
+  </suite> <!-- Suite -->
 </testng-results>

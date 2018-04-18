@@ -51,7 +51,7 @@ public class Create_Prod extends GenericMethod
 		Sheet sh=wb.getSheet("Create1");
 		//count the no. of rows ignoring the 1st row
 		int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
-
+		System.out.println(rowCount);
 	    //started for loop
 	    for(int i=2; i<=rowCount;i++)
         {
@@ -60,7 +60,7 @@ public class Create_Prod extends GenericMethod
             	//fetching the cell values
 			  	String platform=row.getCell(1).getStringCellValue();
 		      	String pId=row.getCell(2).getStringCellValue();
-				String email=row.getCell(3).getStringCellValue();
+				String email=row.getCell(4).getStringCellValue();
 				//when email is empty
 				if(email.equals("EMPTY"))
 				{
@@ -71,25 +71,25 @@ public class Create_Prod extends GenericMethod
 					GenericMethod g1= new GenericMethod();
 					email=g1.getSaltString()+"@gmail.com";
 				}
-				String password=row.getCell(4).getStringCellValue();
+				String password=row.getCell(5).getStringCellValue();
 				//when password is empty
 				if(password.equals("EMPTY"))
 				{
 					password="";
 				}
-				String firstname=row.getCell(5).getStringCellValue();
+				String firstname=row.getCell(6).getStringCellValue();
 				//when firstname is empty
 				if(firstname.equals("EMPTY"))
 				{
 					firstname="";
 				}
-				String lastname=row.getCell(6).getStringCellValue();
+				String lastname=row.getCell(7).getStringCellValue();
 				//when lastname is empty
 				if(lastname.equals("EMPTY"))
 				{
 					lastname="";
 				}
-				String URL=row.getCell(7).getStringCellValue();
+				String URL=row.getCell(8).getStringCellValue();
 				String key2Test=row.getCell(9).getStringCellValue();
 				
 				Value2test=row.getCell(10).getStringCellValue();

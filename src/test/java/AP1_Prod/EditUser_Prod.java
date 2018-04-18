@@ -45,24 +45,24 @@ public class EditUser_Prod extends GenericMethod
 				String TestType=row.getCell(0).getStringCellValue();
 				String platform=row.getCell(1).getStringCellValue();
 				String pId=row.getCell(2).getStringCellValue();
-				String user_id=row.getCell(3).getStringCellValue();
+				String user_id=row.getCell(4).getStringCellValue();
 				if(user_id.equals("EMPTY"))
 				{
 					user_id="";
 				}
-				String firstname=row.getCell(4).getStringCellValue();
+				String firstname=row.getCell(5).getStringCellValue();
 				if(firstname.equals("EMPTY"))
 				{
 					firstname="";
 				}
-				String lastname=row.getCell(5).getStringCellValue();
+				String lastname=row.getCell(6).getStringCellValue();
 				if(lastname.equals("EMPTY"))
 				{
 					lastname="";
 				}
 				String key2Test=row.getCell(8).getStringCellValue();
 				String Value2test=row.getCell(9).getStringCellValue();
-				String URL_EditUser=row.getCell(6).getStringCellValue();
+				String URL_EditUser=row.getCell(7).getStringCellValue();
 				Response resp1=	RestAssured.
 						given().
 						queryParam("platform",platform).

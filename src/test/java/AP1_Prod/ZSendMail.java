@@ -24,8 +24,8 @@ public class ZSendMail
 	@Test
 	public void SendMail()
 	{
-		final String username = "yourmail@gmail.com";
-		final String password = "password";
+		final String username = "abhilash.s@ifocussystec.com";
+		final String password = "P455w0rd!!";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
@@ -43,7 +43,7 @@ public class ZSendMail
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("priteshamit@gmail.com"));
+			message.setFrom(new InternetAddress("abhilash.s@ifocussystec.com"));
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse("amit.mahato@ifocussystec.in"));
 //			message.setRecipients(Message.RecipientType.TO,

@@ -19,7 +19,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
-
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -32,15 +32,17 @@ public class GetProfileUser_Prod extends GenericMethod
 {
 	String str;
 	String Value2test;
+	@Parameters({"path","platformName"})
 	@Test
-	public void getprofile_positive() throws EncryptedDocumentException, InvalidFormatException, IOException 
+	public void getprofile_SocialLogin(String path,String platformName) throws EncryptedDocumentException, InvalidFormatException, IOException 
 	{
+		GenericMethod.platformname=platformName;
 		SoftAssert softAssert = new SoftAssert();
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
 		
 		
 		//reading data for get 
-		FileInputStream fis=new FileInputStream(path1);
+		FileInputStream fis=new FileInputStream(path);
 		Workbook wb=WorkbookFactory.create(fis);
 		Sheet sh=wb.getSheet("GetProfileUser");
 		int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
@@ -50,14 +52,14 @@ public class GetProfileUser_Prod extends GenericMethod
 			Row row=sh.getRow(i);
 			String platform=row.getCell(1).getStringCellValue();
 			String pId=row.getCell(2).getStringCellValue();
-			String ID=row.getCell(3).getStringCellValue();
+			String ID=row.getCell(4).getStringCellValue();
 			if(ID.equals("EMPTY"))
 			{
 				ID="";
 			}
 			String key2Test=row.getCell(6).getStringCellValue();
 			 Value2test=row.getCell(7).getStringCellValue();
-			String URL_getProfileUser=row.getCell(4).getStringCellValue();
+			String URL_getProfileUser=row.getCell(5).getStringCellValue();
 			
 			Response resp1=	RestAssured.given().relaxedHTTPSValidation().contentType(ContentType.JSON).accept(ContentType.JSON).
 							queryParam("platform",platform).
@@ -73,7 +75,7 @@ public class GetProfileUser_Prod extends GenericMethod
 							str = resp1.jsonPath().get(key2Test);
 							softAssert.assertEquals(Value2test,str);
 
-			FileInputStream fis1=new FileInputStream(path1);
+			FileInputStream fis1=new FileInputStream(path);
 			Workbook wb1=WorkbookFactory.create(fis1);
 		
 			Sheet sh1=wb1.getSheet("GetProfileUser");
@@ -81,7 +83,7 @@ public class GetProfileUser_Prod extends GenericMethod
 			row1.createCell(8);
 			Cell cel1=	row1.getCell(8, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 			cel1.setCellType(CellType.STRING);
-			cel1.setCellValue(str);
+			cel1.setCellValue(resp1.asString());
 		
 			Row row3=sh1.getRow(i);
 			row3.createCell(9);
@@ -93,7 +95,7 @@ public class GetProfileUser_Prod extends GenericMethod
 				cel3.setCellValue("Fail");
 			}
 		
-			FileOutputStream fos=new FileOutputStream(path1);
+			FileOutputStream fos=new FileOutputStream(path);
 			wb1.write(fos);
 		
 			fos.close();

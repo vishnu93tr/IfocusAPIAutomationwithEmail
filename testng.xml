@@ -4,20 +4,38 @@
 <listeners>
 <listener class-name="AP1_Prod.TestListener"/>
 </listeners>
-  <test thread-count="5" name="Test">
+  <test thread-count="5" name="Test1">
+  <parameter name="path" value="C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Cellular.xls">
+  <parameter name="platformName" value="Cellular(Android APP)"/>
     <classes>
-      <class name="AP1_Prod.CheckMail_Prod"/>
-      <class name="AP1_Prod.SetUsername_Prod"/>
-      <class name="AP1_Prod.Authentication_Prod"/>
-      <class name="AP1_Prod.EditUser_Prod"/>
-      <class name="AP1_Prod.GetProfileUser_Prod"/>
-      <class name="AP1_Prod.KUserReg_Prod"/>
-      <class name="AP1_Prod.GetAuthKey_Prod"/>
-      <class name="AP1_Prod.SetPassword_Prod"/>
-      <class name="AP1_Prod.KUserLogin_Prod"/>
-      <class name="AP1_Prod.ChangePassword_Prod"/>
-      <class name="AP1_Prod.Create_Prod"/>
-      <class name="AP1_Prod.ZSendMail"/>
+      	<class name="AP1_Prod.CheckMail_Prod"/>
+      	<class name="AP1_Prod.Authentication_Prod"/>
+      	<class name="AP1_Prod.GetProfileUser_Prod"/>
+      	<class name="AP1_Prod.KUserLogin_Prod"/>
+     </classes>
+    </parameter>
+  </test> 
+  <test thread-count="5" name="Test2">
+  <parameter name="path" value="C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Pwa.xls">
+  <parameter name="platformName" value="PWA"/>
+    <classes>
+      	<class name="AP1_Prod.CheckMail_Prod"/>
+      	<class name="AP1_Prod.Authentication_Prod"/>
+      	<class name="AP1_Prod.GetProfileUser_Prod"/>
+      	<class name="AP1_Prod.KUserLogin_Prod"/>
     </classes>
-  </test> <!-- Test -->
+  </parameter>
+  </test>
+  <test thread-count="5" name="Test3">
+  <parameter name="path" value="C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Web.xls">
+  <parameter name="platformName" value="Web"/>
+    <classes>
+      	<class name="AP1_Prod.CheckMail_Prod"/>
+      	<class name="AP1_Prod.Authentication_Prod"/>
+     	<class name="AP1_Prod.GetProfileUser_Prod"/>
+      	<class name="AP1_Prod.KUserLogin_Prod"/>
+   </classes>
+  </parameter>
+  </test>
+  <!-- Test -->
 </suite> <!-- Suite -->

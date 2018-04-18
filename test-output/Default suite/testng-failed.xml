@@ -3,16 +3,7 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test verbose="2" name="Default test">
     <classes>
-      <class name="AP1_Prod.KUserReg_Prod"/>
+      <class name="AP1_Prod.KUserLogin_Prod"/>
     </classes>
   </test> <!-- Default test -->
-  <test name="Default test(failed)">
-    <classes>
-      <class name="AP1_Prod.KUserReg_Prod">
-        <methods>
-          <include name="kuserreg_positive"/>
-        </methods>
-      </class> <!-- AP1_Prod.KUserReg_Prod -->
-    </classes>
-  </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

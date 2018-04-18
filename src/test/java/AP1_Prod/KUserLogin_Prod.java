@@ -19,6 +19,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
 import org.hamcrest.core.IsNull;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -30,15 +31,17 @@ public class KUserLogin_Prod extends GenericMethod
 {
 	String str;
 	String Value2test;
+	@Parameters({"path","platformName"})
 	@Test
-	public void kuserlogin_positive() throws EncryptedDocumentException, InvalidFormatException, IOException {
-		
+	public void kuserlogin_SocialLogin(String path,String platformName) throws EncryptedDocumentException, InvalidFormatException, IOException 
+	{
+		GenericMethod.platformname=platformName;
 		SoftAssert softAssert = new SoftAssert();
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
 		//reading data
 		
-		
-		FileInputStream fis=new FileInputStream(path1);
+//		String path= "C:\\Users\\ifocus.IFOCUSODC-PC47\\git\\API2\\Pwa.xls";
+		FileInputStream fis=new FileInputStream(path);
 		Workbook wb=WorkbookFactory.create(fis);
 		Sheet sh=wb.getSheet("KUserLogin");
 		int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
@@ -46,20 +49,20 @@ public class KUserLogin_Prod extends GenericMethod
 		for(int i=1; i<=rowCount;i++)
 		{
 			Row row=sh.getRow(i);
-			String TestType=row.getCell(0).getStringCellValue();
+			String TestType=row.getCell(0).getStringCellValue();	
 			String platform=row.getCell(1).getStringCellValue();
 			String pId=row.getCell(2).getStringCellValue();
-			String email =row.getCell(4).getStringCellValue();
+			String email =row.getCell(5).getStringCellValue();
 			if(email.equals("EMPTY")) 
 			{
 				email="";
 			}
-			String UID =row.getCell(3).getStringCellValue();
+			String UID =row.getCell(4).getStringCellValue();
 			if(UID.equals("EMPTY")) 
 			{
 				UID="";
 			}
-			String URL =row.getCell(5).getStringCellValue();
+			String URL =row.getCell(6).getStringCellValue();
 			String key2Test =row.getCell(7).getStringCellValue();
 			Value2test =row.getCell(8).getStringCellValue();
 			
@@ -74,7 +77,7 @@ public class KUserLogin_Prod extends GenericMethod
 							post(URL);
 			
 			resp.then().assertThat().statusCode(200);
-			FileInputStream fis1=new FileInputStream(path1);
+			FileInputStream fis1=new FileInputStream(path);
 			Workbook wb1=WorkbookFactory.create(fis1);
 			
 			Sheet sh1=wb1.getSheet("KUserLogin");
@@ -115,7 +118,7 @@ public class KUserLogin_Prod extends GenericMethod
 					cel3.setCellValue("Fail");
 				}
 			}
-			FileOutputStream fos=new FileOutputStream(path1);
+			FileOutputStream fos=new FileOutputStream(path);
 			wb1.write(fos);
 			
 			fos.close();
