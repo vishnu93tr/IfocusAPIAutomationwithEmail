@@ -117,7 +117,7 @@ public class Create_Prod extends GenericMethod
 				//printing the response
 				resp1.prettyPrint();
 				
-				 str=resp1.then().extract().path(key2Test);
+				str=resp1.then().extract().path(key2Test);
 				softAssert.assertEquals(str,Value2test);
 				
 				//code to write the output and status code in excel
