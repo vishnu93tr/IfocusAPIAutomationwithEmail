@@ -133,11 +133,11 @@ public class SwitchProfile extends GenericMethod
 				Cell cel3=row3.getCell(9, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if(TestType.equals("Negative"))
 				{
-					if(str.equals(Value2test) )
+					if(str.equals(Value2test))
 					{
 						cel3.setCellValue("Pass");
 					}
-					else 
+					else
 					{
 						cel3.setCellValue("Fail");
 					}

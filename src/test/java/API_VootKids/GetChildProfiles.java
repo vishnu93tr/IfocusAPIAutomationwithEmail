@@ -2,10 +2,12 @@ package API_VootKids;
 
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
+import static org.testng.Assert.assertNotNull;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.poi.EncryptedDocumentException;
@@ -78,21 +80,18 @@ public class GetChildProfiles extends GenericMethod
 				//printing the response
 				resp1.prettyPrint();
 				resp1.then().assertThat().statusCode(200);
-				
 				if(TestType.equals("Positive"))
 				{
-					int sizeOfList = resp1.body().path("key2test.size()");
-					for (int j=0; j < sizeOfList; j++)
+					int sizeOfList = resp1.body().path("profiles.size()");
+					for (int j=0;j<sizeOfList;j++)
 					{
-						String act = resp1.jsonPath().get("profiles[].Value");
-//						resp1.then().body("$", hasKey(Value2test));
-//						resp1.then().body(Value2test, is(IsNull.notNullValue()));
-					
+						String list=resp1.jsonPath().get("profiles["+j+"].Id");
+						assertNotNull(list);
 					}
 				}
-				else 
+				else
 				{
-					str=resp1.then().extract().path(key2test);
+					str= resp1.jsonPath().get(key2test);
 					softAssert.assertEquals(Value2test,str);
 				}
 				
@@ -109,13 +108,16 @@ public class GetChildProfiles extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(7);
 				Cell cel3=row3.getCell(7, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(str.equals(Value2test) )
+				if(TestType.equals("Negative"))
 				{
-					cel3.setCellValue("Pass");
-				}
-				else 
-				{
-					cel3.setCellValue("Fail");
+					if(str.equals(Value2test) )
+					{
+						cel3.setCellValue("Pass");
+					}
+					else 
+					{
+						cel3.setCellValue("Fail");
+					}
 				}
 				
 				FileOutputStream fos=new FileOutputStream(path1);
@@ -124,6 +126,7 @@ public class GetChildProfiles extends GenericMethod
 				fos.close();
 				
         }
+	    softAssert.assertAll();
 	}
 	public static void NotPassUid(int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
@@ -141,6 +144,8 @@ public class GetChildProfiles extends GenericMethod
 		
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,6,7,"GetProfile");
 	}
-	
-	
 }
+
+	
+        	
+

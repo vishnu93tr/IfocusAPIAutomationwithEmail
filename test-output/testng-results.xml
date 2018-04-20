@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="13071" started-at="2018-04-19T19:01:37Z" finished-at="2018-04-19T19:01:50Z">
+  <suite name="Default suite" duration-ms="2130" started-at="2018-04-20T19:23:29Z" finished-at="2018-04-20T19:23:31Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="13071" started-at="2018-04-19T19:01:37Z" finished-at="2018-04-19T19:01:50Z">
-      <class name="API_VootKids.SwitchProfile">
-        <test-method status="PASS" signature="Swith_Profile()[pri:0, instance:API_VootKids.SwitchProfile@5cb9f472]" name="Swith_Profile" duration-ms="13049" started-at="2018-04-20T00:31:37Z" finished-at="2018-04-20T00:31:50Z">
+    <test name="Default test" duration-ms="2130" started-at="2018-04-20T19:23:29Z" finished-at="2018-04-20T19:23:31Z">
+      <class name="API_VootKids.Tabs">
+        <test-method status="PASS" signature="tabs()[pri:0, instance:API_VootKids.Tabs@1e397ed7]" name="tabs" duration-ms="2117" started-at="2018-04-21T00:53:29Z" finished-at="2018-04-21T00:53:31Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Swith_Profile -->
-      </class> <!-- API_VootKids.SwitchProfile -->
+        </test-method> <!-- tabs -->
+      </class> <!-- API_VootKids.Tabs -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -169,10 +169,27 @@ public class GenericMethod
 				cel3.setCellValue("Fail");
 			}
 		}
+		
 		FileOutputStream fos=new FileOutputStream(path1);
 		wb1.write(fos);
 
 		fos.close();
+	}
+	public static Response getProfiles()
+	{	
+		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
+		
+		BasicConfigurator.configure();
+		Response resp1=	RestAssured.
+						given().
+						relaxedHTTPSValidation().
+						contentType(ContentType.JSON).
+						accept(ContentType.JSON).
+						queryParam("Uid","487c0a7652b8405ea8472cb3ddb52e25").
+						when().
+						post("http://vkapiuat.voot.com/app/auth/v1/profiles.json");
+		
+		return resp1;
 	}
 }
 
