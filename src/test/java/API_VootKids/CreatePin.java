@@ -106,7 +106,7 @@ public class CreatePin extends GenericMethod
 				if(str.equals(Value2test) )
 				{
 					cel3.setCellValue("Pass");
-				}
+				} 
 				else 
 				{
 					cel3.setCellValue("Fail");
