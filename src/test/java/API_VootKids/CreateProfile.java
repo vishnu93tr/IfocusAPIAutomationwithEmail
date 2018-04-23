@@ -39,6 +39,7 @@ public class CreateProfile extends GenericMethod{
 	static String icon;
 	static String color;
 	static String pin;
+	static String URL;
 	static SoftAssert softAssert = new SoftAssert();
 		@Test
 		public void Create_Profiles() throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -60,11 +61,12 @@ public class CreateProfile extends GenericMethod{
 	        {
 		    	GenericMethod g=new GenericMethod();
 				Response resp=	g.SignUp();
-				
 		    	Row row = sh.getRow(i);
             	//fetching the cell values
 		    	TestType=row.getCell(0).getStringCellValue();
 		    	Uid=row.getCell(2).getStringCellValue();
+		    	key2test=row.getCell(12).getStringCellValue();
+				Value2test=row.getCell(13).getStringCellValue();
 		    	if(Uid.equals("AUTO"))
 		    	{
 		    		Uid=resp.then().extract().path("Uid");
@@ -82,36 +84,42 @@ public class CreateProfile extends GenericMethod{
 		    	{
 		    		ks="";
 		    	}
+		    	
 		    	deviceId=row.getCell(4).getStringCellValue();
 		    	if(deviceId.equals("EMPTY"))
 		    	{
 		    		deviceId="";
 		    	}
+		    	
 		    	deviceBrand=row.getCell(5).getStringCellValue();
 		    	if(deviceBrand.equals("EMPTY"))
 		    	{
 		    		deviceBrand="";
 		    	}
+		    	
 		    	name=row.getCell(6).getStringCellValue();
 		    	if(name.equals("EMPTY"))
 		    	{
 		    		name="";
 		    	}
+		    	
 				dob=row.getCell(7).getStringCellValue();
+				
 				icon=row.getCell(8).getStringCellValue();
 				if(icon.equals("EMPTY"))
 		    	{
 					icon="";
 		    	}
+				
 				color=row.getCell(9).getStringCellValue();
 				if(color.equals("EMPTY"))
 		    	{
 					color="";
 		    	}
+				
 				pin=row.getCell(10).getStringCellValue();
-				String URL=row.getCell(11).getStringCellValue();
-				key2test=row.getCell(12).getStringCellValue();
-				Value2test=row.getCell(13).getStringCellValue();
+				URL=row.getCell(11).getStringCellValue();
+				
 				String parentKS = row.getCell(3).getStringCellValue();
 				
 				buddy buddy=new buddy();
@@ -145,6 +153,54 @@ public class CreateProfile extends GenericMethod{
 					profile.setDob("@@@");
 				}
 				
+				//Calling functions for not passing elements
+				if(Uid.equals("NOTPASS")) 
+		    	{
+		    		CreateProfile.UidNotPassed(i);
+		    		continue;
+		    	}
+				if(ks.equals("NOTPASS")) 
+		    	{
+		    		CreateProfile.KSNotPassed(i);
+		    		continue;
+		    	}
+				if(deviceId.equals("NOTPASS")) 
+		    	{
+		    		CreateProfile.DeviceIdNotPassed(i);
+		    		continue;
+		    	}
+				if(deviceBrand.equals("NOTPASS"))
+		    	{
+		    		CreateProfile.DeviceBrandNotPassed(i);
+		    		continue;
+		    	}
+				if(name.equals("NOTPASS"))
+		    	{
+		    		CreateProfile.NameNotPassed(i);
+		    		continue;
+		    	}
+				if(dob.equals("NOTPASS")) 
+				{
+					CreateProfile.DOBNotPassed(i);
+					continue;
+					
+				}
+				if(icon.equals("NOTPASS"))
+		    	{
+					CreateProfile.IconNotPassed(i);
+					continue;
+		    	}
+				if(color.equals("NOTPASS")) 
+				{
+					CreateProfile.ColorNotPassed(i);
+					continue;
+				}
+				if(pin.equals("EMPTY")) 
+				{
+					CreateProfile.PinIsEmpty(i);
+					continue;
+				}
+				
 				profile.setPin(pin);
 				profile.setBuddy(buddy);
 		
@@ -156,10 +212,7 @@ public class CreateProfile extends GenericMethod{
 				
 				
 				
-				
-				
-				
-				Response resp1=	RestAssured.
+			Response resp1=	RestAssured.
 								given().
 								body(request).
 								queryParam("Uid", Uid).
@@ -226,9 +279,330 @@ public class CreateProfile extends GenericMethod{
 	        }	
 			
 		    softAssert.assertAll();
-	        }
-		   
-		    
+		    }
+		
+	        
+
+public static void IconNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+{
+			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+			buddy buddy1=new buddy();
+			
+			buddy1.setColor(color);
+			
+			profile profile1=new profile();
+			profile1.setName(name);
+			profile1.setPin(pin);
+			profile1.setDob("1992-02-14");
+			profile1.setBuddy(buddy1);
+			
+			request request1=new request();
+			request1.setParentKS(ks);
+			request1.setDeviceId(deviceId);
+			request1.setDeviceBrand(deviceBrand);
+			request1.setProfile(profile1);
+			
+			Response resp1=	RestAssured.
+							given().
+							body(request1).
+							queryParam("Uid", Uid).
+							relaxedHTTPSValidation().
+							contentType(ContentType.JSON).
+							accept(ContentType.JSON).
+							when().
+							post(URL);
+			
+			str=resp1.then().extract().path(key2test);
+			softAssert.assertEquals(Value2test,str);
+			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			
+			
+			
+		}
+public static void UidNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+{
+			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+			buddy buddy1=new buddy();
+			buddy1.setIcon(icon);
+			buddy1.setColor(color);
+			
+			profile profile1=new profile();
+			profile1.setName(name);
+			profile1.setPin(pin);
+			profile1.setDob("1992-02-14");
+			profile1.setBuddy(buddy1);
+			
+			request request1=new request();
+			request1.setParentKS(ks);
+			request1.setDeviceId(deviceId);
+			request1.setDeviceBrand(deviceBrand);
+			request1.setProfile(profile1);
+			
+			Response resp1=	RestAssured.
+							given().
+							body(request1).
+							relaxedHTTPSValidation().
+							contentType(ContentType.JSON).
+							accept(ContentType.JSON).
+							when().
+							post(URL);
+			
+			str=resp1.then().extract().path(key2test);
+			softAssert.assertEquals(Value2test,str);
+			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			
+			
+			
+		}
+public static void KSNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+{
+			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+			buddy buddy1=new buddy();
+			buddy1.setIcon(icon);
+			buddy1.setColor(color);
+			
+			profile profile1=new profile();
+			profile1.setName(name);
+			profile1.setPin(pin);
+			profile1.setDob("1992-02-14");
+			profile1.setBuddy(buddy1);
+			
+			request request1=new request();
+			
+			request1.setDeviceId(deviceId);
+			request1.setDeviceBrand(deviceBrand);
+			request1.setProfile(profile1);
+			
+			Response resp1=	RestAssured.
+							given().
+							queryParam("Uid",Uid).
+							body(request1).
+							relaxedHTTPSValidation().
+							contentType(ContentType.JSON).
+							accept(ContentType.JSON).
+							when().
+							post(URL);
+			
+			str=resp1.then().extract().path(key2test);
+			softAssert.assertEquals(Value2test,str);
+			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			
+}	
+public static void DeviceIdNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+{
+			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+			buddy buddy1=new buddy();
+			buddy1.setIcon(icon);
+			buddy1.setColor(color);
+			
+			profile profile1=new profile();
+			profile1.setName(name);
+			profile1.setPin(pin);
+			profile1.setDob("1992-02-14");
+			profile1.setBuddy(buddy1);
+			
+			request request1=new request();
+			request1.setParentKS(ks);
+			
+			request1.setDeviceBrand(deviceBrand);
+			request1.setProfile(profile1);
+			
+			Response resp1=	RestAssured.
+							given().
+							queryParam("Uid",Uid).
+							body(request1).
+							relaxedHTTPSValidation().
+							contentType(ContentType.JSON).
+							accept(ContentType.JSON).
+							when().
+							post(URL);
+			
+			str=resp1.then().extract().path(key2test);
+			softAssert.assertEquals(Value2test,str);
+			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			
+			}
+public static void DeviceBrandNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+{
+			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+			buddy buddy1=new buddy();
+			buddy1.setIcon(icon);
+			buddy1.setColor(color);
+			
+			profile profile1=new profile();
+			profile1.setName(name);
+			profile1.setPin(pin);
+			profile1.setDob("1992-02-14");
+			profile1.setBuddy(buddy1);
+			
+			request request1=new request();
+			request1.setParentKS(ks);
+			request1.setDeviceId(deviceId);
+			request1.setProfile(profile1);
+			
+			Response resp1=	RestAssured.
+							given().
+							queryParam("Uid",Uid).
+							body(request1).
+							relaxedHTTPSValidation().
+							contentType(ContentType.JSON).
+							accept(ContentType.JSON).
+							when().
+							post(URL);
+			
+			str=resp1.then().extract().path(key2test);
+			softAssert.assertEquals(Value2test,str);
+			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			
+			}
+public static void NameNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+{
+			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+			buddy buddy1=new buddy();
+			buddy1.setIcon(icon);
+			buddy1.setColor(color);
+			
+			profile profile1=new profile();
+			profile1.setPin(pin);
+			profile1.setDob("1992-02-14");
+			profile1.setBuddy(buddy1);
+			
+			request request1=new request();
+			request1.setParentKS(ks);
+			request1.setDeviceId(deviceId);
+			request1.setDeviceBrand(deviceBrand);
+			request1.setProfile(profile1);
+			
+			Response resp1=	RestAssured.
+							given().
+							queryParam("Uid", Uid).
+							body(request1).
+							relaxedHTTPSValidation().
+							contentType(ContentType.JSON).
+							accept(ContentType.JSON).
+							when().
+							post(URL);
+			
+			str=resp1.then().extract().path(key2test);
+			softAssert.assertEquals(Value2test,str);
+			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			
+			}
+public static void DOBNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+{
+			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+			buddy buddy1=new buddy();
+			buddy1.setIcon(icon);
+			buddy1.setColor(color);
+			
+			profile profile1=new profile();
+			profile1.setName(name);
+			profile1.setPin(pin);
+			profile1.setBuddy(buddy1);
+			
+			request request1=new request();
+			request1.setParentKS(ks);
+			request1.setDeviceId(deviceId);
+			request1.setDeviceBrand(deviceBrand);
+			request1.setProfile(profile1);
+			
+			Response resp1=	RestAssured.
+							given().
+							queryParam("Uid", Uid).
+							body(request1).
+							relaxedHTTPSValidation().
+							contentType(ContentType.JSON).
+							accept(ContentType.JSON).
+							when().
+							post(URL);
+			
+			str=resp1.then().extract().path(key2test);
+			softAssert.assertEquals(Value2test,str);
+			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			
+			}
+public static void ColorNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+{
+			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+			buddy buddy1=new buddy();
+			buddy1.setIcon(icon);
+			
+			
+			profile profile1=new profile();
+			profile1.setName(name);
+			profile1.setPin(pin);
+			profile1.setDob("1992-02-14");
+			profile1.setBuddy(buddy1);
+			
+			request request1=new request();
+			request1.setParentKS(ks);
+			request1.setDeviceId(deviceId);
+			request1.setDeviceBrand(deviceBrand);
+			request1.setProfile(profile1);
+			
+			Response resp1=	RestAssured.
+							given().
+							queryParam("Uid", Uid).
+							body(request1).
+							relaxedHTTPSValidation().
+							contentType(ContentType.JSON).
+							accept(ContentType.JSON).
+							when().
+							post(URL);
+			
+			str=resp1.then().extract().path(key2test);
+			softAssert.assertEquals(Value2test,str);
+			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			
+			}
+public static void PinIsEmpty(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+{
+			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+			buddy buddy1=new buddy();
+			buddy1.setIcon(icon);
+			buddy1.setColor(color);
+			
+			profile profile1=new profile();
+			profile1.setName(name);
+			profile1.setDob("1992-02-14");
+			profile1.setPin("");
+			profile1.setBuddy(buddy1);
+			
+			request request1=new request();
+			request1.setParentKS(ks);
+			request1.setDeviceId(deviceId);
+			request1.setDeviceBrand(deviceBrand);
+			request1.setProfile(profile1);
+			
+			Response resp1=	RestAssured.
+							given().
+							queryParam("Uid", Uid).
+							body(request1).
+							relaxedHTTPSValidation().
+							contentType(ContentType.JSON).
+							accept(ContentType.JSON).
+							when().
+							post(URL);
+			resp1.prettyPrint();
+			
+			str=resp1.then().extract().path(key2test);
+			softAssert.assertEquals(Value2test,str);
+			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			
+			
+			
+		}
+
+
 
 }
 

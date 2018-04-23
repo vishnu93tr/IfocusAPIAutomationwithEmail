@@ -32,6 +32,12 @@ public class UpdateProfile extends GenericMethod{
 	static String TestType;
 	static String Uid;
 	static String childProfileId;
+	static String dob;
+	static String name;
+	static String icon;
+	static String color;
+	static String pin;
+	static String Url;
 	
 	static SoftAssert softAssert = new SoftAssert();
 		@Test
@@ -54,41 +60,42 @@ public class UpdateProfile extends GenericMethod{
 		    	Row row = sh.getRow(i);
             	//fetching the cell values
 		    	TestType=row.getCell(0).getStringCellValue();
-		    	String Uid=row.getCell(2).getStringCellValue();
+		    	Uid=row.getCell(2).getStringCellValue();
 		    	if(Uid.equals("EMPTY")) 
 		    	{
 		    		Uid="";
 		    	}
-		    	String childProfileId=row.getCell(3).getStringCellValue();
+		    	childProfileId=row.getCell(3).getStringCellValue();
 		    	if(childProfileId.equals("EMPTY")) 
 		    	{
 		    		childProfileId="";
 		    	}
-		    	String name=row.getCell(4).getStringCellValue();
+		    	name=row.getCell(4).getStringCellValue();
 		    	if(name.equals("EMPTY")) 
 		    	{
 		    		name="";
 		    	}
-		    	String dob=row.getCell(5).getStringCellValue();
-		    	String icon=row.getCell(6).getStringCellValue();
+		    	dob=row.getCell(5).getStringCellValue();
+		    	icon=row.getCell(6).getStringCellValue();
 		    	if(icon.equals("EMPTY")) 
 		    	{
 		    		icon="";
 		    	}
-		    	String color=row.getCell(7).getStringCellValue();
+		    	color=row.getCell(7).getStringCellValue();
 		    	if(color.equals("EMPTY")) 
 		    	{
 		    		color="";
 		    	}
-		    	String pin=row.getCell(8).getStringCellValue();
-		    	if(pin.equals("EMPTY")) 
-		    	{
-		    		pin="";
-		    	}
-		    	String Url=row.getCell(9).getStringCellValue();
+		    	pin=row.getCell(8).getStringCellValue();
+		    	
+		    	Url=row.getCell(9).getStringCellValue();
 		    	key2test=row.getCell(10).getStringCellValue();
 		    	Value2test=row.getCell(11).getStringCellValue();
-				
+		    	if(pin.equals("EMPTY")) 
+		    	{
+		    		UpdateProfile.PinIsEmpty(i);
+		    		continue;
+		    	}
 				
 				buddy buddy=new buddy();
 				buddy.setIcon(icon);
@@ -127,6 +134,45 @@ public class UpdateProfile extends GenericMethod{
 				request request=new request();
 				request.setChildProfileId(childProfileId);
 				request.setProfile(profile);
+				
+				
+				//Calling function for elemnets not pass
+				if(Uid.equals("NOTPASS"))
+				{
+					UpdateProfile.UidNotPassed(i);
+					continue;
+				}
+				
+				if(childProfileId.equals("NOTPASS"))
+				{
+					UpdateProfile.notPassChildProfileId(i);
+					continue;
+				}
+				if(Uid.equals("NOTPASS"))
+				{
+					UpdateProfile.UidNotPassed(i);
+					continue;
+				}
+				if(name.equals("NOTPASS"))
+				{
+					UpdateProfile.NameNotPassed(i);
+					continue;
+				}
+				if(dob.equals("NOTPASS"))
+				{
+					UpdateProfile.DOBNotPassed(i);
+					continue;
+				}
+				if(icon.equals("NOTPASS"))
+				{
+					UpdateProfile.IconNotPassed(i);
+					continue;
+				}
+				if(color.equals("NOTPASS"))
+				{
+					UpdateProfile.ColorNotPassed(i);
+					continue;
+				}
 				
 				Response resp1=	RestAssured.
 								given().
@@ -182,6 +228,240 @@ public class UpdateProfile extends GenericMethod{
 			
 		    softAssert.assertAll();
 	        }
+		public static void IconNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+		{
+					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+					buddy buddy1=new buddy();
+					
+					buddy1.setColor(color);
+					
+					profile profile1=new profile();
+					profile1.setName(name);
+					profile1.setPin(pin);
+					profile1.setDob("1992-02-14");
+					profile1.setBuddy(buddy1);
+					
+					request request1=new request();
+					request1.setChildProfileId(childProfileId);
+					request1.setProfile(profile1);
+					
+					Response resp1=	RestAssured.
+									given().
+									body(request1).
+									queryParam("Uid", Uid).
+									relaxedHTTPSValidation().
+									contentType(ContentType.JSON).
+									accept(ContentType.JSON).
+									when().
+									post(Url);
+					
+					str=resp1.then().extract().path(key2test);
+					softAssert.assertEquals(Value2test,str);
+					
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					
+					
+					
+				}
+		public static void UidNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+		{
+					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+					buddy buddy1=new buddy();
+					buddy1.setIcon(icon);
+					buddy1.setColor(color);
+					
+					profile profile1=new profile();
+					profile1.setName(name);
+					profile1.setPin(pin);
+					profile1.setDob("1992-02-14");
+					profile1.setBuddy(buddy1);
+					
+					request request1=new request();
+					request1.setChildProfileId(childProfileId);
+					request1.setProfile(profile1);
+					
+					Response resp1=	RestAssured.
+									given().
+									body(request1).
+									relaxedHTTPSValidation().
+									contentType(ContentType.JSON).
+									accept(ContentType.JSON).
+									when().
+									post(Url);
+					
+					str=resp1.then().extract().path(key2test);
+					softAssert.assertEquals(Value2test,str);
+					
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					
+					
+					
+				}
+		public static void notPassChildProfileId(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+		{
+					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+					buddy buddy1=new buddy();
+					buddy1.setIcon(icon);
+					buddy1.setColor(color);
+					
+					profile profile1=new profile();
+					profile1.setName(name);
+					profile1.setPin(pin);
+					profile1.setDob("1992-02-14");
+					profile1.setBuddy(buddy1);
+					
+					request request1=new request();
+					request1.setProfile(profile1);
+					
+					Response resp1=	RestAssured.
+									given().
+									queryParam("Uid",Uid).
+									body(request1).
+									relaxedHTTPSValidation().
+									contentType(ContentType.JSON).
+									accept(ContentType.JSON).
+									when().
+									post(Url);
+					
+					str=resp1.then().extract().path(key2test);
+					softAssert.assertEquals(Value2test,str);
+					
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					
+		}
+		public static void NameNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+		{
+					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+					buddy buddy1=new buddy();
+					buddy1.setIcon(icon);
+					buddy1.setColor(color);
+					
+					profile profile1=new profile();
+					profile1.setPin(pin);
+					profile1.setDob("1992-02-14");
+					profile1.setBuddy(buddy1);
+					
+					request request1=new request();
+					request1.setChildProfileId(childProfileId);
+					request1.setProfile(profile1);
+					
+					Response resp1=	RestAssured.
+									given().
+									queryParam("Uid", Uid).
+									body(request1).
+									relaxedHTTPSValidation().
+									contentType(ContentType.JSON).
+									accept(ContentType.JSON).
+									when().
+									post(Url);
+					
+					str=resp1.then().extract().path(key2test);
+					softAssert.assertEquals(Value2test,str);
+					
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					
+					}
+		public static void DOBNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+		{
+					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+					buddy buddy1=new buddy();
+					buddy1.setIcon(icon);
+					buddy1.setColor(color);
+					
+					profile profile1=new profile();
+					profile1.setName(name);
+					profile1.setPin(pin);
+					profile1.setBuddy(buddy1);
+					
+					request request1=new request();
+					request1.setChildProfileId(childProfileId);
+					request1.setProfile(profile1);
+					
+					Response resp1=	RestAssured.
+									given().
+									queryParam("Uid", Uid).
+									body(request1).
+									relaxedHTTPSValidation().
+									contentType(ContentType.JSON).
+									accept(ContentType.JSON).
+									when().
+									post(Url);
+					
+					str=resp1.then().extract().path(key2test);
+					softAssert.assertEquals(Value2test,str);
+					
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					
+					}
+		public static void ColorNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+		{
+					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+					buddy buddy1=new buddy();
+					buddy1.setIcon(icon);
+					
+					
+					profile profile1=new profile();
+					profile1.setName(name);
+					profile1.setPin(pin);
+					profile1.setDob("1992-02-14");
+					profile1.setBuddy(buddy1);
+					
+					request request1=new request();
+					request1.setChildProfileId(childProfileId);
+					request1.setProfile(profile1);
+					
+					Response resp1=	RestAssured.
+									given().
+									queryParam("Uid", Uid).
+									body(request1).
+									relaxedHTTPSValidation().
+									contentType(ContentType.JSON).
+									accept(ContentType.JSON).
+									when().
+									post(Url);
+					
+					str=resp1.then().extract().path(key2test);
+					softAssert.assertEquals(Value2test,str);
+					
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					
+					}
+		public static void PinIsEmpty(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+		{
+					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+					buddy buddy1=new buddy();
+					buddy1.setIcon(icon);
+					buddy1.setColor(color);
+					
+					profile profile1=new profile();
+					profile1.setName(name);
+					profile1.setDob("1992-02-14");
+					profile1.setPin("");
+					profile1.setBuddy(buddy1);
+					
+					request request1=new request();
+					request1.setChildProfileId(childProfileId);
+					request1.setProfile(profile1);
+					
+					Response resp1=	RestAssured.
+									given().
+									queryParam("Uid", Uid).
+									body(request1).
+									relaxedHTTPSValidation().
+									contentType(ContentType.JSON).
+									accept(ContentType.JSON).
+									when().
+									post(Url);
+					resp1.prettyPrint();
+					
+					str=resp1.then().extract().path(key2test);
+					softAssert.assertEquals(Value2test,str);
+					
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					
+					
+					
+				}
 		   
 		    
 

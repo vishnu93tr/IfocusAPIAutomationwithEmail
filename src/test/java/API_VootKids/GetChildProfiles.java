@@ -132,12 +132,12 @@ public class GetChildProfiles extends GenericMethod
 	{
 		BasicConfigurator.configure();
 		Response resp1=	RestAssured.
-			given().
-			relaxedHTTPSValidation().
-			contentType(ContentType.JSON).
-			accept(ContentType.JSON).
-			when().
-			get(URL);
+						given().
+						relaxedHTTPSValidation().
+						contentType(ContentType.JSON).
+						accept(ContentType.JSON).
+						when().
+						get(URL);
 		
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
