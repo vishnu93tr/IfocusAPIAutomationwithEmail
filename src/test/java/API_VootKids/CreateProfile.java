@@ -1,5 +1,6 @@
 package API_VootKids;
 
+import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
 
 import java.io.FileInputStream;
@@ -27,6 +28,7 @@ import com.jayway.restassured.response.Response;
 
 public class CreateProfile extends GenericMethod{
 	static String str;
+	static int str1;
 	static String key2test;
 	static String Value2test;
 	static String TestType;
@@ -229,8 +231,14 @@ public class CreateProfile extends GenericMethod{
 				
 				if(TestType.equals("Positive")) 
 				{
-					
-					resp1.then().body(key2test, is(IsNull.notNullValue()));
+					String[] Keys = key2test.split(",");
+					for (int j=0; j < Keys.length; j++)
+					{
+						resp1.then().body(Keys[j], is(IsNull.notNullValue()));
+						
+					}
+//					resp1.then().body(key2test, is(IsNull.notNullValue()));
+					str1=resp1.then().extract().path("status.code");
 					
 				}
 				else if(TestType.equals("Negative"))
@@ -264,10 +272,14 @@ public class CreateProfile extends GenericMethod{
 						cel3.setCellValue("Fail");
 					}
 				}
-				else if(TestType.equals("Positive")) 
+				else if(TestType.equals("Positive") && str1==200) 
 				{
 					resp1.then().body(key2test, is(IsNull.notNullValue()));
 					cel3.setCellValue("Pass");
+				}
+				else
+				{
+					cel3.setCellValue("Fail");
 				}
 				
 		

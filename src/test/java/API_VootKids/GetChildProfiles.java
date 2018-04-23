@@ -27,6 +27,8 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import static org.hamcrest.number.OrderingComparison.lessThanOrEqualTo;
+import static org.hamcrest.number.OrderingComparison.greaterThan;
 
 public class GetChildProfiles extends GenericMethod
 {
@@ -34,6 +36,7 @@ public class GetChildProfiles extends GenericMethod
 	static String key2test;
 	static String Value2test;
 	static String TestType;
+	static int sizeOfList;
 	static SoftAssert softAssert = new SoftAssert();
 	@Test
 	public void Get_ChildProfiles() throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -82,13 +85,16 @@ public class GetChildProfiles extends GenericMethod
 				resp1.then().assertThat().statusCode(200);
 				if(TestType.equals("Positive"))
 				{
-					int sizeOfList = resp1.body().path("profiles.size()");
+					sizeOfList = resp1.body().path("profiles.size()");
+					
 					for (int j=0;j<sizeOfList;j++)
 					{
+						softAssert.assertEquals(sizeOfList, lessThanOrEqualTo(6));
 						String list=resp1.jsonPath().get("profiles["+j+"].Id");
 						assertNotNull(list);
 					}
 				}
+				
 				else
 				{
 					str= resp1.jsonPath().get(key2test);
@@ -108,7 +114,19 @@ public class GetChildProfiles extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(7);
 				Cell cel3=row3.getCell(7, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(TestType.equals("Negative"))
+				if(TestType.equals("Positive"))
+				{
+					if(sizeOfList>6)
+					{
+					 cel3.setCellValue("Fail");
+					}
+					else
+					{
+						cel3.setCellValue("Pass");
+					}
+					
+				}
+				else if(TestType.equals("Negative"))
 				{
 					if(str.equals(Value2test) )
 					{
@@ -119,6 +137,7 @@ public class GetChildProfiles extends GenericMethod
 						cel3.setCellValue("Fail");
 					}
 				}
+				
 				
 				FileOutputStream fos=new FileOutputStream(path1);
 				wb1.write(fos);

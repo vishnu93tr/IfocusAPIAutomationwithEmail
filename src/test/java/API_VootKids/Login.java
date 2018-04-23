@@ -151,7 +151,17 @@ public class Login extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(10);
 				Cell cel3=row3.getCell(10, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(TestType.equals("Negative"))
+				if(TestType.equals("Positive"))
+				{
+					String[] Keys = key2test.split(",");
+					for (int j=0; j < Keys.length; j++)
+					{
+						resp1.then().body(Keys[j], is(IsNull.notNullValue()));
+						
+					}
+					cel3.setCellValue("Pass");
+				}
+				else if(TestType.equals("Negative"))
 				{	
 					if(str.equals(Value2test) )
 					{
@@ -162,10 +172,7 @@ public class Login extends GenericMethod
 						cel3.setCellValue("Fail");
 					}
 				}
-				if(TestType.equals("Negative") && Value2test.equals("OK"))
-				{	
-					cel3.setCellValue("Fail");
-				}
+
 				FileOutputStream fos=new FileOutputStream(path1);
 				wb1.write(fos);
 		

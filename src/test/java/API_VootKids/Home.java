@@ -29,6 +29,7 @@ public class Home extends GenericMethod
 {
 	static String TestType;
 	static String str;
+	static int str1;
 	static String Value2test;
 	static String Key2test;
 	static SoftAssert softAssert = new SoftAssert();
@@ -131,6 +132,7 @@ public class Home extends GenericMethod
 					softAssert.assertNotNull(list);
 					
 					str=resp.then().extract().path(Key2test);
+					str1=resp.then().extract().path("status.code");
 					softAssert.assertEquals(Value2test,str);
 				}
 			}
@@ -155,6 +157,10 @@ public class Home extends GenericMethod
 			Row row3=sh1.getRow(i);
 			row3.createCell(11);
 			Cell cel3=row3.getCell(11, MissingCellPolicy.CREATE_NULL_AS_BLANK);
+			if(TestType.equals("Positive") && str1==200)
+			{
+				cel3.setCellValue("Pass");
+			}
 			if(TestType.equals("Negative"))
 			{
 				if(str.equals(Value2test))

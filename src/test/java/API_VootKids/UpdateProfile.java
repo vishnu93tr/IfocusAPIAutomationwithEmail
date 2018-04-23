@@ -38,6 +38,7 @@ public class UpdateProfile extends GenericMethod{
 	static String color;
 	static String pin;
 	static String Url;
+	static int StatusCode;
 	
 	static SoftAssert softAssert = new SoftAssert();
 		@Test
@@ -189,9 +190,19 @@ public class UpdateProfile extends GenericMethod{
 				resp1.prettyPrint();
 				resp1.then().assertThat().statusCode(200);
 				
+				if(TestType.equals("Positive"))
+				{
+					str=resp1.then().extract().path(key2test);
+					softAssert.assertEquals(Value2test,str);
+				}
+				else if(TestType.equals("Negative"))
+				{
+					StatusCode=resp1.then().extract().path("status.code");
+					str=resp1.then().extract().path(key2test);
+					softAssert.assertEquals(Value2test,str);
+				}
 				
-				str=resp1.then().extract().path(key2test);
-				softAssert.assertEquals(Value2test,str);
+				
 				
 				//writing into the excel sheet
 				FileInputStream fis1=new FileInputStream(path1);
@@ -209,13 +220,13 @@ public class UpdateProfile extends GenericMethod{
 				Cell cel3=row3.getCell(13, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if(TestType.equals("Negative"))
 				{
-					if(str.equals(Value2test))
+					if(str.equals(Value2test) && StatusCode==200)
 					{
-						cel3.setCellValue("Pass");
+						cel3.setCellValue("Fail");
 					}
 					else 
 					{
-						cel3.setCellValue("Fail");
+						cel3.setCellValue("Pass");
 					}
 				}
 				

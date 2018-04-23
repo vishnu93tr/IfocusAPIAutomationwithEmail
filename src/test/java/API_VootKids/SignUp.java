@@ -180,10 +180,7 @@ public class SignUp extends GenericMethod
 						cel3.setCellValue("Fail");
 					}
 				}
-				if(TestType.equals("Negative") && Value2test.equals("OK"))
-				{	
-					cel3.setCellValue("Fail");
-				}
+
 				
 				FileOutputStream fos=new FileOutputStream(path1);
 				wb1.write(fos);
