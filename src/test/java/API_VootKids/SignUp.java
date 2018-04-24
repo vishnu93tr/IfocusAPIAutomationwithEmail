@@ -40,8 +40,10 @@ public class SignUp extends GenericMethod
 	{
 		
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
+		//calling genericMrthod for SignUp
 		GenericMethod g=new GenericMethod();
 		Response resp=	g.SignUp();
+		//printing the response
 		resp.prettyPrint();
 		
 		//Reading the excel sheet
@@ -123,6 +125,7 @@ public class SignUp extends GenericMethod
         			continue;
 				}
             	
+            	//Posting the request
 				BasicConfigurator.configure();
 				Response resp1=	RestAssured.
 					given().
@@ -136,11 +139,12 @@ public class SignUp extends GenericMethod
 					queryParam("pin",pin).
 					when().
 					post(URL);
-				//printing the response
-				resp1.prettyPrint();
-				resp1.then().assertThat().statusCode(200);
 				
-				if(TestType.equals("Positive"))
+				
+				resp1.prettyPrint();//printing the response
+				resp1.then().assertThat().statusCode(200);//Checking the status code
+				
+				if(TestType.equals("Positive")) //Logic for positive TC
 				{
 					String[] Keys = key2test.split(",");
 					for (int j=0; j < Keys.length; j++)
@@ -149,7 +153,7 @@ public class SignUp extends GenericMethod
 						
 					}
 				}
-				else
+				else //Logic for negative TC
 				{
 					str=resp1.then().extract().path(key2test);
 					softAssert.assertEquals(Value2test,str);
@@ -169,7 +173,17 @@ public class SignUp extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(11);
 				Cell cel3=row3.getCell(11, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(TestType.equals("Negative"))
+				if(TestType.equals("Positive")) //Logic for writing pass/fail for positive TC
+				{
+					String[] Keys = key2test.split(",");
+					for (int j=0; j < Keys.length; j++)
+					{
+						resp1.then().body(Keys[j], is(IsNull.notNullValue()));
+						
+					}
+					cel3.setCellValue("Pass");
+				}
+				else if(TestType.equals("Negative")) ////Logic for writing pass/fail for negative TC
 				{	
 					if(str.equals(Value2test) )
 					{
@@ -179,6 +193,10 @@ public class SignUp extends GenericMethod
 					{
 						cel3.setCellValue("Fail");
 					}
+				}
+				else
+				{
+					cel3.setCellValue("Fail");
 				}
 
 				
@@ -211,7 +229,7 @@ public class SignUp extends GenericMethod
 		softAssert.assertEquals(Value2test,str);
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp");
 	}
-	//Funtion for emty
+	//Funtion for not passing password
 	public static void NotPassPassword(String email,String deviceId,String deviceBrand, String pin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
@@ -232,6 +250,7 @@ public class SignUp extends GenericMethod
 		softAssert.assertEquals(Value2test,str);
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp");
 	}
+	//Function for not passing deviceId
 	public static void NotPassdeviceId(String email,String password,String deviceBrand, String pin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
@@ -252,6 +271,7 @@ public class SignUp extends GenericMethod
 		softAssert.assertEquals(Value2test,str);
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp");
 	}
+	//Function for not passing devicebrand
 	public static void NotPassdeviceBrand(String email,String password,String deviceId, String pin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
@@ -272,6 +292,7 @@ public class SignUp extends GenericMethod
 		softAssert.assertEquals(Value2test,str);
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp");
 	}
+	//Function for passing empty pin
 	public static void emptyPin(String email,String password,String deviceId, String deviceBrand,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();

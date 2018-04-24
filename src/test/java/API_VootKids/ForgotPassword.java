@@ -64,6 +64,7 @@ public class ForgotPassword extends GenericMethod
             		continue;
 				}
 				
+        		//Posting Resquest to the server
         		BasicConfigurator.configure();
 				Response resp1=	RestAssured.
 					given().
@@ -73,9 +74,10 @@ public class ForgotPassword extends GenericMethod
 					queryParam("email",email).
 					when().
 					post(URL);
+				
 				//printing the response
 				resp1.prettyPrint();
-				resp1.then().assertThat().statusCode(200);
+				resp1.then().assertThat().statusCode(200); //checking for status code 
 			
 				str=resp1.then().extract().path(key2test);
 				softAssert.assertEquals(Value2test,str);

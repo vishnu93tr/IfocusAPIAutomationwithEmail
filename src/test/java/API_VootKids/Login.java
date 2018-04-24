@@ -105,7 +105,7 @@ public class Login extends GenericMethod
         			continue;
 				}
 				
-				
+				//posting the request
 				BasicConfigurator.configure();
 				Response resp1=	RestAssured.
 					given().
@@ -118,11 +118,11 @@ public class Login extends GenericMethod
 					queryParam("deviceBrand",deviceBrand).
 					when().
 					post(URL);
-				//printing the response
-				resp1.prettyPrint();
-				resp1.then().assertThat().statusCode(200);
 				
-				if(TestType.equals("Positive"))
+				resp1.prettyPrint(); //printing the response
+				resp1.then().assertThat().statusCode(200); //checking for status code=200 in response
+				
+				if(TestType.equals("Positive")) //logic for positive TC
 				{
 					String[] Keys = key2test.split(",");
 					for (int j=0; j < Keys.length; j++)
@@ -131,7 +131,7 @@ public class Login extends GenericMethod
 						
 					}
 				}
-				else
+				else //logic for negative TC
 				{
 					str=resp1.then().extract().path(key2test);
 					softAssert.assertEquals(Value2test,str);
@@ -151,7 +151,7 @@ public class Login extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(10);
 				Cell cel3=row3.getCell(10, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(TestType.equals("Positive"))
+				if(TestType.equals("Positive")) //logic for writting pass/fail in positive TC
 				{
 					String[] Keys = key2test.split(",");
 					for (int j=0; j < Keys.length; j++)
@@ -161,7 +161,7 @@ public class Login extends GenericMethod
 					}
 					cel3.setCellValue("Pass");
 				}
-				else if(TestType.equals("Negative"))
+				else if(TestType.equals("Negative")) //logic for writting pass/fail in negative TC
 				{	
 					if(str.equals(Value2test) )
 					{

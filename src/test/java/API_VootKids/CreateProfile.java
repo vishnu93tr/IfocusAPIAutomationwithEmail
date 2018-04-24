@@ -244,6 +244,7 @@ public class CreateProfile extends GenericMethod{
 				else if(TestType.equals("Negative"))
 				{
 					str=resp1.then().extract().path(key2test);
+					str1=resp1.then().extract().path("status.code");
 					softAssert.assertEquals(Value2test,str);
 				}
 				//writing into the excel sheet
@@ -261,7 +262,7 @@ public class CreateProfile extends GenericMethod{
 				row3.createCell(15);
 				Cell cel3=row3.getCell(15, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				
-				if(TestType.equals("Negative")) 
+				if(TestType.equals("Negative") && str1!=200) 
 				{
 					if(str.equals(Value2test))
 					{

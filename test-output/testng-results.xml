@@ -1,62 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="1" total="1" passed="0">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="3717" started-at="2018-04-23T14:57:39Z" finished-at="2018-04-23T14:57:43Z">
+  <suite name="Default suite" duration-ms="28996" started-at="2018-04-23T18:27:13Z" finished-at="2018-04-23T18:27:42Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="3717" started-at="2018-04-23T14:57:39Z" finished-at="2018-04-23T14:57:43Z">
-      <class name="API_VootKids.Home">
-        <test-method status="FAIL" signature="home()[pri:0, instance:API_VootKids.Home@5cb9f472]" name="home" duration-ms="3704" started-at="2018-04-23T20:27:39Z" finished-at="2018-04-23T20:27:43Z">
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[The following asserts failed:
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: The following asserts failed:
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:43)
-	at API_VootKids.Home.home(Home.java:181)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.lang.reflect.Method.invoke(Unknown Source)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:86)
-	at org.testng.internal.Invoker.invokeMethod(Invoker.java:643)
-	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:820)
-	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1128)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)
-	at org.testng.TestRunner.privateRun(TestRunner.java:782)
-	at org.testng.TestRunner.run(TestRunner.java:632)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:366)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:361)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:319)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:268)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1244)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1169)
-	at org.testng.TestNG.run(TestNG.java:1064)
-	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
+    <test name="Default test" duration-ms="28996" started-at="2018-04-23T18:27:13Z" finished-at="2018-04-23T18:27:42Z">
+      <class name="API_VootKids.SignUp">
+        <test-method status="PASS" signature="SignUp_Kids()[pri:0, instance:API_VootKids.SignUp@5cb9f472]" name="SignUp_Kids" duration-ms="28983" started-at="2018-04-23T23:57:13Z" finished-at="2018-04-23T23:57:42Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- home -->
-      </class> <!-- API_VootKids.Home -->
+        </test-method> <!-- SignUp_Kids -->
+      </class> <!-- API_VootKids.SignUp -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

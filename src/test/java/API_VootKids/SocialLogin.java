@@ -56,27 +56,27 @@ public class SocialLogin extends GenericMethod
             	String URL=row.getCell(4).getStringCellValue();
         		key2test=row.getCell(5).getStringCellValue();
         		Value2test=row.getCell(6).getStringCellValue();
-        		if(Uid.equals("EMPTY"))
+        		if(Uid.equals("EMPTY")) //passing Uid as empty
 				{
             		Uid="";
 				}
-        		else if(Uid.equals("NOTPASS"))
+        		else if(Uid.equals("NOTPASS")) //calling function when uid is not passed in request
 				{
             		SocialLogin.NotPassUid(deviceId, i, URL);
             		continue;
 				}
-        		if(deviceId.equals("EMPTY"))
+        		if(deviceId.equals("EMPTY"))//passing deviceId as empty
 				{
             		deviceId="";
 				}
-        		if(deviceId.equals("NOTPASS"))
+        		if(deviceId.equals("NOTPASS"))//calling function when deviceId is not passed in request
 				{
             		SocialLogin.NotPassdeviceId(Uid, i, URL);
             		continue;
 				}
-				//when email is empty
 				
-				BasicConfigurator.configure();
+        		//Posting request to the server
+        		BasicConfigurator.configure();
 				Response resp1=	RestAssured.
 					given().
 					relaxedHTTPSValidation().
@@ -86,11 +86,12 @@ public class SocialLogin extends GenericMethod
 					queryParam("deviceId",deviceId).
 					when().
 					get(URL);
+				
 				//printing the response
 				resp1.prettyPrint();
-				resp1.then().assertThat().statusCode(200);
+				resp1.then().assertThat().statusCode(200); //checking for status code=200 in response
 				
-				if(TestType.equals("Positive"))
+				if(TestType.equals("Positive"))//logic to test for positive TC
 				{
 					String[] Keys = key2test.split(",");
 					for (int j=0; j < Keys.length; j++)
@@ -99,7 +100,7 @@ public class SocialLogin extends GenericMethod
 						
 					}
 				}
-				else
+				else//logic to test for negative TC
 				{
 					str=resp1.then().extract().path(key2test);
 					softAssert.assertEquals(Value2test,str);
@@ -119,7 +120,7 @@ public class SocialLogin extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(8);
 				Cell cel3=row3.getCell(8, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(TestType.equals("Positive"))
+				if(TestType.equals("Positive")) //logic to write pass/fail for positive TC
 				{
 					String[] Keys = key2test.split(",");
 					for (int j=0; j < Keys.length; j++)
@@ -129,7 +130,7 @@ public class SocialLogin extends GenericMethod
 					}
 					cel3.setCellValue("Pass");
 				}
-				else if(TestType.equals("Negative"))
+				else if(TestType.equals("Negative")) //logic to write pass/fail for negative TC
 				{	
 					if(str.equals(Value2test) )
 					{
@@ -140,7 +141,7 @@ public class SocialLogin extends GenericMethod
 						cel3.setCellValue("Fail");
 					}
 				}
-				else if(TestType.equals("Negative") && Value2test.equals("OK"))
+				else if(TestType.equals("Negative") && Value2test.equals("OK")) //logic to write pass/fail for negative TC
 				{	
 					cel3.setCellValue("Fail");
 				}
