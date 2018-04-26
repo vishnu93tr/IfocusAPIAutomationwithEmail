@@ -28,6 +28,8 @@ public class ResetPin extends GenericMethod
 	static String key2test;
 	static String Value2test;
 	static String TestType;
+	static String oldPin;
+	static String newPin;
 	static SoftAssert softAssert = new SoftAssert();
 	@Test
 	public void reset_Pin() throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -48,19 +50,23 @@ public class ResetPin extends GenericMethod
             	Row row = sh.getRow(i);
             	//fetching the cell values
             	TestType=row.getCell(0).getStringCellValue();
-            	String Uid=row.getCell(2).getStringCellValue();
-            	String oldPin=row.getCell(3).getStringCellValue();
-            	String newPin=row.getCell(4).getStringCellValue();
+            	String email=row.getCell(2).getStringCellValue();
+            	oldPin=row.getCell(3).getStringCellValue();
+            	newPin=row.getCell(4).getStringCellValue();
+            	if(newPin.equals("AUTO"))
+            	{
+            		newPin=GenericMethod.pinGenerator();
+            	}
             	String URL=row.getCell(5).getStringCellValue();
         		key2test=row.getCell(6).getStringCellValue();
         		Value2test=row.getCell(7).getStringCellValue();
-        		if(Uid.equals("EMPTY"))
+        		if(email.equals("EMPTY"))
 				{
-            		Uid="";
+        			email="";
 				}
-        		else if(Uid.equals("NOTPASS"))
+        		else if(email.equals("NOTPASS"))
 				{
-            		ResetPin.NotPassUid(oldPin, newPin, i, URL);
+            		ResetPin.NotPassEmail(oldPin, newPin, i, URL);
             		continue;
 				}
         		if(oldPin.equals("EMPTY"))
@@ -69,7 +75,7 @@ public class ResetPin extends GenericMethod
 				}
         		if(oldPin.equals("NOTPASS"))
 				{
-            		ResetPin.NotPassOldPin(Uid, newPin, i, URL);
+            		ResetPin.NotPassOldPin(email, newPin, i, URL);
             		continue;
 				}
         		if(newPin.equals("EMPTY"))
@@ -78,10 +84,14 @@ public class ResetPin extends GenericMethod
 				}
         		if(newPin.equals("NOTPASS"))
 				{
-            		ResetPin.NotPassNewPin(Uid, oldPin, i, URL);
+            		ResetPin.NotPassNewPin(email, oldPin, i, URL);
             		continue;
 				}
-				//when email is empty
+				if(oldPin.equals("SAMEPIN"))
+				{
+					oldPin="3456";
+					newPin="3456";
+				}
 				
 				BasicConfigurator.configure();
 				Response resp1=	RestAssured.
@@ -89,7 +99,7 @@ public class ResetPin extends GenericMethod
 					relaxedHTTPSValidation().
 					contentType(ContentType.JSON).
 					accept(ContentType.JSON).
-					queryParam("Uid",Uid).
+					queryParam("email",email).
 					queryParam("oldPin",oldPin).
 					queryParam("newPin",newPin).
 					when().
@@ -123,6 +133,14 @@ public class ResetPin extends GenericMethod
 				{
 					cel3.setCellValue("Fail");
 				}
+				if(TestType.equals("Positive"))
+				{
+					Row row4=sh1.getRow(1);
+					row4.createCell(3);
+					Cell cel4=row4.getCell(3, MissingCellPolicy.CREATE_NULL_AS_BLANK);
+					cel4.setCellType(CellType.STRING);
+					cel4.setCellValue(newPin);
+				}
 				
 				FileOutputStream fos=new FileOutputStream(path1);
 				wb1.write(fos);
@@ -132,7 +150,7 @@ public class ResetPin extends GenericMethod
 		}
 	    softAssert.assertAll();
 	}
-	public static void NotPassUid(String oldPin,String newPin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
+	public static void NotPassEmail(String oldPin,String newPin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
 		Response resp1=	RestAssured.
@@ -150,7 +168,7 @@ public class ResetPin extends GenericMethod
 		
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPIN");
 	}
-	public static void NotPassOldPin(String Uid,String newPin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
+	public static void NotPassOldPin(String email,String newPin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
 		Response resp1=	RestAssured.
@@ -158,7 +176,7 @@ public class ResetPin extends GenericMethod
 			relaxedHTTPSValidation().
 			contentType(ContentType.JSON).
 			accept(ContentType.JSON).
-			queryParam("Uid",Uid).
+			queryParam("email",email).
 			queryParam("newPin",newPin).
 			when().
 			post(URL);
@@ -168,7 +186,7 @@ public class ResetPin extends GenericMethod
 		
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPIN");
 	}
-	public static void NotPassNewPin(String Uid,String oldPin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
+	public static void NotPassNewPin(String email,String oldPin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
 		Response resp1=	RestAssured.
@@ -176,7 +194,7 @@ public class ResetPin extends GenericMethod
 			relaxedHTTPSValidation().
 			contentType(ContentType.JSON).
 			accept(ContentType.JSON).
-			queryParam("Uid",Uid).
+			queryParam("email",email).
 			queryParam("oldPin",oldPin).
 			when().
 			post(URL);

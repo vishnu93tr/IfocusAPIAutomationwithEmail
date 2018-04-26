@@ -53,27 +53,37 @@ public class SocialLogin extends GenericMethod
             	TestType=row.getCell(0).getStringCellValue();
             	String Uid=row.getCell(2).getStringCellValue();
             	String deviceId=row.getCell(3).getStringCellValue();
-            	String URL=row.getCell(4).getStringCellValue();
-        		key2test=row.getCell(5).getStringCellValue();
-        		Value2test=row.getCell(6).getStringCellValue();
+            	String deviceBrand=row.getCell(4).getStringCellValue();
+            	String URL=row.getCell(5).getStringCellValue();
+        		key2test=row.getCell(6).getStringCellValue();
+        		Value2test=row.getCell(7).getStringCellValue();
         		if(Uid.equals("EMPTY")) //passing Uid as empty
 				{
             		Uid="";
 				}
         		else if(Uid.equals("NOTPASS")) //calling function when uid is not passed in request
 				{
-            		SocialLogin.NotPassUid(deviceId, i, URL);
+            		SocialLogin.NotPassUid(deviceId, i, URL, deviceBrand);
             		continue;
 				}
         		if(deviceId.equals("EMPTY"))//passing deviceId as empty
 				{
             		deviceId="";
 				}
-        		if(deviceId.equals("NOTPASS"))//calling function when deviceId is not passed in request
+        		else if(deviceId.equals("NOTPASS"))//calling function when deviceId is not passed in request
 				{
-            		SocialLogin.NotPassdeviceId(Uid, i, URL);
+            		SocialLogin.NotPassdeviceId(Uid, i, URL, deviceBrand);
             		continue;
 				}
+        		if(deviceBrand.equals("EMPTY")) 
+        		{
+        			deviceBrand="";
+        		}
+        		else if(deviceBrand.equals("NOTPASS"))
+        		{
+        			SocialLogin.NotPassdevicebrand(Uid, i, URL, deviceId);
+        			continue;
+        		}
 				
         		//Posting request to the server
         		BasicConfigurator.configure();
@@ -84,6 +94,7 @@ public class SocialLogin extends GenericMethod
 					accept(ContentType.JSON).
 					queryParam("Uid",Uid).
 					queryParam("deviceId",deviceId).
+					queryParam("deviceBrand",deviceBrand).
 					when().
 					get(URL);
 				
@@ -112,14 +123,14 @@ public class SocialLogin extends GenericMethod
 		
 				Sheet sh1=wb1.getSheet("SocialLogin");
 				Row row1=sh1.getRow(i);
-				row1.createCell(7);
-				Cell cel1=row1.getCell(7, MissingCellPolicy.CREATE_NULL_AS_BLANK);
+				row1.createCell(8);
+				Cell cel1=row1.getCell(8, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cel1.setCellType(CellType.STRING);
 				cel1.setCellValue(resp1.asString());
 		
 				Row row3=sh1.getRow(i);
-				row3.createCell(8);
-				Cell cel3=row3.getCell(8, MissingCellPolicy.CREATE_NULL_AS_BLANK);
+				row3.createCell(9);
+				Cell cel3=row3.getCell(9, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if(TestType.equals("Positive")) //logic to write pass/fail for positive TC
 				{
 					String[] Keys = key2test.split(",");
@@ -154,7 +165,7 @@ public class SocialLogin extends GenericMethod
 	    softAssert.assertAll();
 	}
 	//function for not passing Uid
-	public static void NotPassUid(String deviceId,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
+	public static void NotPassUid(String deviceId,int i,String URL,String deviceBrand) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
 		Response resp1=	RestAssured.
@@ -163,16 +174,17 @@ public class SocialLogin extends GenericMethod
 			contentType(ContentType.JSON).
 			accept(ContentType.JSON).
 			queryParam("deviceId",deviceId).
+			queryParam("deviceBrand",deviceBrand).
 			when().
 			get(URL);
 		
 		resp1.then().assertThat().statusCode(200);
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,7,8,"SocialLogin");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SocialLogin");
 	}
 	//function for not passing deviceId
-	public static void NotPassdeviceId(String Uid,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
+	public static void NotPassdeviceId(String Uid,int i,String URL,String deviceBrand) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
 		Response resp1=	RestAssured.
@@ -181,12 +193,31 @@ public class SocialLogin extends GenericMethod
 			contentType(ContentType.JSON).
 			accept(ContentType.JSON).
 			queryParam("Uid",Uid).
+			queryParam("deviceBrand",deviceBrand).
 			when().
 			get(URL);
 		
 		resp1.then().assertThat().statusCode(200);
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,7,8,"SocialLogin");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SocialLogin");
+	}
+	public static void NotPassdevicebrand(String Uid,int i,String URL,String deviceId) throws EncryptedDocumentException, InvalidFormatException, IOException
+	{
+		BasicConfigurator.configure();
+		Response resp1=	RestAssured.
+			given().
+			relaxedHTTPSValidation().
+			contentType(ContentType.JSON).
+			accept(ContentType.JSON).
+			queryParam("Uid",Uid).
+			queryParam("deviceId",deviceId).
+			when().
+			get(URL);
+		
+		resp1.then().assertThat().statusCode(200);
+		str=resp1.then().extract().path(key2test);
+		softAssert.assertEquals(Value2test,str);
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SocialLogin");
 	}
 }

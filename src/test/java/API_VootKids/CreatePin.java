@@ -25,14 +25,19 @@ import com.jayway.restassured.response.Response;
 public class CreatePin extends GenericMethod
 {
 	static String str;
+	static int str1;
+	static int num;
+	static String numberAsString;
+	static String email;
 	static String key2test;
 	static String Value2test;
 	static String TestType;
 	static SoftAssert softAssert = new SoftAssert();
 	@Test
-	public void CreatePin() throws EncryptedDocumentException, InvalidFormatException, IOException
+	public void CreatePin1() throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
+		GenericMethod g=new GenericMethod();
 		//Reading the excel sheet
 		FileInputStream fis=new FileInputStream(path1);
 		Workbook wb=WorkbookFactory.create(fis);
@@ -44,22 +49,33 @@ public class CreatePin extends GenericMethod
 	    //started for loop
 	    for(int i=1; i<=rowCount;i++)
         {
-	    	
+	    		Response resp=	g.SignUp();
             	Row row = sh.getRow(i);
             	//fetching the cell values
             	TestType=row.getCell(0).getStringCellValue();
-            	String Uid=row.getCell(2).getStringCellValue();
+            	email=row.getCell(2).getStringCellValue();
             	String pin=row.getCell(3).getStringCellValue();
             	String URL=row.getCell(4).getStringCellValue();
         		key2test=row.getCell(5).getStringCellValue();
         		Value2test=row.getCell(6).getStringCellValue();
-        		if(Uid.equals("EMPTY"))
+        		if(email.equals("AUTO"))
+        		{
+        			email=resp.then().extract().path("Email");
+        		}
+        		else if(email.equals("INVALID"))
+        		{
+        			email="john14.doe33333333333333333333333@mailinator.com";
+        		}
+        		else if(email.equals("EMPTY"))
 				{
-            		Uid="";
+        			email="";
 				}
-        		else if(Uid.equals("NOTPASS"))
+        		else if(email.equals("NULL")) {
+        			email="null";
+        		}
+        		else if(email.equals("NOTPASS"))
 				{
-            		CreatePin.NotPassUid(pin, i, URL);
+            		CreatePin.NotPassemail(pin, i, URL);
             		continue;
 				}
         		if(pin.equals("EMPTY"))
@@ -68,7 +84,7 @@ public class CreatePin extends GenericMethod
 				}
         		if(pin.equals("NOTPASS"))
 				{
-            		CreatePin.NotPassPin(Uid, i, URL);
+            		CreatePin.NotPassPin(email, i, URL);
             		continue;
 				}
         		
@@ -78,16 +94,25 @@ public class CreatePin extends GenericMethod
 					relaxedHTTPSValidation().
 					contentType(ContentType.JSON).
 					accept(ContentType.JSON).
-					queryParam("Uid",Uid).
+					queryParam("email",email).
 					queryParam("pin",pin).
 					when().
 					post(URL);
 				//printing the response
 				resp1.prettyPrint();
 				resp1.then().assertThat().statusCode(200);
-				
-				str=resp1.then().extract().path(key2test);
-				softAssert.assertEquals(Value2test,str);
+				if(TestType.equals("Positive"))
+				{
+					num=resp1.then().extract().path(key2test);
+					numberAsString = Integer.toString(num);
+					softAssert.assertEquals(Value2test,numberAsString);
+				}
+				else
+				{
+					str=resp1.then().extract().path(key2test);
+					str1=resp1.then().extract().path("status.code");
+					softAssert.assertEquals(Value2test,str);
+				}
 				
 				//code to write the output and status code in excel
 				FileInputStream fis1=new FileInputStream(path1);
@@ -103,13 +128,32 @@ public class CreatePin extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(8);
 				Cell cel3=row3.getCell(8, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(str.equals(Value2test) )
+				if(TestType.equals("Positive"))
 				{
-					cel3.setCellValue("Pass");
-				} 
-				else 
-				{
-					cel3.setCellValue("Fail");
+					
+					if(numberAsString.equals(Value2test))
+					{
+						cel3.setCellValue("Pass");
+					}
+					else
+					{
+						cel3.setCellValue("Fail");
+					}
+				}
+				if(TestType.equals("Negative"))
+				{	
+					if(str.equals(Value2test) && str1==200)
+					{
+						cel3.setCellValue("Fail");
+					} 
+					else if(str.equals(Value2test))
+					{
+						cel3.setCellValue("Pass");
+					}
+					else
+					{
+						cel3.setCellValue("Fail");
+					}
 				}
 				
 				FileOutputStream fos=new FileOutputStream(path1);
@@ -120,7 +164,7 @@ public class CreatePin extends GenericMethod
 		}
 	    softAssert.assertAll();
 	}
-	public static void NotPassUid(String pin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
+	public static void NotPassemail(String pin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
 		Response resp1=	RestAssured.
@@ -145,7 +189,7 @@ public class CreatePin extends GenericMethod
 			relaxedHTTPSValidation().
 			contentType(ContentType.JSON).
 			accept(ContentType.JSON).
-			queryParam("Uid",Uid).
+			queryParam("email",email).
 			when().
 			post(URL);
 		

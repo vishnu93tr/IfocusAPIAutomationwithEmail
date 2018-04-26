@@ -122,7 +122,7 @@ public class CreateProfile extends GenericMethod{
 				pin=row.getCell(10).getStringCellValue();
 				URL=row.getCell(11).getStringCellValue();
 				
-				String parentKS = row.getCell(3).getStringCellValue();
+				
 				
 				buddy buddy=new buddy();
 				buddy.setIcon(icon);
@@ -238,13 +238,13 @@ public class CreateProfile extends GenericMethod{
 						
 					}
 //					resp1.then().body(key2test, is(IsNull.notNullValue()));
-					str1=resp1.then().extract().path("status.code");
+//					str1=resp1.then().extract().path("status.code");
 					
 				}
 				else if(TestType.equals("Negative"))
 				{
 					str=resp1.then().extract().path(key2test);
-					str1=resp1.then().extract().path("status.code");
+//					str1=resp1.then().extract().path("status.code");
 					softAssert.assertEquals(Value2test,str);
 				}
 				//writing into the excel sheet
@@ -262,7 +262,7 @@ public class CreateProfile extends GenericMethod{
 				row3.createCell(15);
 				Cell cel3=row3.getCell(15, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				
-				if(TestType.equals("Negative") && str1!=200) 
+				if(TestType.equals("Negative")) 
 				{
 					if(str.equals(Value2test))
 					{
@@ -273,7 +273,7 @@ public class CreateProfile extends GenericMethod{
 						cel3.setCellValue("Fail");
 					}
 				}
-				else if(TestType.equals("Positive") && str1==200) 
+				else if(TestType.equals("Positive")) 
 				{
 					resp1.then().body(key2test, is(IsNull.notNullValue()));
 					cel3.setCellValue("Pass");

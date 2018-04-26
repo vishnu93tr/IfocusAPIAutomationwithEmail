@@ -90,7 +90,7 @@ public class GetChildProfiles extends GenericMethod
 					for (int j=0;j<sizeOfList;j++)
 					{
 						softAssert.assertEquals(sizeOfList, lessThanOrEqualTo(6));
-						String list=resp1.jsonPath().get("profiles["+j+"].Id");
+						String list=resp1.jsonPath().get("profiles["+j+"].id");
 						assertNotNull(list);
 					}
 				}

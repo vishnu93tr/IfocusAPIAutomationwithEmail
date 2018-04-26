@@ -51,30 +51,19 @@ public class ResetPassword  extends GenericMethod
             	Row row = sh.getRow(i);
             	//fetching the cell values
             	TestType=row.getCell(0).getStringCellValue();
-            	String Uid=row.getCell(2).getStringCellValue();
+            	String email=row.getCell(2).getStringCellValue();
             	String oldPassword=row.getCell(3).getStringCellValue();
             	String newPassword=row.getCell(4).getStringCellValue();
-            	System.out.println(newPassword);
             	String URL=row.getCell(5).getStringCellValue();
         		key2test=row.getCell(6).getStringCellValue();
         		Value2test=row.getCell(7).getStringCellValue();
-        		if(Uid.equals("EMPTY"))
+        		if(email.equals("EMPTY"))
 				{
-            		Uid="";
-				}
-        		else if(Uid.equals("NOTPASS"))
-				{
-            		ResetPassword.NotPassUid(oldPassword, newPassword, i, URL);
-            		continue;
+        			email="";
 				}
         		if(oldPassword.equals("EMPTY"))
 				{
         			oldPassword="";
-				}
-        		if(oldPassword.equals("NOTPASS"))
-				{
-            		ResetPassword.NotPassOldPassword(Uid, newPassword, i, URL);
-            		continue;
 				}
         		if(newPassword.equals("AUTO"))
 				{
@@ -84,12 +73,29 @@ public class ResetPassword  extends GenericMethod
 				{
         			newPassword="";
 				}
-        		if(newPassword.equals("NOTPASS"))
+        		
+        		//function calling where keys are not passed
+        		if(email.equals("NOTPASS"))
 				{
-            		ResetPassword.NotPassNewPassword(Uid, oldPassword, i, URL);
+            		ResetPassword.NotPassEmail(oldPassword, newPassword, i, URL);
             		continue;
 				}
-				//when email is empty
+        		if(oldPassword.equals("NOTPASS"))
+				{
+            		ResetPassword.NotPassOldPassword(email, newPassword, i, URL);
+            		continue;
+				}
+        		if(newPassword.equals("NOTPASS"))
+				{
+            		ResetPassword.NotPassNewPassword(email, oldPassword, i, URL);
+            		continue;
+				}
+        		if(oldPassword.equals("SAMEPASS"))
+        		{
+        			oldPassword="ABCDEFG";
+        			newPassword="ABCDEFG";
+        		}
+				
 				
 				BasicConfigurator.configure();
 				Response resp1=	RestAssured.
@@ -97,7 +103,7 @@ public class ResetPassword  extends GenericMethod
 					relaxedHTTPSValidation().
 					contentType(ContentType.JSON).
 					accept(ContentType.JSON).
-					queryParam("Uid",Uid).
+					queryParam("email",email).
 					queryParam("oldPassword",oldPassword).
 					queryParam("newPassword",newPassword).
 					when().
@@ -132,6 +138,16 @@ public class ResetPassword  extends GenericMethod
 					cel3.setCellValue("Fail");
 				}
 				
+				if(TestType.equals("Positive"))
+				{
+					resp1.then().assertThat().statusCode(200);
+					Row row2=sh1.getRow(1);
+					row2.createCell(3);
+					Cell cel2=row2.getCell(3, MissingCellPolicy.CREATE_NULL_AS_BLANK);
+					cel2.setCellType(CellType.STRING);
+					cel2.setCellValue(newPassword);
+				}
+				
 				FileOutputStream fos=new FileOutputStream(path1);
 				wb1.write(fos);
 		
@@ -140,7 +156,7 @@ public class ResetPassword  extends GenericMethod
 		}
 	    softAssert.assertAll();
 	}
-	public static void NotPassUid(String oldPassword,String newPassword,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
+	public static void NotPassEmail(String oldPassword,String newPassword,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
 		Response resp1=	RestAssured.
@@ -158,7 +174,7 @@ public class ResetPassword  extends GenericMethod
 		
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPassword");
 	}
-	public static void NotPassOldPassword(String Uid,String newPassword,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
+	public static void NotPassOldPassword(String email,String newPassword,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
 		Response resp1=	RestAssured.
@@ -166,7 +182,7 @@ public class ResetPassword  extends GenericMethod
 			relaxedHTTPSValidation().
 			contentType(ContentType.JSON).
 			accept(ContentType.JSON).
-			queryParam("Uid",Uid).
+			queryParam("email",email).
 			queryParam("newPassword",newPassword).
 			when().
 			post(URL);
@@ -176,7 +192,7 @@ public class ResetPassword  extends GenericMethod
 		
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPassword");
 	}
-	public static void NotPassNewPassword(String Uid,String oldPassword,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
+	public static void NotPassNewPassword(String email,String oldPassword,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
 		Response resp1=	RestAssured.
@@ -184,7 +200,7 @@ public class ResetPassword  extends GenericMethod
 			relaxedHTTPSValidation().
 			contentType(ContentType.JSON).
 			accept(ContentType.JSON).
-			queryParam("Uid",Uid).
+			queryParam("email",email).
 			queryParam("oldPassword",oldPassword).
 			when().
 			post(URL);

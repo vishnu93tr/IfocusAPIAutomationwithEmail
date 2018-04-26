@@ -129,12 +129,26 @@ public class GenericMethod
 	    String email= saltStr+"@gmail.com";
 	    return email;
 	}
-	public static String passwordGenerator()
+	public static String pinGenerator()
 	{
-		String SALTCHARS = "abcdefghijklmnopqrstuvwxyz123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&";
+		String SALTCHARS = "1234567890";
 	    StringBuilder salt = new StringBuilder();
 	    Random rnd = new Random();
-	    while (salt.length() < 10) 
+	    while (salt.length() < 4) 
+	    { 
+	    	int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+	        salt.append(SALTCHARS.charAt(index));
+	    }
+	    String pin = salt.toString();
+	   
+	    return pin;
+	}
+	public static String passwordGenerator()
+	{
+		String SALTCHARS = "abcdefghijklmnopqrstuvwxyz";
+	    StringBuilder salt = new StringBuilder();
+	    Random rnd = new Random();
+	    while (salt.length() < 7) 
 	    { 
 	    	int index = (int) (rnd.nextFloat() * SALTCHARS.length());
 	        salt.append(SALTCHARS.charAt(index));

@@ -220,13 +220,13 @@ public class UpdateProfile extends GenericMethod{
 				Cell cel3=row3.getCell(13, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if(TestType.equals("Negative"))
 				{
-					if(str.equals(Value2test) && StatusCode==200)
+					if(str.equals(Value2test))
 					{
-						cel3.setCellValue("Fail");
+						cel3.setCellValue("Pass");
 					}
 					else 
 					{
-						cel3.setCellValue("Pass");
+						cel3.setCellValue("Fail");
 					}
 				}
 				
