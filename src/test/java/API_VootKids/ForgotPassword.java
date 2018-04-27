@@ -75,8 +75,7 @@ public class ForgotPassword extends GenericMethod
 					when().
 					post(URL);
 				
-				//printing the response
-				resp1.prettyPrint();
+				resp1.prettyPrint(); //printing the response
 				resp1.then().assertThat().statusCode(200); //checking for status code 
 			
 				str=resp1.then().extract().path(key2test);
@@ -97,7 +96,7 @@ public class ForgotPassword extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(7);
 				Cell cel3=row3.getCell(7, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(str.equals(Value2test) )
+				if(str.equals(Value2test) )//logic for writing pass/fail 
 					{
 						cel3.setCellValue("Pass");
 					}
@@ -113,7 +112,9 @@ public class ForgotPassword extends GenericMethod
 				
 		}
 	    softAssert.assertAll();
+	    GenericMethod.write2Master(4,"ForgotPassword",7);
 	}
+	//function for not passing email
 	public static void NotPassEmail(int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();

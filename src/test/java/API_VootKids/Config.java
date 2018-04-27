@@ -65,5 +65,8 @@ public class Config extends GenericMethod
 		wb1.write(fos);
 
 		fos.close();
+		
+		GenericMethod.write2Master(13, "Config", 4);
 	}
+	
 }

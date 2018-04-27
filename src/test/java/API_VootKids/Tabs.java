@@ -28,13 +28,15 @@ public class Tabs extends GenericMethod
 	public void tabs() throws IOException, EncryptedDocumentException, InvalidFormatException 
 	{
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
+		//reading from excel sheet
 		FileInputStream fis=new FileInputStream(path1);
 		Workbook wb=WorkbookFactory.create(fis);
 		Sheet sh=wb.getSheet("Tabs");
 		Row row=sh.getRow(1);
-		
+		//fetching the url from sheet
 		String Url=row.getCell(2).getStringCellValue();
 		
+		//posting the request
 		BasicConfigurator.configure();
 		Response resp=	RestAssured.
 						given().
@@ -43,8 +45,10 @@ public class Tabs extends GenericMethod
 						accept(ContentType.JSON).
 						when().
 						get(Url);
-		resp.then().assertThat().statusCode(200);
 		
+		resp.then().assertThat().statusCode(200);//checking the statuscode=200
+		
+		//writing into the excel sheet
 		FileInputStream fis1=new FileInputStream(path1);
 		Workbook wb1=WorkbookFactory.create(fis1);
 

@@ -2,46 +2,16 @@
 <testng-results skipped="0" failed="1" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="6112" started-at="2018-04-26T19:06:36Z" finished-at="2018-04-26T19:06:42Z">
+  <suite name="Default suite" duration-ms="6584" started-at="2018-04-27T18:20:13Z" finished-at="2018-04-27T18:20:19Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="6112" started-at="2018-04-26T19:06:36Z" finished-at="2018-04-26T19:06:42Z">
-      <class name="API_VootKids.Home">
-        <test-method status="FAIL" signature="home()[pri:0, instance:API_VootKids.Home@5cb9f472]" name="home" duration-ms="6096" started-at="2018-04-27T00:36:36Z" finished-at="2018-04-27T00:36:42Z">
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[The following asserts failed:
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected [offSet must be at least 0.] but found [OK],
-	expected object to not be null,
-	expected object to not be null,
-	expected [uId parameter is required] but found [Invalid Uid],
-	expected [profileId parameter is required] but found [Invalid Profile Id],
-	expected [ks parameter is required] but found [Invalid Ks value]]]>
-            </message>
+    <test name="Default test" duration-ms="6584" started-at="2018-04-27T18:20:13Z" finished-at="2018-04-27T18:20:19Z">
+      <class name="API_VootKids.GetChildProfiles">
+        <test-method status="FAIL" signature="Get_ChildProfiles()[pri:0, instance:API_VootKids.GetChildProfiles@5cb9f472]" name="Get_ChildProfiles" duration-ms="6571" started-at="2018-04-27T23:50:13Z" finished-at="2018-04-27T23:50:19Z">
+          <exception class="java.lang.NullPointerException">
             <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: The following asserts failed:
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected [offSet must be at least 0.] but found [OK],
-	expected object to not be null,
-	expected object to not be null,
-	expected [uId parameter is required] but found [Invalid Uid],
-	expected [profileId parameter is required] but found [Invalid Profile Id],
-	expected [ks parameter is required] but found [Invalid Ks value]
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:43)
-	at API_VootKids.Home.home(Home.java:181)
+              <![CDATA[java.lang.NullPointerException
+	at API_VootKids.GetChildProfiles.Get_ChildProfiles(GetChildProfiles.java:60)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -68,11 +38,11 @@
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
+          </exception> <!-- java.lang.NullPointerException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- home -->
-      </class> <!-- API_VootKids.Home -->
+        </test-method> <!-- Get_ChildProfiles -->
+      </class> <!-- API_VootKids.GetChildProfiles -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

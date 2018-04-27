@@ -62,27 +62,32 @@ public class UpdateProfile extends GenericMethod{
             	//fetching the cell values
 		    	TestType=row.getCell(0).getStringCellValue();
 		    	Uid=row.getCell(2).getStringCellValue();
+		    	//assign uid="" when uid is empty
 		    	if(Uid.equals("EMPTY")) 
 		    	{
 		    		Uid="";
 		    	}
 		    	childProfileId=row.getCell(3).getStringCellValue();
+		    	//assign childprofileId="" when it is empty
 		    	if(childProfileId.equals("EMPTY")) 
 		    	{
 		    		childProfileId="";
 		    	}
 		    	name=row.getCell(4).getStringCellValue();
+		    	//assign name="" when it is empty
 		    	if(name.equals("EMPTY")) 
 		    	{
 		    		name="";
 		    	}
 		    	dob=row.getCell(5).getStringCellValue();
 		    	icon=row.getCell(6).getStringCellValue();
+		    	//assign icon="" when it is empty
 		    	if(icon.equals("EMPTY")) 
 		    	{
 		    		icon="";
 		    	}
 		    	color=row.getCell(7).getStringCellValue();
+		    	//assign color="" when it is empty
 		    	if(color.equals("EMPTY")) 
 		    	{
 		    		color="";
@@ -92,16 +97,18 @@ public class UpdateProfile extends GenericMethod{
 		    	Url=row.getCell(9).getStringCellValue();
 		    	key2test=row.getCell(10).getStringCellValue();
 		    	Value2test=row.getCell(11).getStringCellValue();
+		    	//calling function when pin is empty
 		    	if(pin.equals("EMPTY")) 
 		    	{
 		    		UpdateProfile.PinIsEmpty(i);
 		    		continue;
 		    	}
-				
+				//assigning values of icon and color 
 				buddy buddy=new buddy();
 				buddy.setIcon(icon);
 				buddy.setColor(color);
 				
+				//assigning the values of name,dob and pin
 				profile profile=new profile();
 				profile.setName(name);
 				if(dob.equals("NA"))
@@ -137,44 +144,50 @@ public class UpdateProfile extends GenericMethod{
 				request.setProfile(profile);
 				
 				
-				//Calling function for elemnets not pass
+				//Calling function when uid not pass
 				if(Uid.equals("NOTPASS"))
 				{
 					UpdateProfile.UidNotPassed(i);
 					continue;
 				}
-				
+				//calling function when childprofileid is not passed
 				if(childProfileId.equals("NOTPASS"))
 				{
 					UpdateProfile.notPassChildProfileId(i);
 					continue;
 				}
+				//calling function when uid is not passed
 				if(Uid.equals("NOTPASS"))
 				{
 					UpdateProfile.UidNotPassed(i);
 					continue;
 				}
+				//calling function when name is not passed
 				if(name.equals("NOTPASS"))
 				{
 					UpdateProfile.NameNotPassed(i);
 					continue;
 				}
+				//calling function when dob is not passed
 				if(dob.equals("NOTPASS"))
 				{
 					UpdateProfile.DOBNotPassed(i);
 					continue;
 				}
+				//calling function when icon is not passed
 				if(icon.equals("NOTPASS"))
 				{
 					UpdateProfile.IconNotPassed(i);
 					continue;
 				}
+				//calling function when color is not passed
 				if(color.equals("NOTPASS"))
 				{
 					UpdateProfile.ColorNotPassed(i);
 					continue;
 				}
 				
+				//posting request
 				Response resp1=	RestAssured.
 								given().
 								body(request).
@@ -187,15 +200,15 @@ public class UpdateProfile extends GenericMethod{
 				
 				
 				
-				resp1.prettyPrint();
-				resp1.then().assertThat().statusCode(200);
+				resp1.prettyPrint(); //printing the response
+				resp1.then().assertThat().statusCode(200);//checking for statuscode=200
 				
-				if(TestType.equals("Positive"))
+				if(TestType.equals("Positive"))//logic for validation of positive scenarios
 				{
 					str=resp1.then().extract().path(key2test);
 					softAssert.assertEquals(Value2test,str);
 				}
-				else if(TestType.equals("Negative"))
+				else if(TestType.equals("Negative"))//logic for validation of negative scenarios
 				{
 					StatusCode=resp1.then().extract().path("status.code");
 					str=resp1.then().extract().path(key2test);
@@ -218,7 +231,7 @@ public class UpdateProfile extends GenericMethod{
 				Row row3=sh1.getRow(i);
 				row3.createCell(13);
 				Cell cel3=row3.getCell(13, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(TestType.equals("Negative"))
+				if(TestType.equals("Negative"))//logic for writing pass/fail for negative scenarios
 				{
 					if(str.equals(Value2test))
 					{
@@ -239,6 +252,7 @@ public class UpdateProfile extends GenericMethod{
 			
 		    softAssert.assertAll();
 	        }
+		//fucntion for icon not passed
 		public static void IconNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 		{
 					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -274,6 +288,7 @@ public class UpdateProfile extends GenericMethod{
 					
 					
 				}
+		//function for uid not passed
 		public static void UidNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 		{
 					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -308,6 +323,7 @@ public class UpdateProfile extends GenericMethod{
 					
 					
 				}
+		//function for childprofileId not pass
 		public static void notPassChildProfileId(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 		{
 					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -340,6 +356,7 @@ public class UpdateProfile extends GenericMethod{
 					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
 					
 		}
+		//function for name not pass
 		public static void NameNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 		{
 					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -372,6 +389,7 @@ public class UpdateProfile extends GenericMethod{
 					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
 					
 					}
+		//function for dob not pass
 		public static void DOBNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 		{
 					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -404,6 +422,7 @@ public class UpdateProfile extends GenericMethod{
 					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
 					
 					}
+		//function for color not pass
 		public static void ColorNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 		{
 					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -437,6 +456,7 @@ public class UpdateProfile extends GenericMethod{
 					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
 					
 					}
+		//fucntion for pin not passed
 		public static void PinIsEmpty(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 		{
 					RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	

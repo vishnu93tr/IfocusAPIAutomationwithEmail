@@ -80,23 +80,26 @@ public class ResetPassword  extends GenericMethod
             		ResetPassword.NotPassEmail(oldPassword, newPassword, i, URL);
             		continue;
 				}
+        		//calling function when old password is not passed
         		if(oldPassword.equals("NOTPASS"))
 				{
             		ResetPassword.NotPassOldPassword(email, newPassword, i, URL);
             		continue;
 				}
+        		//calling function when new password is not passed
         		if(newPassword.equals("NOTPASS"))
 				{
             		ResetPassword.NotPassNewPassword(email, oldPassword, i, URL);
             		continue;
 				}
+        		//when old password and new password are same
         		if(oldPassword.equals("SAMEPASS"))
         		{
         			oldPassword="ABCDEFG";
         			newPassword="ABCDEFG";
         		}
 				
-				
+				//posting request
 				BasicConfigurator.configure();
 				Response resp1=	RestAssured.
 					given().
@@ -108,9 +111,9 @@ public class ResetPassword  extends GenericMethod
 					queryParam("newPassword",newPassword).
 					when().
 					post(URL);
-				//printing the response
-				resp1.prettyPrint();
-				resp1.then().assertThat().statusCode(200);
+				
+				resp1.prettyPrint();//printing the response
+				resp1.then().assertThat().statusCode(200);//checking for status code=200
 				
 				str=resp1.then().extract().path(key2test);
 				softAssert.assertEquals(Value2test,str);
@@ -129,7 +132,7 @@ public class ResetPassword  extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(9);
 				Cell cel3=row3.getCell(9, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(str.equals(Value2test) )
+				if(str.equals(Value2test) )//logic for writing pass/fail
 				{
 					cel3.setCellValue("Pass");
 				}
@@ -138,7 +141,7 @@ public class ResetPassword  extends GenericMethod
 					cel3.setCellValue("Fail");
 				}
 				
-				if(TestType.equals("Positive"))
+				if(TestType.equals("Positive"))//writing new password in place of old password for next time execution 
 				{
 					resp1.then().assertThat().statusCode(200);
 					Row row2=sh1.getRow(1);
@@ -156,6 +159,7 @@ public class ResetPassword  extends GenericMethod
 		}
 	    softAssert.assertAll();
 	}
+	//function for not passing email
 	public static void NotPassEmail(String oldPassword,String newPassword,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
@@ -174,6 +178,7 @@ public class ResetPassword  extends GenericMethod
 		
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPassword");
 	}
+	//function for not passing old password
 	public static void NotPassOldPassword(String email,String newPassword,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
@@ -192,6 +197,7 @@ public class ResetPassword  extends GenericMethod
 		
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPassword");
 	}
+	//function for not passing new password
 	public static void NotPassNewPassword(String email,String oldPassword,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();

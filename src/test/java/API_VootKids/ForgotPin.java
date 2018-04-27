@@ -64,6 +64,7 @@ public class ForgotPin extends GenericMethod
             		continue;
 				}
 				
+        		//posting request
         		BasicConfigurator.configure();
 				Response resp1=	RestAssured.
 					given().
@@ -73,9 +74,9 @@ public class ForgotPin extends GenericMethod
 					queryParam("email",email).
 					when().
 					post(URL);
-				//printing the response
-				resp1.prettyPrint();
-				resp1.then().assertThat().statusCode(200);
+				
+				resp1.prettyPrint(); //printing the response
+				resp1.then().assertThat().statusCode(200); //checking for status code
 			
 				str=resp1.then().extract().path(key2test);
 				softAssert.assertEquals(Value2test,str);
@@ -111,7 +112,9 @@ public class ForgotPin extends GenericMethod
 				
 		}
 	    softAssert.assertAll();
+	    GenericMethod.write2Master(6,"ForgotPIN",7);
 	}
+	//function for not passing email
 	public static void NotPassEmail(int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();

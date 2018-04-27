@@ -49,7 +49,7 @@
               <ul>
                 <li>
                   <a href="#" class="navigator-link " panel-name="test-xml-Default_suite">
-                    <span>C:\Users\ifocus.IFOCUSODC-PC47\AppData\Local\Temp\testng-eclipse--90568712\testng-customsuite.xml</span>
+                    <span>C:\Users\ifocus.IFOCUSODC-PC47\AppData\Local\Temp\testng-eclipse--1834617967\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -102,7 +102,7 @@
                     <div class="method-list-content failed suite-Default_suite">
                       <span>
                         <img width="3%" src="failed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="API_VootKids.Home" hash-for-method="home">home</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="API_VootKids.GetChildProfiles" hash-for-method="Get_ChildProfiles">Get_ChildProfiles</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-Default_suite -->
@@ -120,30 +120,16 @@
           <div class="suite-Default_suite-class-failed">
             <div class="main-panel-header rounded-window-top">
               <img src="failed.png"/>
-              <span class="class-name">API_VootKids.Home</span>
+              <span class="class-name">API_VootKids.GetChildProfiles</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="home">
-                  </a> <!-- home -->
-                  <span class="method-name">home</span>
-                  <div class="stack-trace">java.lang.AssertionError: The following asserts failed:
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected object to not be null,
-	expected [offSet must be at least 0.] but found [OK],
-	expected object to not be null,
-	expected object to not be null,
-	expected [uId parameter is required] but found [Invalid Uid],
-	expected [profileId parameter is required] but found [Invalid Profile Id],
-	expected [ks parameter is required] but found [Invalid Ks value]
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:43)
-	at API_VootKids.Home.home(Home.java:181)
+                  <a name="Get_ChildProfiles">
+                  </a> <!-- Get_ChildProfiles -->
+                  <span class="method-name">Get_ChildProfiles</span>
+                  <div class="stack-trace">java.lang.NullPointerException
+	at API_VootKids.GetChildProfiles.Get_ChildProfiles(GetChildProfiles.java:60)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -177,7 +163,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\ifocus.IFOCUSODC-PC47\AppData\Local\Temp\testng-eclipse--90568712\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\ifocus.IFOCUSODC-PC47\AppData\Local\Temp\testng-eclipse--1834617967\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -186,7 +172,7 @@
 &lt;suite guice-stage=&quot;DEVELOPMENT&quot; name=&quot;Default suite&quot;&gt;
   &lt;test verbose=&quot;2&quot; name=&quot;Default test&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;API_VootKids.Home&quot;/&gt;
+      &lt;class name=&quot;API_VootKids.GetChildProfiles&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -228,9 +214,9 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'home')
-data.setCell(0, 2, 'API_VootKids.Home')
-data.setCell(0, 3, 6096);
+data.setCell(0, 1, 'Get_ChildProfiles')
+data.setCell(0, 2, 'API_VootKids.GetChildProfiles')
+data.setCell(0, 3, 6571);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
@@ -261,11 +247,11 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">API_VootKids.Home</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">API_VootKids.GetChildProfiles</div> <!-- chronological-class-name -->
               <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">home</span>
+                <span class="method-name">Get_ChildProfiles</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->

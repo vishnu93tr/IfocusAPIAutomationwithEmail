@@ -11,37 +11,32 @@
       <class name="API_VootKids.CreateProfile"/>
       <class name="API_VootKids.SwitchProfile"/>
       <class name="API_VootKids.GetChildProfiles"/>
+      <class name="API_VootKids.CreatePin"/>
       <class name="API_VootKids.SignUp"/>
       <class name="API_VootKids.Tabs"/>
       <class name="API_VootKids.Config"/>
       <class name="API_VootKids.SocialLogin"/>
       <class name="API_VootKids.Home"/>
       <class name="API_VootKids.ForgotPin"/>
-      <class name="API_VootKids.CreatePin"/>
     </classes>
   </test> <!-- Test -->
   <test name="Test(failed)">
     <classes>
+      <class name="API_VootKids.GetChildProfiles">
+        <methods>
+          <include name="Get_ChildProfiles"/>
+        </methods>
+      </class> <!-- API_VootKids.GetChildProfiles -->
       <class name="API_VootKids.Home">
         <methods>
           <include name="home"/>
         </methods>
       </class> <!-- API_VootKids.Home -->
-      <class name="API_VootKids.CreatePin">
+      <class name="API_VootKids.UpdateProfile">
         <methods>
-          <include name="CreatePin"/>
+          <include name="SignUp_Kids"/>
         </methods>
-      </class> <!-- API_VootKids.CreatePin -->
-      <class name="API_VootKids.ResetPassword">
-        <methods>
-          <include name="reset_Password"/>
-        </methods>
-      </class> <!-- API_VootKids.ResetPassword -->
-      <class name="API_VootKids.ResetPin">
-        <methods>
-          <include name="reset_Pin"/>
-        </methods>
-      </class> <!-- API_VootKids.ResetPin -->
+      </class> <!-- API_VootKids.UpdateProfile -->
       <class name="API_VootKids.CreateProfile">
         <methods>
           <include name="Create_Profiles"/>

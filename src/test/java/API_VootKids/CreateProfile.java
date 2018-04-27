@@ -48,7 +48,10 @@ public class CreateProfile extends GenericMethod{
 		{
 			
 			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
-			
+			//Points to be remember-
+			//1. If the cell is AUTO , this means we taking key values from running SignUp api internally
+			//2. If the cell is EMPTY then the value be <key>=<""> like this.
+			//3. If the cell is NA then the TC is for not mandatory parameters.
 			
 			//Reading the excel sheet
 			FileInputStream fis=new FileInputStream(path1);
@@ -76,6 +79,11 @@ public class CreateProfile extends GenericMethod{
 		    	else if(Uid.equals("EMPTY"))
 		    	{
 		    		Uid="";
+		    	}
+		    	else if(Uid.equals("NA"))
+		    	{
+		    		CreateProfile.NotMandatory(i);
+		    		continue;
 		    	}
 		    	ks=row.getCell(3).getStringCellValue();
 		    	if(ks.equals("AUTO"))
@@ -123,11 +131,12 @@ public class CreateProfile extends GenericMethod{
 				URL=row.getCell(11).getStringCellValue();
 				
 				
-				
+				//setting the values for icon and color
 				buddy buddy=new buddy();
 				buddy.setIcon(icon);
 				buddy.setColor(color);
 				
+				//setting the values for name,dob and pin
 				profile profile=new profile();
 				profile.setName(name);
 				if(dob.equals("NA"))
@@ -205,7 +214,8 @@ public class CreateProfile extends GenericMethod{
 				
 				profile.setPin(pin);
 				profile.setBuddy(buddy);
-		
+				
+				//setting the values for ks,deviceId and deviceBrand
 				request request=new request();
 				request.setParentKS(ks);
 				request.setDeviceId(deviceId);
@@ -213,7 +223,7 @@ public class CreateProfile extends GenericMethod{
 				request.setProfile(profile);
 				
 				
-				
+			//Posting the request	
 			Response resp1=	RestAssured.
 								given().
 								body(request).
@@ -226,10 +236,10 @@ public class CreateProfile extends GenericMethod{
 				
 				
 				
-				resp1.prettyPrint();
-				resp1.then().assertThat().statusCode(200);
+				resp1.prettyPrint();//print the response
+				resp1.then().assertThat().statusCode(200);//checking the statuscode=200
 				
-				if(TestType.equals("Positive")) 
+				if(TestType.equals("Positive"))//logic for positive scenarios to check each item should have profile id value.
 				{
 					String[] Keys = key2test.split(",");
 					for (int j=0; j < Keys.length; j++)
@@ -237,14 +247,10 @@ public class CreateProfile extends GenericMethod{
 						resp1.then().body(Keys[j], is(IsNull.notNullValue()));
 						
 					}
-//					resp1.then().body(key2test, is(IsNull.notNullValue()));
-//					str1=resp1.then().extract().path("status.code");
-					
 				}
-				else if(TestType.equals("Negative"))
+				else if(TestType.equals("Negative"))//logic for checking the negative scenarios messages
 				{
 					str=resp1.then().extract().path(key2test);
-//					str1=resp1.then().extract().path("status.code");
 					softAssert.assertEquals(Value2test,str);
 				}
 				//writing into the excel sheet
@@ -262,7 +268,7 @@ public class CreateProfile extends GenericMethod{
 				row3.createCell(15);
 				Cell cel3=row3.getCell(15, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				
-				if(TestType.equals("Negative")) 
+				if(TestType.equals("Negative"))//printing pass/fail logic for negative scenarios
 				{
 					if(str.equals(Value2test))
 					{
@@ -273,7 +279,7 @@ public class CreateProfile extends GenericMethod{
 						cel3.setCellValue("Fail");
 					}
 				}
-				else if(TestType.equals("Positive")) 
+				else if(TestType.equals("Positive"))//printing pass/fail logic for positive scenarios 
 				{
 					resp1.then().body(key2test, is(IsNull.notNullValue()));
 					cel3.setCellValue("Pass");
@@ -290,12 +296,13 @@ public class CreateProfile extends GenericMethod{
 				fos.close();
 				
 	        }	
-			
 		    softAssert.assertAll();
-		    }
+		    
+		    
+		}
 		
 	        
-
+//function for not passing icon 
 public static void IconNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 {
 			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -333,6 +340,29 @@ public static void IconNotPassed(int i) throws EncryptedDocumentException, Inval
 			
 			
 		}
+//function for passing non mandatory parameters
+public static void NotMandatory(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
+{
+			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
+			
+			Response resp1=	RestAssured.
+							given().
+							relaxedHTTPSValidation().
+							queryParam("pin", 1223).
+							contentType(ContentType.JSON).
+							accept(ContentType.JSON).
+							when().
+							post(URL);
+			
+			str=resp1.then().extract().path(key2test);
+			softAssert.assertEquals(Value2test,str);
+			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			
+			
+			
+		}
+//function for not passing Uid
 public static void UidNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 {
 			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -369,6 +399,7 @@ public static void UidNotPassed(int i) throws EncryptedDocumentException, Invali
 			
 			
 		}
+//function for not passing ks token
 public static void KSNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 {
 			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -404,6 +435,7 @@ public static void KSNotPassed(int i) throws EncryptedDocumentException, Invalid
 			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
 			
 }	
+//function for not passing deviceId
 public static void DeviceIdNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 {
 			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -439,6 +471,7 @@ public static void DeviceIdNotPassed(int i) throws EncryptedDocumentException, I
 			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
 			
 			}
+//function for not passing devicebrand 
 public static void DeviceBrandNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 {
 			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -473,6 +506,7 @@ public static void DeviceBrandNotPassed(int i) throws EncryptedDocumentException
 			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
 			
 			}
+//function for not passing name 
 public static void NameNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 {
 			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -507,6 +541,7 @@ public static void NameNotPassed(int i) throws EncryptedDocumentException, Inval
 			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
 			
 			}
+//function for not passing dob
 public static void DOBNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 {
 			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -541,6 +576,7 @@ public static void DOBNotPassed(int i) throws EncryptedDocumentException, Invali
 			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
 			
 			}
+//function for not passinf color
 public static void ColorNotPassed(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 {
 			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -576,6 +612,7 @@ public static void ColorNotPassed(int i) throws EncryptedDocumentException, Inva
 			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
 			
 			}
+//function for passing as empty pin
 public static void PinIsEmpty(int i) throws EncryptedDocumentException, InvalidFormatException, IOException 
 {
 			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));	
@@ -611,10 +648,7 @@ public static void PinIsEmpty(int i) throws EncryptedDocumentException, InvalidF
 			
 			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
 			
-			
-			
 		}
-
 
 
 }

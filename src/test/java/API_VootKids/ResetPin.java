@@ -53,6 +53,7 @@ public class ResetPin extends GenericMethod
             	String email=row.getCell(2).getStringCellValue();
             	oldPin=row.getCell(3).getStringCellValue();
             	newPin=row.getCell(4).getStringCellValue();
+            	//calling function for auto generation pin
             	if(newPin.equals("AUTO"))
             	{
             		newPin=GenericMethod.pinGenerator();
@@ -60,39 +61,47 @@ public class ResetPin extends GenericMethod
             	String URL=row.getCell(5).getStringCellValue();
         		key2test=row.getCell(6).getStringCellValue();
         		Value2test=row.getCell(7).getStringCellValue();
+        		//assign email="" when email is empty
         		if(email.equals("EMPTY"))
 				{
         			email="";
 				}
+        		//calling function when email is not pass
         		else if(email.equals("NOTPASS"))
 				{
             		ResetPin.NotPassEmail(oldPin, newPin, i, URL);
             		continue;
 				}
+        		//assign oldpin="" when oldpin is empty
         		if(oldPin.equals("EMPTY"))
 				{
         			oldPin="";
 				}
+        		//calling function when old pin is not passed
         		if(oldPin.equals("NOTPASS"))
 				{
             		ResetPin.NotPassOldPin(email, newPin, i, URL);
             		continue;
 				}
+        		//assign newpin="" when newpin is empty
         		if(newPin.equals("EMPTY"))
 				{
         			newPin="";
 				}
+        		//calling function when new pin is not passed
         		if(newPin.equals("NOTPASS"))
 				{
             		ResetPin.NotPassNewPin(email, oldPin, i, URL);
             		continue;
 				}
+        		//assign values for oldpin and newpin when both are same
 				if(oldPin.equals("SAMEPIN"))
 				{
 					oldPin="3456";
 					newPin="3456";
 				}
 				
+				//posting request
 				BasicConfigurator.configure();
 				Response resp1=	RestAssured.
 					given().
@@ -104,9 +113,9 @@ public class ResetPin extends GenericMethod
 					queryParam("newPin",newPin).
 					when().
 					post(URL);
-				//printing the response
-				resp1.prettyPrint();
-				resp1.then().assertThat().statusCode(200);
+				
+				resp1.prettyPrint();//printing the response
+				resp1.then().assertThat().statusCode(200);//checking the statuscode=200
 				
 				str=resp1.then().extract().path(key2test);
 				softAssert.assertEquals(Value2test,str);
@@ -133,7 +142,7 @@ public class ResetPin extends GenericMethod
 				{
 					cel3.setCellValue("Fail");
 				}
-				if(TestType.equals("Positive"))
+				if(TestType.equals("Positive"))//logic for writing pass/fail for positive scenarios
 				{
 					Row row4=sh1.getRow(1);
 					row4.createCell(3);
@@ -150,6 +159,7 @@ public class ResetPin extends GenericMethod
 		}
 	    softAssert.assertAll();
 	}
+	//function for not passing email
 	public static void NotPassEmail(String oldPin,String newPin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
@@ -168,6 +178,7 @@ public class ResetPin extends GenericMethod
 		
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPIN");
 	}
+	//function for not passing oldpin
 	public static void NotPassOldPin(String email,String newPin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
@@ -186,6 +197,7 @@ public class ResetPin extends GenericMethod
 		
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPIN");
 	}
+	//function for not passing newpin
 	public static void NotPassNewPin(String email,String oldPin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();

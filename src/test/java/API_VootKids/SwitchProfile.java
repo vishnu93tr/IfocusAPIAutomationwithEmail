@@ -58,35 +58,41 @@ public class SwitchProfile extends GenericMethod
             	String URL=row.getCell(5).getStringCellValue();
         		key2test=row.getCell(6).getStringCellValue();
         		Value2test=row.getCell(7).getStringCellValue();
+        		//assign uid="" when uid is empty
         		if(Uid.equals("EMPTY"))
 				{
             		Uid="";
 				}
+        		//calling function when uid is not passed
         		else if(Uid.equals("NOTPASS"))
 				{
             		SwitchProfile.NotPassUid(childProfileId, deviceId, i, URL);
             		continue;
 				}
+        		//assign childprofileid="" when childprofileid is empty
         		if(childProfileId.equals("EMPTY"))
 				{
         			childProfileId="";
 				}
+        		//calling function when childprofileId is not passed
         		if(childProfileId.equals("NOTPASS"))
 				{
         			SwitchProfile.NotPassChildProfileId(Uid, deviceId, i, URL);
             		continue;
 				}
+        		//assign deviceId="" when it is empty
         		if(deviceId.equals("EMPTY"))
 				{
         			deviceId="";
 				}
+        		//calling function when deviceId is not passed
         		if(deviceId.equals("NOTPASS"))
 				{
         			SwitchProfile.NotPassDeviceId(Uid, childProfileId, i, URL);
             		continue;
 				}
-				//when email is empty
 				
+				//posting request
 				BasicConfigurator.configure();
 				Response resp1=	RestAssured.
 					given().
@@ -98,17 +104,17 @@ public class SwitchProfile extends GenericMethod
 					queryParam("deviceId",deviceId).
 					when().
 					get(URL);
-				//printing the response
-				resp1.prettyPrint();
-				resp1.then().assertThat().statusCode(200);
 				
-				if(TestType.equals("Positive"))
+				resp1.prettyPrint();//printing the response
+				resp1.then().assertThat().statusCode(200);//checking for statuscode=200
+				
+				if(TestType.equals("Positive"))//logic for checking validation on positive scenarios
 				{
-					String[] Keys = key2test.split(",");
+					String[] Keys = key2test.split(",");//storing the validation keys in array
 					for (int j=0; j < Keys.length; j++)
 					{
 						resp1.then().body("$", hasKey(Keys[j]));
-						resp1.then().body(Keys[j], is(IsNull.notNullValue()));
+						resp1.then().body(Keys[j], is(IsNull.notNullValue()));//checking the array values in response not null
 					}
 				}
 				else
@@ -131,7 +137,7 @@ public class SwitchProfile extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(9);
 				Cell cel3=row3.getCell(9, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(TestType.equals("Negative"))
+				if(TestType.equals("Negative"))//logic for writting pass/fail for negative scenarios
 				{
 					if(str.equals(Value2test))
 					{
@@ -151,6 +157,7 @@ public class SwitchProfile extends GenericMethod
 		}
 	    softAssert.assertAll();
 	}
+	//function for not passing Uid
 	public static void NotPassUid(String childProfileId,String deviceId,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
@@ -169,6 +176,7 @@ public class SwitchProfile extends GenericMethod
 		
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SwitchProfile");
 	}
+	//function for not passing childprofileId
 	public static void NotPassChildProfileId(String Uid,String deviceId,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
@@ -187,6 +195,7 @@ public class SwitchProfile extends GenericMethod
 		
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SwitchProfile");
 	}
+	//function for not passing deviceId
 	public static void NotPassDeviceId(String Uid,String childProfileId,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();

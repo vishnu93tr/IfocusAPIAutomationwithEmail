@@ -61,11 +61,11 @@ public class GetChildProfiles extends GenericMethod
             	String URL=row.getCell(3).getStringCellValue();
         		key2test=row.getCell(4).getStringCellValue();
         		Value2test=row.getCell(5).getStringCellValue();
-        		if(Uid.equals("EMPTY"))
+        		if(Uid.equals("EMPTY"))//assign uid="" when uid is empty
 				{
             		Uid="";
 				}
-        		else if(Uid.equals("NOTPASS"))
+        		else if(Uid.equals("NOTPASS"))//calling function for when uid is not passed
 				{
         			GetChildProfiles.NotPassUid(i, URL);
             		continue;
@@ -80,17 +80,17 @@ public class GetChildProfiles extends GenericMethod
 					queryParam("Uid",Uid).
 					when().
 					get(URL);
-				//printing the response
-				resp1.prettyPrint();
-				resp1.then().assertThat().statusCode(200);
+				
+				resp1.prettyPrint();//printing the response
+				resp1.then().assertThat().statusCode(200);//checking for status code=200
 				if(TestType.equals("Positive"))
 				{
-					sizeOfList = resp1.body().path("profiles.size()");
-					
+					sizeOfList = resp1.body().path("profiles.size()");//taking the size of the array profiles
+					System.out.println(sizeOfList);
 					for (int j=0;j<sizeOfList;j++)
 					{
-						softAssert.assertEquals(sizeOfList, lessThanOrEqualTo(6));
-						String list=resp1.jsonPath().get("profiles["+j+"].id");
+						String list=resp1.jsonPath().get("profiles["+j+"].id");//checking whether the list having id key or not
+						System.out.println(list);
 						assertNotNull(list);
 					}
 				}
@@ -101,6 +101,7 @@ public class GetChildProfiles extends GenericMethod
 					softAssert.assertEquals(Value2test,str);
 				}
 				
+				//writing back to excel
 				FileInputStream fis1=new FileInputStream(path1);
 				Workbook wb1=WorkbookFactory.create(fis1);
 		
@@ -116,7 +117,7 @@ public class GetChildProfiles extends GenericMethod
 				Cell cel3=row3.getCell(7, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if(TestType.equals("Positive"))
 				{
-					if(sizeOfList>6)
+					if(sizeOfList>6)//for positive scenarios checking the length of an array, and logic for writing pass/fail
 					{
 					 cel3.setCellValue("Fail");
 					}
@@ -126,7 +127,7 @@ public class GetChildProfiles extends GenericMethod
 					}
 					
 				}
-				else if(TestType.equals("Negative"))
+				else if(TestType.equals("Negative"))//logic for writing pass/fail for negative scenarios
 				{
 					if(str.equals(Value2test) )
 					{
@@ -137,8 +138,6 @@ public class GetChildProfiles extends GenericMethod
 						cel3.setCellValue("Fail");
 					}
 				}
-				
-				
 				FileOutputStream fos=new FileOutputStream(path1);
 				wb1.write(fos);
 		
@@ -146,7 +145,9 @@ public class GetChildProfiles extends GenericMethod
 				
         }
 	    softAssert.assertAll();
+	    
 	}
+	//function for not passing uid
 	public static void NotPassUid(int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();

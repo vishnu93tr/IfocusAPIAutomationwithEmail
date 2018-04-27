@@ -207,6 +207,8 @@ public class SignUp extends GenericMethod
 				
 		}
 	    softAssert.assertAll();
+	    GenericMethod.write2Master(1, "SignUp", 11);
+	    
 	}
 	//Funtion for not passing email 
 	public static void NotPassEmail(String password,String deviceId,String deviceBrand, String pin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException

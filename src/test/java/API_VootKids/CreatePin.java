@@ -58,36 +58,45 @@ public class CreatePin extends GenericMethod
             	String URL=row.getCell(4).getStringCellValue();
         		key2test=row.getCell(5).getStringCellValue();
         		Value2test=row.getCell(6).getStringCellValue();
+        		
+        		//if email is AUTO extrtact email from SignUp API
         		if(email.equals("AUTO"))
         		{
         			email=resp.then().extract().path("Email");
         		}
+        		//if email is invalid 
         		else if(email.equals("INVALID"))
         		{
         			email="john14.doe33333333333333333333333@mailinator.com";
         		}
+        		//if email is empty
         		else if(email.equals("EMPTY"))
 				{
         			email="";
 				}
+        		//if email is null pass assign email="null"
         		else if(email.equals("NULL")) {
         			email="null";
         		}
+        		//calling function for not passing email
         		else if(email.equals("NOTPASS"))
 				{
             		CreatePin.NotPassemail(pin, i, URL);
             		continue;
 				}
+        		//assign pin="" when email is empty
         		if(pin.equals("EMPTY"))
 				{
         			pin="";
 				}
+        		//calling function pin is not pass
         		if(pin.equals("NOTPASS"))
 				{
             		CreatePin.NotPassPin(email, i, URL);
             		continue;
 				}
         		
+        		//posting request
 				BasicConfigurator.configure();
 				Response resp1=	RestAssured.
 					given().
@@ -98,19 +107,20 @@ public class CreatePin extends GenericMethod
 					queryParam("pin",pin).
 					when().
 					post(URL);
-				//printing the response
-				resp1.prettyPrint();
-				resp1.then().assertThat().statusCode(200);
-				if(TestType.equals("Positive"))
+				
+				resp1.prettyPrint(); //printing the response
+				resp1.then().assertThat().statusCode(200);//checking the status code as 200
+				
+				if(TestType.equals("Positive"))//logic for positive scenarios
 				{
-					num=resp1.then().extract().path(key2test);
-					numberAsString = Integer.toString(num);
+					num=resp1.then().extract().path(key2test);//extracting the pin
+					numberAsString = Integer.toString(num);//converting to string value from integer
 					softAssert.assertEquals(Value2test,numberAsString);
 				}
 				else
 				{
-					str=resp1.then().extract().path(key2test);
-					str1=resp1.then().extract().path("status.code");
+					str=resp1.then().extract().path(key2test);//extract the message 
+					str1=resp1.then().extract().path("status.code");//extract the status code
 					softAssert.assertEquals(Value2test,str);
 				}
 				
@@ -128,9 +138,8 @@ public class CreatePin extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(8);
 				Cell cel3=row3.getCell(8, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(TestType.equals("Positive"))
+				if(TestType.equals("Positive"))// logic for writing pass/fail for positive scenarios
 				{
-					
 					if(numberAsString.equals(Value2test))
 					{
 						cel3.setCellValue("Pass");
@@ -140,7 +149,7 @@ public class CreatePin extends GenericMethod
 						cel3.setCellValue("Fail");
 					}
 				}
-				if(TestType.equals("Negative"))
+				if(TestType.equals("Negative")) //logic for writing pass/fail for negative scenarios
 				{	
 					if(str.equals(Value2test) && str1==200)
 					{
@@ -163,7 +172,9 @@ public class CreatePin extends GenericMethod
 				
 		}
 	    softAssert.assertAll();
+	    GenericMethod.write2Master(10, "CreatePin", 8);
 	}
+	//function for not passing email
 	public static void NotPassemail(String pin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
@@ -181,6 +192,7 @@ public class CreatePin extends GenericMethod
 		
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,7,8,"CreatePin");
 	}
+	//function for not passing pin
 	public static void NotPassPin(String Uid,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();

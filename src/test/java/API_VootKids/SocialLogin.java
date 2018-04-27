@@ -75,11 +75,11 @@ public class SocialLogin extends GenericMethod
             		SocialLogin.NotPassdeviceId(Uid, i, URL, deviceBrand);
             		continue;
 				}
-        		if(deviceBrand.equals("EMPTY")) 
+        		if(deviceBrand.equals("EMPTY")) //passing empty value when deviceBrand is empty
         		{
         			deviceBrand="";
         		}
-        		else if(deviceBrand.equals("NOTPASS"))
+        		else if(deviceBrand.equals("NOTPASS"))//calling function for not passing devicebrand
         		{
         			SocialLogin.NotPassdevicebrand(Uid, i, URL, deviceId);
         			continue;
@@ -98,8 +98,7 @@ public class SocialLogin extends GenericMethod
 					when().
 					get(URL);
 				
-				//printing the response
-				resp1.prettyPrint();
+				resp1.prettyPrint(); //printing the response
 				resp1.then().assertThat().statusCode(200); //checking for status code=200 in response
 				
 				if(TestType.equals("Positive"))//logic to test for positive TC
@@ -202,6 +201,7 @@ public class SocialLogin extends GenericMethod
 		softAssert.assertEquals(Value2test,str);
 		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SocialLogin");
 	}
+	//function for not passing deviceBrand
 	public static void NotPassdevicebrand(String Uid,int i,String URL,String deviceId) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
