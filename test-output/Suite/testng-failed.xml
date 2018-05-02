@@ -2,36 +2,33 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
   <test thread-count="5" name="Test">
+    <packages>
+      <package name="API_VootKids"/>
+    </packages>
     <classes>
-      <class name="API_VootKids.Login"/>
+      <class name="API_VootKids.buddy"/>
+      <class name="API_VootKids.Config"/>
+      <class name="API_VootKids.CreatePin"/>
+      <class name="API_VootKids.CreateProfile"/>
       <class name="API_VootKids.ForgotPassword"/>
-      <class name="API_VootKids.UpdateProfile"/>
+      <class name="API_VootKids.ForgotPin"/>
+      <class name="API_VootKids.GenericMethod"/>
+      <class name="API_VootKids.GetProfile"/>
+      <class name="API_VootKids.Home"/>
+      <class name="API_VootKids.Login"/>
+      <class name="API_VootKids.profile"/>
+      <class name="API_VootKids.request"/>
       <class name="API_VootKids.ResetPassword"/>
       <class name="API_VootKids.ResetPin"/>
-      <class name="API_VootKids.CreateProfile"/>
-      <class name="API_VootKids.SwitchProfile"/>
-      <class name="API_VootKids.GetChildProfiles"/>
-      <class name="API_VootKids.CreatePin"/>
       <class name="API_VootKids.SignUp"/>
-      <class name="API_VootKids.Tabs"/>
-      <class name="API_VootKids.Config"/>
       <class name="API_VootKids.SocialLogin"/>
-      <class name="API_VootKids.Home"/>
-      <class name="API_VootKids.ForgotPin"/>
+      <class name="API_VootKids.SwitchProfile"/>
+      <class name="API_VootKids.Tabs"/>
+      <class name="API_VootKids.UpdateProfile"/>
     </classes>
   </test> <!-- Test -->
   <test name="Test(failed)">
     <classes>
-      <class name="API_VootKids.GetChildProfiles">
-        <methods>
-          <include name="Get_ChildProfiles"/>
-        </methods>
-      </class> <!-- API_VootKids.GetChildProfiles -->
-      <class name="API_VootKids.Home">
-        <methods>
-          <include name="home"/>
-        </methods>
-      </class> <!-- API_VootKids.Home -->
       <class name="API_VootKids.UpdateProfile">
         <methods>
           <include name="SignUp_Kids"/>
@@ -47,6 +44,11 @@
           <include name="Swith_Profile"/>
         </methods>
       </class> <!-- API_VootKids.SwitchProfile -->
+      <class name="API_VootKids.Home">
+        <methods>
+          <include name="home"/>
+        </methods>
+      </class> <!-- API_VootKids.Home -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

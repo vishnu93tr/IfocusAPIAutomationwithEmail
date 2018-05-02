@@ -179,8 +179,10 @@ public class Login extends GenericMethod
 				fos.close();
 				
 		}
+	    GenericMethod.write2Master(2, "Login", 10);
 	    softAssert.assertAll();
-	 }
+	    
+ }
 	//function for not passing email
 	public static void NotPassEmail(String password,String deviceId,String deviceBrand,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{

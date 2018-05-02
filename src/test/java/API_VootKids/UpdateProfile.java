@@ -231,8 +231,7 @@ public class UpdateProfile extends GenericMethod{
 				Row row3=sh1.getRow(i);
 				row3.createCell(13);
 				Cell cel3=row3.getCell(13, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(TestType.equals("Negative"))//logic for writing pass/fail for negative scenarios
-				{
+				
 					if(str.equals(Value2test))
 					{
 						cel3.setCellValue("Pass");
@@ -241,7 +240,7 @@ public class UpdateProfile extends GenericMethod{
 					{
 						cel3.setCellValue("Fail");
 					}
-				}
+				
 				
 				FileOutputStream fos=new FileOutputStream(path1);
 				wb1.write(fos);
@@ -249,7 +248,7 @@ public class UpdateProfile extends GenericMethod{
 				fos.close();
 				
 	        }	
-			
+			GenericMethod.write2Master(10, "UpdateProfile",13);
 		    softAssert.assertAll();
 	        }
 		//fucntion for icon not passed

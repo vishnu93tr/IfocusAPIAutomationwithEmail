@@ -111,9 +111,9 @@ public class ForgotPin extends GenericMethod
 				fos.close();
 				
 		}
-	    softAssert.assertAll();
 	    GenericMethod.write2Master(6,"ForgotPIN",7);
-	}
+	    softAssert.assertAll();
+	}    
 	//function for not passing email
 	public static void NotPassEmail(int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{

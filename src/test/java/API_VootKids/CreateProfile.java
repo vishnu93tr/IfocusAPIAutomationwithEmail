@@ -296,6 +296,7 @@ public class CreateProfile extends GenericMethod{
 				fos.close();
 				
 	        }	
+		    GenericMethod.write2Master(11, "CreateProfile", 15);
 		    softAssert.assertAll();
 		    
 		    

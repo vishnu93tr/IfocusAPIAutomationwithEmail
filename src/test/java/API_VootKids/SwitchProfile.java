@@ -137,7 +137,17 @@ public class SwitchProfile extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(9);
 				Cell cel3=row3.getCell(9, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(TestType.equals("Negative"))//logic for writting pass/fail for negative scenarios
+				if(TestType.equals("Positive")) //logic for writting pass/fail in positive TC
+				{
+					String[] Keys = key2test.split(",");
+					for (int j=0; j < Keys.length; j++)
+					{
+						resp1.then().body(Keys[j], is(IsNull.notNullValue()));
+						
+					}
+					cel3.setCellValue("Pass");
+				}
+				else if(TestType.equals("Negative"))//logic for writting pass/fail for negative scenarios
 				{
 					if(str.equals(Value2test))
 					{
@@ -155,7 +165,9 @@ public class SwitchProfile extends GenericMethod
 				fos.close();
 				
 		}
+	    GenericMethod.write2Master(8,"SwitchProfile", 9);
 	    softAssert.assertAll();
+	 
 	}
 	//function for not passing Uid
 	public static void NotPassUid(String childProfileId,String deviceId,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException

@@ -195,6 +195,7 @@ public class Home extends GenericMethod
 
 			fos.close();
         }
+	    GenericMethod.write2Master(13,"Home",11);
 	    softAssert.assertAll();
 	}
 	//function for not passing uid

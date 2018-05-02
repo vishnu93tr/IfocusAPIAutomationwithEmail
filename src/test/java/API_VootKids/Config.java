@@ -66,7 +66,7 @@ public class Config extends GenericMethod
 
 		fos.close();
 		
-		GenericMethod.write2Master(13, "Config", 4);
+		GenericMethod.write2Master(12, "Config", 4);
 	}
 	
 }

@@ -111,8 +111,9 @@ public class ForgotPassword extends GenericMethod
 				fos.close();
 				
 		}
-	    softAssert.assertAll();
 	    GenericMethod.write2Master(4,"ForgotPassword",7);
+	    softAssert.assertAll();
+	    
 	}
 	//function for not passing email
 	public static void NotPassEmail(int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException

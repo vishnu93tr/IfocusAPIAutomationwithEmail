@@ -157,6 +157,7 @@ public class ResetPin extends GenericMethod
 				fos.close();
 				
 		}
+	    GenericMethod.write2Master(7, "ResetPIN", 9);
 	    softAssert.assertAll();
 	}
 	//function for not passing email

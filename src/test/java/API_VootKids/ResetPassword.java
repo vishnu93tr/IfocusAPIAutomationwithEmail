@@ -157,6 +157,7 @@ public class ResetPassword  extends GenericMethod
 				fos.close();
 				
 		}
+	    GenericMethod.write2Master(5,"ResetPassword",9);
 	    softAssert.assertAll();
 	}
 	//function for not passing email

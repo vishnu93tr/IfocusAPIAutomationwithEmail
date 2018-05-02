@@ -206,8 +206,9 @@ public class SignUp extends GenericMethod
 				fos.close();
 				
 		}
-	    softAssert.assertAll();
 	    GenericMethod.write2Master(1, "SignUp", 11);
+	    softAssert.assertAll();
+	    
 	    
 	}
 	//Funtion for not passing email 

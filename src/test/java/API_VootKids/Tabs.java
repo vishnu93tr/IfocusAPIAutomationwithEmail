@@ -68,6 +68,7 @@ public class Tabs extends GenericMethod
 		wb1.write(fos);
 
 		fos.close();
+		GenericMethod.write2Master(15, "Tabs", 4);
 	}
 }
 

@@ -189,24 +189,10 @@ public class GenericMethod
 
 		fos.close();
 	}
-	public static Response getProfiles()
-	{	
-		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
-		
-		BasicConfigurator.configure();
-		Response resp1=	RestAssured.
-						given().
-						relaxedHTTPSValidation().
-						contentType(ContentType.JSON).
-						accept(ContentType.JSON).
-						queryParam("Uid","487c0a7652b8405ea8472cb3ddb52e25").
-						when().
-						post("http://vkapiuat.voot.com/app/auth/v1/profiles.json");
-		
-		return resp1;
-	}
-	public static void write2Master(int row,String sheetname,int columnum) throws EncryptedDocumentException, InvalidFormatException, IOException
+	
+	public static void write2Master(int row,String sheetname,int columnum) throws EncryptedDocumentException, InvalidFormatException, IOException,NullPointerException
 	{
+	
 		int countPass=0;
 		int countFail=0;
 		FileInputStream fis=new FileInputStream(path1);
@@ -216,8 +202,8 @@ public class GenericMethod
 		int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
 		for(int i=1; i<=rowCount;i++)
         {
-			Row row5 = sh.getRow(i);
-			String status=row5.getCell(columnum).getStringCellValue();
+			Row row4= sh.getRow(i);
+			String status=row4.getCell(columnum).getStringCellValue();
 			if(status.equals("Pass"))
 			{
 				countPass=countPass+1;
@@ -250,8 +236,9 @@ public class GenericMethod
 		wb1.write(fos);
 
 		fos.close();
+		}
 		
 	}
-}
+
 
 

@@ -171,8 +171,9 @@ public class CreatePin extends GenericMethod
 				fos.close();
 				
 		}
+	    GenericMethod.write2Master(9, "CreatePin", 8);
 	    softAssert.assertAll();
-	    GenericMethod.write2Master(10, "CreatePin", 8);
+	    
 	}
 	//function for not passing email
 	public static void NotPassemail(String pin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException

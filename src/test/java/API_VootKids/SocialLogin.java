@@ -161,7 +161,9 @@ public class SocialLogin extends GenericMethod
 				fos.close();
 				
 		}
+	    GenericMethod.write2Master(3,"SocialLogin",9);
 	    softAssert.assertAll();
+	    
 	}
 	//function for not passing Uid
 	public static void NotPassUid(String deviceId,int i,String URL,String deviceBrand) throws EncryptedDocumentException, InvalidFormatException, IOException

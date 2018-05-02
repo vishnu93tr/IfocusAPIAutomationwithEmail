@@ -30,13 +30,14 @@ import com.jayway.restassured.response.Response;
 import static org.hamcrest.number.OrderingComparison.lessThanOrEqualTo;
 import static org.hamcrest.number.OrderingComparison.greaterThan;
 
-public class GetChildProfiles extends GenericMethod
+public class GetProfile extends GenericMethod
 {
 	static String str;
 	static String key2test;
 	static String Value2test;
 	static String TestType;
 	static int sizeOfList;
+	static String Uid;
 	static SoftAssert softAssert = new SoftAssert();
 	@Test
 	public void Get_ChildProfiles() throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -46,7 +47,7 @@ public class GetChildProfiles extends GenericMethod
 		FileInputStream fis=new FileInputStream(path1);
 		Workbook wb=WorkbookFactory.create(fis);
 		//Excel sheet name Create
-		Sheet sh=wb.getSheet("GetProfile");
+		Sheet sh=wb.getSheet("GetChildProfiles");
 		//count the no. of rows ignoring the 1st row
 		int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
 		
@@ -57,29 +58,37 @@ public class GetChildProfiles extends GenericMethod
             	Row row = sh.getRow(i);
             	//fetching the cell values
             	TestType=row.getCell(0).getStringCellValue();
-            	String Uid=row.getCell(2).getStringCellValue();
-            	String URL=row.getCell(3).getStringCellValue();
+            	Uid=row.getCell(3).getStringCellValue();
+            	String URL=row.getCell(2).getStringCellValue();
         		key2test=row.getCell(4).getStringCellValue();
         		Value2test=row.getCell(5).getStringCellValue();
+        		if(Uid.equals("AUTO")) 
+        		{
+        			Uid="487c0a7652b8405ea8472cb3ddb52e25";
+        		}
+        		if(Uid.equals("INVALID")) 
+        		{
+        			Uid="abcdef";
+        		}
         		if(Uid.equals("EMPTY"))//assign uid="" when uid is empty
 				{
             		Uid="";
 				}
         		else if(Uid.equals("NOTPASS"))//calling function for when uid is not passed
 				{
-        			GetChildProfiles.NotPassUid(i, URL);
+        			GetProfile.NotPassUid(i, URL);
             		continue;
 				}
 
 				BasicConfigurator.configure();
 				Response resp1=	RestAssured.
-					given().
-					relaxedHTTPSValidation().
-					contentType(ContentType.JSON).
-					accept(ContentType.JSON).
-					queryParam("Uid",Uid).
-					when().
-					get(URL);
+								given().
+								param("Uid",Uid).
+								relaxedHTTPSValidation().
+								contentType(ContentType.JSON).
+								accept(ContentType.JSON).
+								when().
+								get(URL);
 				
 				resp1.prettyPrint();//printing the response
 				resp1.then().assertThat().statusCode(200);//checking for status code=200
@@ -105,7 +114,7 @@ public class GetChildProfiles extends GenericMethod
 				FileInputStream fis1=new FileInputStream(path1);
 				Workbook wb1=WorkbookFactory.create(fis1);
 		
-				Sheet sh1=wb1.getSheet("GetProfile");
+				Sheet sh1=wb1.getSheet("GetChildProfiles");
 				Row row1=sh1.getRow(i);
 				row1.createCell(6);
 				Cell cel1=row1.getCell(6, MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -140,13 +149,16 @@ public class GetChildProfiles extends GenericMethod
 				}
 				FileOutputStream fos=new FileOutputStream(path1);
 				wb1.write(fos);
-		
 				fos.close();
-				
-        }
+	    	}
+	    	
+        
+	    	
+	   GenericMethod.write2Master(14,"GetChildProfiles",7);
 	    softAssert.assertAll();
+        }
 	    
-	}
+	
 	//function for not passing uid
 	public static void NotPassUid(int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
@@ -162,7 +174,7 @@ public class GetChildProfiles extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,6,7,"GetProfile");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,6,7,"GetChildProfiles");
 	}
 }
 
