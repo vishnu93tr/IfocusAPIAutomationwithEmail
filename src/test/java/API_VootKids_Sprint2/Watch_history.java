@@ -312,6 +312,25 @@ public class Watch_history extends ParentMethod{
 		
 		ParentMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"Watch_history");
 	}
+	
+	public static void NotPasstetsing(int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
+	{
+		BasicConfigurator.configure();
+		Response resp1=	RestAssured.
+				given().
+				param("limit",limit).
+				param("offSet",offSet).
+				relaxedHTTPSValidation().
+				contentType(ContentType.JSON).
+				accept(ContentType.JSON).
+				when().
+				get(URL);
+		
+		str=resp1.then().extract().path(key2test);
+		softAssert.assertEquals(Value2test,str);
+		
+		ParentMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"Watch_history");
+	}
 }
 
 	

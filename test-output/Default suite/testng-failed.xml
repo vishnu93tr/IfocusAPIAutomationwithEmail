@@ -6,4 +6,13 @@
       <class name="API_VootKids_Sprint2.Watch_history"/>
     </classes>
   </test> <!-- Default test -->
+  <test name="Default test(failed)">
+    <classes>
+      <class name="API_VootKids_Sprint2.Watch_history">
+        <methods>
+          <include name="Get_ChildProfiles"/>
+        </methods>
+      </class> <!-- API_VootKids_Sprint2.Watch_history -->
+    </classes>
+  </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
