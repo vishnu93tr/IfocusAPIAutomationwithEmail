@@ -18,7 +18,7 @@ import com.jayway.restassured.response.Response;
 
 public class ParentMethod {
 	
-	static String path1="C:\\Users\\iFocus\\git\\IfocusAPIAutomationwithEmail\\VootKidsSprint2.xlsx";//Sheet path
+	static String path1="C:\\Users\\ifocus\\git\\IfocusAPIAutomationwithEmail\\VootKidsSprint2.xlsx";//Sheet path
 	public static String platformname=""; //For different platform
 	
 	public static void writedata(int i,String Value2test, String TestType, Response resp1,String str,int celnum1,int celnum2,String sheetname) throws EncryptedDocumentException, InvalidFormatException, IOException

@@ -38,7 +38,7 @@ public class Watch_history extends ParentMethod{
 	static String  URL;
 	static SoftAssert softAssert = new SoftAssert();
 	@Test
-	public void Get_ChildProfiles() throws EncryptedDocumentException, InvalidFormatException, IOException
+	public void watch_history() throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		BasicConfigurator.configure();
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
@@ -53,7 +53,7 @@ public class Watch_history extends ParentMethod{
 		 for(int i=1; i<=rowCount;i++)
 	        {
 		    	
-	            	Row row = sh.getRow(i);
+			 	Row row = sh.getRow(i);
 	             TestType=row.getCell(0).getStringCellValue();	
 	             limit=row.getCell(3).getStringCellValue();
 	             URL=row.getCell(2).getStringCellValue();
@@ -117,98 +117,112 @@ public class Watch_history extends ParentMethod{
 						
 						String mId=resp1.jsonPath().get("assets.items["+j+"].mId");//checking whether the list having mId key or not
 						System.out.println(mId);
-						assertNotNull(mId);
+						softAssert.assertNotNull(mId);
 						
 						int mediaType=resp1.jsonPath().get("assets.items["+j+"].mediaType");//checking whether the list having mediaType key or not
 						System.out.println(mediaType);
-						assertNotNull(mediaType);
-						
-						String genre=resp1.jsonPath().get("assets.items["+j+"].genre");//checking whether the list having genre key or not
-						System.out.println(genre);
-						assertNotNull(genre);
+						softAssert.assertNotNull(mediaType);
+						//try {
+						//String genre=resp1.jsonPath().get("assets.items["+j+"].genre");//checking whether the list having genre key or not
+					//	System.out.println(genre);
+						//softAssert.assertNotNull(genre);
+						//}
+						//catch(Exception e) {
+							//System.out.println("genre at"+j+"th position is null");
+							//e.printStackTrace();
+					//	}
 						
 						String imgURL=resp1.jsonPath().get("assets.items["+j+"].imgURL");//checking whether the list having imgURL key or not
 						System.out.println(imgURL);
-						assertNotNull(imgURL);
+						softAssert.assertNotNull(imgURL);
 						
 						int startDate=resp1.jsonPath().get("assets.items["+j+"].startDate");//checking whether the list having startDate key or not
 						System.out.println(startDate);
-						assertNotNull(startDate);
+						softAssert.assertNotNull(startDate);
 						
 						long endDate=resp1.jsonPath().get("assets.items["+j+"].endDate");//checking whether the list having endDate key or not
 						System.out.println(endDate);
-						assertNotNull(endDate);
+						softAssert.assertNotNull(endDate);
 						
 						String desc=resp1.jsonPath().get("assets.items["+j+"].desc");//checking whether the list having desc key or not
 						System.out.println(desc);
-						assertNotNull(desc);
+						softAssert.assertNotNull(desc);
 						
 						String entryId=resp1.jsonPath().get("assets.items["+j+"].entryId");//checking whether the list having entryId key or not
 						System.out.println(entryId);
-						assertNotNull(entryId);
+						softAssert.assertNotNull(entryId);
 						
-						Class<? extends Object> c=resp1.jsonPath().get("assets.items["+j+"].episodeNo").getClass();////checking whether the list having episodeNo key or not
+						int season=resp1.jsonPath().get("assets.items["+j+"].season");//checking whether the list having entryId key or not
+						System.out.println(season);
+						softAssert.assertNotNull(season);
+						
+						String refSeriesTitle=resp1.jsonPath().get("assets.items["+j+"].refSeriesTitle");//checking whether the list having entryId key or not
+						System.out.println(refSeriesTitle);
+						softAssert.assertNotNull(refSeriesTitle);
+						
+						resp1.jsonPath().get("assets.items["+j+"].episodeNo").getClass();////checking whether the list having episodeNo key or not
 						try
 						{
 							float episodeNo=resp1.jsonPath().get("assets.items["+j+"].episodeNo");
 							System.out.println(episodeNo);
-							assertNotNull(episodeNo);
+							softAssert.assertNotNull(episodeNo);
 						}
-						catch(Exception e){
+						catch(Exception e)
+						{
 							int episodeNo=resp1.jsonPath().get("assets.items["+j+"].episodeNo");
 							System.out.println(episodeNo);
-							assertNotNull(episodeNo);
-							e.toString();
+							softAssert.assertNotNull(episodeNo);
+							e.printStackTrace();
 							
 						}
 						
 						String title=resp1.jsonPath().get("assets.items["+j+"].title");//checking whether the list having title key or not
 						System.out.println(title);
-						assertNotNull(title);
+						softAssert.assertNotNull(title);
 						
 						String contentType=resp1.jsonPath().get("assets.items["+j+"].contentType");//checking whether the list having contentType key or not
 						System.out.println(contentType);
-						assertNotNull(contentType);
+						softAssert.assertNotNull(contentType);
 						
 						List<String> language=resp1.jsonPath().get("assets.items["+j+"].language");//checking whether the list having language key or not
 						System.out.println(language);
-						assertNotNull(language);
+						softAssert.assertNotNull(language);
 					
 						int IngestDate=resp1.jsonPath().get("assets.items["+j+"].IngestDate");//checking whether the list having IngestDate key or not
 						System.out.println(IngestDate);
-						assertNotNull(IngestDate);
+						softAssert.assertNotNull(IngestDate);
 						
 						int telecastDate=resp1.jsonPath().get("assets.items["+j+"].telecastDate");//checking whether the list having telecastDate key or not
 						System.out.println("telecastDate is "+ telecastDate);
-						assertNotNull(telecastDate);
+						softAssert.assertNotNull(telecastDate);
 						
 						String isDownable=resp1.jsonPath().get("assets.items["+j+"].isDownable");//checking whether the list having isDownable key or not
 						System.out.println(isDownable);
-						assertNotNull(isDownable);
+						softAssert.assertNotNull(isDownable);
 						
 						int duration=resp1.jsonPath().get("assets.items["+j+"].duration");//checking whether the list having duration key or not
 						System.out.println(duration);
-						assertNotNull(duration);
+						softAssert.assertNotNull(duration);
 						
 						int isThreeSixty=resp1.jsonPath().get("assets.items["+j+"].isThreeSixty");//checking whether the list having isThreeSixty key or not
 						System.out.println(isThreeSixty);
-						assertNotNull(isThreeSixty);
+						softAssert.assertNotNull(isThreeSixty);
 						
 						String sbu=resp1.jsonPath().get("assets.items["+j+"].sbu");//checking whether the list having sbu key or not
 						System.out.println(sbu);
-						assertNotNull(sbu);
+						softAssert.assertNotNull(sbu);
 						
 						int watchedDuration=resp1.jsonPath().get("assets.items["+j+"].watchedDuration");//checking whether the list having watchedDuration key or not
 						System.out.println(watchedDuration);
-						assertNotNull(watchedDuration);
+						softAssert.assertNotNull(watchedDuration);
 						
-						String watchedDate=resp1.jsonPath().get("assets.items["+j+"].watchedDate");//checking whether the list having watchedDate key or not
+						int watchedDate=resp1.jsonPath().get("assets.items["+j+"].watchedDate");//checking whether the list having watchedDate key or not
 						System.out.println(watchedDate);
-						assertNotNull(watchedDate);
+						softAssert.assertNotNull(watchedDate);
 						
 						Boolean finishedWatching=resp1.jsonPath().get("assets.items["+j+"].finishedWatching");//checking whether the list having finishedWatching key or not
 						System.out.println(finishedWatching);
-						assertNotNull(finishedWatching);
+						softAssert.assertNotNull(finishedWatching);
 						
 						str= resp1.jsonPath().get(key2test);
 						softAssert.assertEquals(Value2test,str);

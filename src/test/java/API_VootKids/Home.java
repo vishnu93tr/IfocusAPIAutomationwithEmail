@@ -22,6 +22,8 @@ import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 
+import junit.framework.AssertionFailedError;
+
 public class Home extends GenericMethod 
 {
 	static String TestType;
@@ -29,6 +31,7 @@ public class Home extends GenericMethod
 	static int str1;
 	static String Value2test;
 	static String Key2test;
+	
 	static SoftAssert softAssert = new SoftAssert();
 	@Test
 	public void home() throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -61,12 +64,9 @@ public class Home extends GenericMethod
 	    		Home.nonmandatoryparameters(limit, offSet, i, Url);
 	    		continue;
 	    	}
-	    	//calling function for passing only mandatory params
-	    	if(limit.equals("NA") && offSet.equals("NA") ) 
-	    	{
-	    		Home.onlymandatoryparameters(uId, profileId, ks, i, Url);
-	    		continue;
-	    	}
+	   
+	    	
+	    	
 	    	//assign uid="" when uid is empty
 	    	if(uId.equals("EMPTY"))
 	    	{
@@ -123,6 +123,7 @@ public class Home extends GenericMethod
 	    		continue;
 	    	}
 	    	
+	    	
 	    	//posting request
 	    	BasicConfigurator.configure();
 	    	Response resp=	RestAssured.
@@ -145,8 +146,10 @@ public class Home extends GenericMethod
 				int sizeOfList = resp.body().path("assets.size()");//extracting the array size
 				for (int j=0;j<sizeOfList;j++)
 				{
+					
 					String list=resp.jsonPath().get("assets["+j+"].nextPageAPI");//extracting the value nextPageAPI from array
 					softAssert.assertNotNull(list);//checking if it is null or not
+				
 					
 					str=resp.then().extract().path(Key2test);
 					str1=resp.then().extract().path("status.code");//extracting the status code
@@ -174,11 +177,14 @@ public class Home extends GenericMethod
 			Row row3=sh1.getRow(i);
 			row3.createCell(11);
 			Cell cel3=row3.getCell(11, MissingCellPolicy.CREATE_NULL_AS_BLANK);
+			cel3.setCellType(CellType.STRING);
 			if(TestType.equals("Positive") && str1==200)//logic for writing pass/fail for positive scenarios
 			{
+			
 				cel3.setCellValue("Pass");
 			}
-			if(TestType.equals("Negative"))//logic for writing pass/fail for negative scenarios
+			
+			else if(TestType.equals("Negative"))//logic for writing pass/fail for negative scenarios
 			{
 				if(str.equals(Value2test))
 				{
@@ -189,13 +195,26 @@ public class Home extends GenericMethod
 					cel3.setCellValue("Fail");
 				}
 			}
+			else if(limit.contentEquals("NA") && offSet.contentEquals("NA")) {
+				if(str.equals(Value2test))
+				{
+					cel3.setCellValue("Pass");
+				}
+				else 
+				{
+					cel3.setCellValue("Fail");
+				}
+				
+			}
+			
+			
 			
 			FileOutputStream fos=new FileOutputStream(path1);
 			wb1.write(fos);
 
 			fos.close();
         }
-	    GenericMethod.write2Master(13,"Home",11);
+	   // GenericMethod.write2Master(13,"Home",11);
 	    softAssert.assertAll();
 	}
 	//function for not passing uid
@@ -345,21 +364,23 @@ public class Home extends GenericMethod
 	//function when only mandatory params are passed
 	public static void onlymandatoryparameters(String uId,String profileId,String ks,int i,String Url) throws EncryptedDocumentException, InvalidFormatException, IOException {
 		Response resp=	RestAssured.
-				given().
-				relaxedHTTPSValidation().
-				contentType(ContentType.JSON).
-				accept(ContentType.JSON).
-				when().
-				queryParam("uId",uId).
-				queryParam("profileId",profileId).
-				queryParam("ks",ks).
-				get(Url);
+						given().
+						relaxedHTTPSValidation().
+						contentType(ContentType.JSON).
+						accept(ContentType.JSON).
+						when().
+						queryParam("uId",uId).
+						queryParam("profileId",profileId).
+						queryParam("ks",ks).
+						get(Url);
+		resp.prettyPrint();
 		resp.then().assertThat().statusCode(200);
 
 		str=resp.then().extract().path(Key2test);
 		softAssert.assertEquals(Value2test,str);
 
 		GenericMethod.writedata(i, Value2test, TestType, resp, str, 10, 11, "Home");
+		
 	}
 	
 }
