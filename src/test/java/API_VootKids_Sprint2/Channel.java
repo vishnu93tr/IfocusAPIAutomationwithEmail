@@ -42,7 +42,7 @@ public class Channel extends ParentMethod {
 		FileInputStream fis=new FileInputStream(path1);
 		Workbook wb=WorkbookFactory.create(fis);
 		//Excel sheet name Create
-		Sheet sh=wb.getSheet("Channelkids");
+		Sheet sh=wb.getSheet("Channel");
 		//count the no. of rows ignoring the 1st row
 		int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
 		
@@ -127,7 +127,7 @@ public class Channel extends ParentMethod {
 					FileInputStream fis1=new FileInputStream(path1);
 					Workbook wb1=WorkbookFactory.create(fis1);
 		
-					Sheet sh1=wb1.getSheet("Channelkids");
+					Sheet sh1=wb1.getSheet("Channel");
 					Row row1=sh1.getRow(i);
 					row1.createCell(7);
 					Cell cel1=row1.getCell(7, MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -156,7 +156,7 @@ public class Channel extends ParentMethod {
 				fos.close();
 					
 				}
-		 ParentMethod.write2Master(2, "Channelkids", 8);
+		 ParentMethod.write2Master(2, "Channel", 8);
 		 softAssert.assertAll();
 	}
 	
@@ -176,7 +176,7 @@ public class Channel extends ParentMethod {
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		ParentMethod.writedata(i, Value2test,TestType, resp1,str,7,8,"Channelkids");
+		ParentMethod.writedata(i, Value2test,TestType, resp1,str,7,8,"Channel");
 	}
 	
 	public static void NotPassoffSet(int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -194,7 +194,7 @@ public class Channel extends ParentMethod {
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		ParentMethod.writedata(i, Value2test,TestType, resp1,str,7,8,"Channelkids");
+		ParentMethod.writedata(i, Value2test,TestType, resp1,str,7,8,"Channel");
 	}
 }
 

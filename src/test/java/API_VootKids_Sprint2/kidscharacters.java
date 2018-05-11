@@ -3,6 +3,7 @@ package API_VootKids_Sprint2;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.poi.EncryptedDocumentException;
@@ -113,7 +114,7 @@ public class kidscharacters  extends ParentMethod{
      				System.out.println(season);
      				softAssert.assertNotNull(season);
      				
-     				String language=resp1.jsonPath().get("assets.items["+j+"].language");
+     				List language=resp1.jsonPath().get("assets.items["+j+"].language");
      				System.out.println(language);
      				softAssert.assertNotNull(language);
      				
@@ -182,13 +183,13 @@ public class kidscharacters  extends ParentMethod{
 		 ParentMethod.write2Master(4, "kidscharacters", 8);
 		 softAssert.assertAll();
 	}
-	public static void NotPasslimit(int i,String URL,String offset) throws EncryptedDocumentException, InvalidFormatException, IOException
+	public static void NotPasslimit(int i,String URL,String offSet) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
 		BasicConfigurator.configure();
 		 Response resp1=	RestAssured.
 							given().
-							parameter("offset",offset).
+							parameter("offSet",offSet).
 							relaxedHTTPSValidation().
 							contentType(ContentType.JSON).
 							accept(ContentType.JSON).

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+<suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
       <class name="API_VootKids_Sprint2.Channel"/>
@@ -10,4 +10,4 @@
       <class name="API_VootKids_Sprint2.Watch_history"/>
     </classes>
   </test> <!-- Test -->
-</suite> <!-- Failed suite [Suite] -->
+</suite> <!-- Suite -->
