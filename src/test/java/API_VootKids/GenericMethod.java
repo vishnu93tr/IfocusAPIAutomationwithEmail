@@ -24,7 +24,8 @@ import com.jayway.restassured.response.Response;
 public class GenericMethod 
 {
 	
-	static String path1="C:\\Users\\ifocus\\git\\IfocusAPIAutomationwithEmail\\VootKids.xls";//Sheet path
+	public static String path1="C:\\Users\\ifocus\\git\\IfocusAPIAutomationwithEmail\\VootKids.xls";
+	public static String path2="C:\\Users\\ifocus\\git\\IfocusAPIAutomationwithEmail\\VootKidsSprint2.xlsx";//Sheet path
 	public static String platformname=""; //For different platform
 	
 	public  Response SignUp() throws EncryptedDocumentException, InvalidFormatException, IOException  

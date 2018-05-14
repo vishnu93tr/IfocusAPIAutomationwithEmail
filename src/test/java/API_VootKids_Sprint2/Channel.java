@@ -1,6 +1,8 @@
 package API_VootKids_Sprint2;
 
+import static org.hamcrest.Matchers.is;
 import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,6 +15,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
+import org.hamcrest.core.IsNull;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -24,7 +27,10 @@ import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 
-public class Channel extends ParentMethod {
+import API_VootKids.GenericMethod;
+
+
+public class Channel extends GenericMethod{
 	static String str;
 	static String key2test;
 	static String Value2test;
@@ -32,6 +38,11 @@ public class Channel extends ParentMethod {
 	static String limit;
 	static String offSet;
 	static String  URL;
+	static String  channelName;
+	static Integer  channelId;
+	static String sbu;
+	static String imgURL;
+	static Integer counter;
 	static SoftAssert softAssert = new SoftAssert();
 	@Test
 	public void Channels_kidsPage() throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -39,14 +50,15 @@ public class Channel extends ParentMethod {
 		BasicConfigurator.configure();
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
 		//Reading the excel sheet
-		FileInputStream fis=new FileInputStream(path1);
+		FileInputStream fis=new FileInputStream(path2);
+		System.out.println(path2);
 		Workbook wb=WorkbookFactory.create(fis);
 		//Excel sheet name Create
 		Sheet sh=wb.getSheet("Channel");
 		//count the no. of rows ignoring the 1st row
 		int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
 		
-		 for(int i=1; i<=rowCount;i++)
+		 for(int i=1; i<=1;i++)
 	        {
 		    	
 	            	Row row = sh.getRow(i);
@@ -93,38 +105,69 @@ public class Channel extends ParentMethod {
 				resp1.then().assertThat().statusCode(200);//checking for status code=200
 				if(TestType.equals("Positive"))
 				{
+					
 					int sizeOfList = resp1.body().path("assets.items.size()");//taking the size of the array profiles
 					System.out.println(sizeOfList);
-					for (int j=0;j<sizeOfList;j++) {
+					//logic for testing keys null or not
+					String[] Keys = Value2test.split(",");
+					
+					for (int k=0; k < Keys.length; k++)
+					{
+						//logic to test dynamic keytoTest from excel and to check the keys are null or not null
+						//one needs to directly update keys in excel,no need to modify code
+//						counter=1;
+//						for (int j=0;j<sizeOfList;j++) 
+//						{
+//							System.out.println(key2test+"["+j+"]."+Keys[k]);
+//							channelName=String.valueOf(resp1.jsonPath().get(key2test+"["+j+"]."+Keys[k]));
+//							if(channelName==null) 
+//							{
+//								counter=0;
+//							}
+//							System.out.println(channelName);
+//							softAssert.assertNotNull(channelName);
+//						}
+					
+						//logic to test key's datatypes ,if one needs to validate  for another data type ,they must modify code
+						for (int j=0;j<sizeOfList;j++) 
+						{
+							//code to check channel name is null and asserting data type is string or not
+							channelName=resp1.jsonPath().get(key2test+"["+j+"].channelName");
+							softAssert.assertNotNull(channelName);
+							Class<? extends Object> channelnameDatatype=resp1.jsonPath().get(key2test+"["+j+"].channelName").getClass();
+							String type=channelnameDatatype.getSimpleName();
+							softAssert.assertEquals(type, "String","type is not string");
+							//code to check channelId is null and asserting data type is Integer or not
+							channelId=resp1.jsonPath().get(key2test+"["+j+"].channelId");
+							softAssert.assertNotNull(channelId);
+							Class<? extends Object> channelIdDatatype=resp1.jsonPath().get(key2test+"["+j+"].channelId").getClass();
+							String type1=channelIdDatatype.getSimpleName();
+							softAssert.assertEquals(type1, "Integer","type is not Integer");
+							//code to check sbu is null and asserting data type is string or not
+							sbu=resp1.jsonPath().get(key2test+"["+j+"].sbu");
+							softAssert.assertNotNull(sbu);
+							Class<? extends Object> sbuDatatype=resp1.jsonPath().get(key2test+"["+j+"].sbu").getClass();
+							String type2=sbuDatatype.getSimpleName();
+							softAssert.assertEquals(type2, "String","type is not string");
+							//code to check imgURL is null and asserting data type is string or not
+							imgURL=resp1.jsonPath().get(key2test+"["+j+"].imgURL");
+							softAssert.assertNotNull(imgURL);
+							Class<? extends Object> imgURLdatatype=resp1.jsonPath().get(key2test+"["+j+"].imgURL").getClass();
+							String type3=imgURLdatatype.getSimpleName();
+							softAssert.assertEquals(type3, "String","type is not string");
 						
-						String channelName=resp1.jsonPath().get("assets.items["+j+"].channelName");//checking whether the list having mId key or not
-						System.out.println(channelName);
-						assertNotNull(channelName);
-						
-						int channelId=resp1.jsonPath().get("assets.items["+j+"].channelId");//checking whether the list having mId key or not
-						System.out.println(channelId);
-						assertNotNull(channelId);
-						
-						String sbu=resp1.jsonPath().get("assets.items["+j+"].sbu");//checking whether the list having mId key or not
-						System.out.println(sbu);
-						assertNotNull(sbu);
-						
-						String imgURL=resp1.jsonPath().get("assets.items["+j+"].imgURL");//checking whether the list having mId key or not
-						System.out.println(imgURL);
-						assertNotNull(imgURL);
-						
-						
-						str= resp1.jsonPath().get(key2test);
-						softAssert.assertEquals(Value2test,str);
+							}
+						}
+					
 					}
-				}
-				
+				//logic for negative scenarios
 					else if(TestType.equals("Negative")) 
 					{
 					str= resp1.jsonPath().get(key2test);
 					softAssert.assertEquals(Value2test,str);
 					}
-					FileInputStream fis1=new FileInputStream(path1);
+				//write logic
+					FileInputStream fis1=new FileInputStream(path2);
 					Workbook wb1=WorkbookFactory.create(fis1);
 		
 					Sheet sh1=wb1.getSheet("Channel");
@@ -137,8 +180,21 @@ public class Channel extends ParentMethod {
 					Row row3=sh1.getRow(i);
 					row3.createCell(8);
 					Cell cel3=row3.getCell(8, MissingCellPolicy.CREATE_NULL_AS_BLANK);
+				//main logic to write pass fail logic based on keywords in the response	
+					if(TestType.equals("Positive")) {
+						if(channelName == null ||channelId == null ||sbu == null || imgURL==null ) 
+						{
+							cel3.setCellValue("Fail");
+						}
+						else 
+						{
+							cel3.setCellValue("Pass");
+						}
+						
+					}	
 			
-		
+					
+				if(TestType.equals("Negative")) {
 					if(str.equals(Value2test))
 					{
 						cel3.setCellValue("Pass");
@@ -148,16 +204,17 @@ public class Channel extends ParentMethod {
 					{
 						cel3.setCellValue("Fail");
 					}
-					
+				}	
 					
 	            
-				FileOutputStream fos=new FileOutputStream(path1);
+				FileOutputStream fos=new FileOutputStream(path2);
 				wb1.write(fos);
 				fos.close();
 					
 				}
 		 ParentMethod.write2Master(2, "Channel", 8);
-		 softAssert.assertAll();
+		
+		softAssert.assertAll();
 	}
 	
 	
