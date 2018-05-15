@@ -238,6 +238,59 @@ public class GenericMethod
 
 		fos.close();
 		}
+	public static void write2Mastersprint2(int row,String sheetname,int columnum) throws EncryptedDocumentException, InvalidFormatException, IOException,NullPointerException
+	{
+	
+		int countPass=0;
+		int countFail=0;
+		FileInputStream fis=new FileInputStream(path2);
+		Workbook wb=WorkbookFactory.create(fis);
+		Sheet sh=wb.getSheet(sheetname);
+		//count the rows
+		int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
+		for(int i=1; i<=rowCount;i++)
+        {
+			Row row4= sh.getRow(i);
+			String status=row4.getCell(columnum).getStringCellValue();
+			if(status.equals("Pass"))
+			{
+				countPass=countPass+1;
+			}
+			else
+			{
+				countFail=countFail+1;
+			}
+        }
+		System.out.println(countPass);
+		System.out.println(countFail);
+		FileInputStream fis1=new FileInputStream(path2);
+		Workbook wb1=WorkbookFactory.create(fis1);
+
+		Sheet sh1=wb1.getSheet("Master");
+		
+		Row row1=sh1.getRow(row);
+		row1.createCell(3);
+		Cell cel1=row1.getCell(3, MissingCellPolicy.CREATE_NULL_AS_BLANK);
+		cel1.setCellType(CellType.NUMERIC);
+		cel1.setCellValue(countPass);
+		
+		Row row2=sh1.getRow(row);
+		row2.createCell(4);
+		Cell cel2=row1.getCell(4, MissingCellPolicy.CREATE_NULL_AS_BLANK);
+		cel2.setCellType(CellType.NUMERIC);
+		cel2.setCellValue(countFail);
+		
+		Row row3=sh1.getRow(row);
+		row3.createCell(2);
+		Cell cel3=row1.getCell(2, MissingCellPolicy.CREATE_NULL_AS_BLANK);
+		cel3.setCellType(CellType.NUMERIC);
+		cel3.setCellValue(countPass+countFail);
+		
+		FileOutputStream fos=new FileOutputStream(path2);
+		wb1.write(fos);
+
+		fos.close();
+		}
 		
 	}
 

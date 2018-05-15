@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="4809" started-at="2018-05-14T13:25:16Z" finished-at="2018-05-14T13:25:20Z">
+  <suite name="Default suite" duration-ms="11016" started-at="2018-05-15T07:10:43Z" finished-at="2018-05-15T07:10:54Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="4809" started-at="2018-05-14T13:25:16Z" finished-at="2018-05-14T13:25:20Z">
+    <test name="Default test" duration-ms="11016" started-at="2018-05-15T07:10:43Z" finished-at="2018-05-15T07:10:54Z">
       <class name="API_VootKids_Sprint2.Channel">
-        <test-method status="PASS" signature="Channels_kidsPage()[pri:0, instance:API_VootKids_Sprint2.Channel@1e397ed7]" name="Channels_kidsPage" duration-ms="4785" started-at="2018-05-14T18:55:16Z" finished-at="2018-05-14T18:55:20Z">
+        <test-method status="PASS" signature="Channels_kidsPage()[pri:0, instance:API_VootKids_Sprint2.Channel@1e397ed7]" name="Channels_kidsPage" duration-ms="10990" started-at="2018-05-15T12:40:43Z" finished-at="2018-05-15T12:40:54Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Channels_kidsPage -->

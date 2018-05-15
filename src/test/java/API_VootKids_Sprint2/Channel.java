@@ -58,7 +58,7 @@ public class Channel extends GenericMethod{
 		//count the no. of rows ignoring the 1st row
 		int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
 		
-		 for(int i=1; i<=1;i++)
+		 for(int i=1; i<=rowCount;i++)
 	        {
 		    	
 	            	Row row = sh.getRow(i);
@@ -137,18 +137,22 @@ public class Channel extends GenericMethod{
 							Class<? extends Object> channelnameDatatype=resp1.jsonPath().get(key2test+"["+j+"].channelName").getClass();
 							String type=channelnameDatatype.getSimpleName();
 							softAssert.assertEquals(type, "String","type is not string");
+							
 							//code to check channelId is null and asserting data type is Integer or not
+							
 							channelId=resp1.jsonPath().get(key2test+"["+j+"].channelId");
 							softAssert.assertNotNull(channelId);
 							Class<? extends Object> channelIdDatatype=resp1.jsonPath().get(key2test+"["+j+"].channelId").getClass();
 							String type1=channelIdDatatype.getSimpleName();
 							softAssert.assertEquals(type1, "Integer","type is not Integer");
+							
 							//code to check sbu is null and asserting data type is string or not
 							sbu=resp1.jsonPath().get(key2test+"["+j+"].sbu");
 							softAssert.assertNotNull(sbu);
 							Class<? extends Object> sbuDatatype=resp1.jsonPath().get(key2test+"["+j+"].sbu").getClass();
 							String type2=sbuDatatype.getSimpleName();
 							softAssert.assertEquals(type2, "String","type is not string");
+							
 							//code to check imgURL is null and asserting data type is string or not
 							imgURL=resp1.jsonPath().get(key2test+"["+j+"].imgURL");
 							softAssert.assertNotNull(imgURL);
@@ -191,8 +195,19 @@ public class Channel extends GenericMethod{
 							cel3.setCellValue("Pass");
 						}
 						
-					}	
-			
+					}
+					//main logic to write pass fail based on key words in response
+//					if(TestType.equals("Positive")) 
+//					{
+//					if(counter==0)
+//					{
+//					cel3.setCellValue("Fail");
+//					}
+//					else 
+//					{
+//						cel3.setCellValue("Pass");
+//					}
+//					}	
 					
 				if(TestType.equals("Negative")) {
 					if(str.equals(Value2test))
@@ -212,8 +227,8 @@ public class Channel extends GenericMethod{
 				fos.close();
 					
 				}
-		 ParentMethod.write2Master(2, "Channel", 8);
-		
+		 
+		 GenericMethod.write2Mastersprint2(2, "Channel",8);
 		softAssert.assertAll();
 	}
 	
