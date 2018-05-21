@@ -1,4 +1,4 @@
-package API_VootKids;
+package API_VootKids_Sprint1;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -157,7 +157,7 @@ public class ResetPin extends GenericMethod
 				fos.close();
 				
 		}
-	    GenericMethod.write2Master(7, "ResetPIN", 9);
+	    GenericMethod.write2Master(7, "ResetPIN", 9,path1);
 	    softAssert.assertAll();
 	}
 	//function for not passing email
@@ -177,7 +177,7 @@ public class ResetPin extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPIN");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPIN",path1);
 	}
 	//function for not passing oldpin
 	public static void NotPassOldPin(String email,String newPin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -196,7 +196,7 @@ public class ResetPin extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPIN");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPIN",path1);
 	}
 	//function for not passing newpin
 	public static void NotPassNewPin(String email,String oldPin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -215,7 +215,7 @@ public class ResetPin extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPIN");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPIN",path1);
 	}
 	
 }

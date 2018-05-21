@@ -22,7 +22,11 @@ import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 
-public class Watch extends ParentMethod {
+import API_VootKids_Sprint1.GenericMethod;
+
+
+
+public class Watch extends API_VootKids_Sprint1.GenericMethod {
 	static String str;
 	static String key2test;
 	static String Value2test;
@@ -35,7 +39,7 @@ public class Watch extends ParentMethod {
 		BasicConfigurator.configure();
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
 		//Reading the excel sheet
-		FileInputStream fis=new FileInputStream(path1);
+		FileInputStream fis=new FileInputStream(path2);
 		Workbook wb=WorkbookFactory.create(fis);
 		//Excel sheet name Create
 		Sheet sh=wb.getSheet("Watch");
@@ -124,6 +128,7 @@ public class Watch extends ParentMethod {
              
 		resp1.prettyPrint();
 		resp1.then().assertThat().statusCode(200);
+		set(resp1);
 		if(TestType.equals("Positive")) 
 		{	
 			int mastHeadTray_size = resp1.body().path("assets[0].assets[0].items.size()");
@@ -301,7 +306,7 @@ public class Watch extends ParentMethod {
 			str= resp1.jsonPath().get(key2test);
 			softAssert.assertEquals(Value2test,str);
 		}
-			FileInputStream fis1=new FileInputStream(path1);
+			FileInputStream fis1=new FileInputStream(path2);
 			Workbook wb1=WorkbookFactory.create(fis1);
 
 			Sheet sh1=wb1.getSheet("Watch");
@@ -327,14 +332,18 @@ public class Watch extends ParentMethod {
 			
 			
         
-		FileOutputStream fos=new FileOutputStream(path1);
+		FileOutputStream fos=new FileOutputStream(path2);
 		wb1.write(fos);
 		fos.close();
 		}
-		ParentMethod.write2Master(3, "Watch", 11);
+		 GenericMethod.write2Master(3, "Watch", 11,path2);
 		softAssert.assertAll();
 			
 		}
+	
+	void set(Response resp1) {
+		
+	}
 	
 	public static void NotPassoffset(int i,String ks,String uId,String profileId,String URL,String limit ) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
@@ -358,7 +367,7 @@ public class Watch extends ParentMethod {
 		System.out.println("str is:"+str);
 		softAssert.assertEquals(Value2test,str);
 		
-		ParentMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch",path2);
 	}
 	public static void NotPasslimit(int i,String ks,String uId,String profileId,String URL,String offset) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
@@ -382,7 +391,7 @@ public class Watch extends ParentMethod {
 		System.out.println("str is:"+str);
 		softAssert.assertEquals(Value2test,str);
 		
-		ParentMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch",path2);
 	}
 	public static void NotPassuId(int i,String ks,String offset,String profileId,String URL,String limit) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
@@ -406,7 +415,7 @@ public class Watch extends ParentMethod {
 		System.out.println("str is:"+str);
 		softAssert.assertEquals(Value2test,str);
 		
-		ParentMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch",path2);
 	}
 	public static void NotPassks(int i,String offSet,String profileId,String URL,String limit,String uId) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
@@ -430,7 +439,7 @@ public class Watch extends ParentMethod {
 		System.out.println("str is:"+str);
 		softAssert.assertEquals(Value2test,str);
 		
-		ParentMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch",path2);
 	}
 	public static void NotPassprofileId(int i,String offSet,String ks,String URL,String limit,String uId) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
@@ -454,7 +463,7 @@ public class Watch extends ParentMethod {
 		System.out.println("str is:"+str);
 		softAssert.assertEquals(Value2test,str);
 		
-		ParentMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch",path2);
 	}
 	public static void Nonmandatoryparameters(int i,String offSet,String URL,String limit) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
@@ -476,7 +485,7 @@ public class Watch extends ParentMethod {
 		System.out.println("str is:"+str);
 		softAssert.assertEquals(Value2test,str);
 		
-		ParentMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch",path2);
 	}
 	public static void mandatoryparameters(int i,String URL,String ks,String uId,String profileId) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
@@ -500,7 +509,7 @@ public class Watch extends ParentMethod {
 		System.out.println("str is:"+str);
 		softAssert.assertEquals(Value2test,str);
 		
-		ParentMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"Watch",path2);
 	}
 }
 

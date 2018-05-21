@@ -1,4 +1,4 @@
-package API_VootKids;
+package API_VootKids_Sprint1;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -24,8 +24,8 @@ import com.jayway.restassured.response.Response;
 public class GenericMethod 
 {
 	
-	public static String path1="C:\\Users\\ifocus\\git\\IfocusAPIAutomationwithEmail\\VootKids.xls";
-	public static String path2="C:\\Users\\ifocus\\git\\IfocusAPIAutomationwithEmail\\VootKidsSprint2.xlsx";//Sheet path
+	public static final String path1=System.getProperty("user.dir")+"\\VootKidsSprint1.xls";
+	public static final String path2=System.getProperty("user.dir")+"\\VootKidsSprint2.xlsx";
 	public static String platformname=""; //For different platform
 	
 	public  Response SignUp() throws EncryptedDocumentException, InvalidFormatException, IOException  
@@ -158,9 +158,9 @@ public class GenericMethod
 	   
 	    return password;
 	}
-	public static void writedata(int i,String Value2test, String TestType, Response resp1,String str,int celnum1,int celnum2,String sheetname) throws EncryptedDocumentException, InvalidFormatException, IOException
+	public static void writedata(int i,String Value2test, String TestType, Response resp1,String str,int celnum1,int celnum2,String sheetname,String path) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
-		FileInputStream fis1=new FileInputStream(path1);
+		FileInputStream fis1=new FileInputStream(path);
 		Workbook wb1=WorkbookFactory.create(fis1);
 
 		Sheet sh1=wb1.getSheet(sheetname);
@@ -185,18 +185,18 @@ public class GenericMethod
 			}
 		}
 		
-		FileOutputStream fos=new FileOutputStream(path1);
+		FileOutputStream fos=new FileOutputStream(path);
 		wb1.write(fos);
 
 		fos.close();
 	}
 	
-	public static void write2Master(int row,String sheetname,int columnum) throws EncryptedDocumentException, InvalidFormatException, IOException,NullPointerException
+	public static void write2Master(int row,String sheetname,int columnum,String path) throws EncryptedDocumentException, InvalidFormatException, IOException,NullPointerException
 	{
 	
 		int countPass=0;
 		int countFail=0;
-		FileInputStream fis=new FileInputStream(path1);
+		FileInputStream fis=new FileInputStream(path);
 		Workbook wb=WorkbookFactory.create(fis);
 		Sheet sh=wb.getSheet(sheetname);
 		//count the rows
@@ -216,7 +216,7 @@ public class GenericMethod
         }
 		System.out.println(countPass);
 		System.out.println(countFail);
-		FileInputStream fis1=new FileInputStream(path1);
+		FileInputStream fis1=new FileInputStream(path);
 		Workbook wb1=WorkbookFactory.create(fis1);
 
 		Sheet sh1=wb1.getSheet("Master");
@@ -233,66 +233,22 @@ public class GenericMethod
 		cel2.setCellType(CellType.NUMERIC);
 		cel2.setCellValue(countFail);
 		
-		FileOutputStream fos=new FileOutputStream(path1);
+		FileOutputStream fos=new FileOutputStream(path);
 		wb1.write(fos);
 
 		fos.close();
 		}
-	public static void write2Mastersprint2(int row,String sheetname,int columnum) throws EncryptedDocumentException, InvalidFormatException, IOException,NullPointerException
-	{
+	public static <T> boolean oneOfEquals(T a, T b, T expected) {
+	    return a.equals(expected) || b.equals(expected);
+	}
+	public static <T> boolean oneOf(T a, T expected) {
+	    return a.equals(expected) ;
+	}
 	
-		int countPass=0;
-		int countFail=0;
-		FileInputStream fis=new FileInputStream(path2);
-		Workbook wb=WorkbookFactory.create(fis);
-		Sheet sh=wb.getSheet(sheetname);
-		//count the rows
-		int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
-		for(int i=1; i<=rowCount;i++)
-        {
-			Row row4= sh.getRow(i);
-			String status=row4.getCell(columnum).getStringCellValue();
-			if(status.equals("Pass"))
-			{
-				countPass=countPass+1;
-			}
-			else
-			{
-				countFail=countFail+1;
-			}
-        }
-		System.out.println(countPass);
-		System.out.println(countFail);
-		FileInputStream fis1=new FileInputStream(path2);
-		Workbook wb1=WorkbookFactory.create(fis1);
-
-		Sheet sh1=wb1.getSheet("Master");
-		
-		Row row1=sh1.getRow(row);
-		row1.createCell(3);
-		Cell cel1=row1.getCell(3, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-		cel1.setCellType(CellType.NUMERIC);
-		cel1.setCellValue(countPass);
-		
-		Row row2=sh1.getRow(row);
-		row2.createCell(4);
-		Cell cel2=row1.getCell(4, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-		cel2.setCellType(CellType.NUMERIC);
-		cel2.setCellValue(countFail);
-		
-		Row row3=sh1.getRow(row);
-		row3.createCell(2);
-		Cell cel3=row1.getCell(2, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-		cel3.setCellType(CellType.NUMERIC);
-		cel3.setCellValue(countPass+countFail);
-		
-		FileOutputStream fos=new FileOutputStream(path2);
-		wb1.write(fos);
-
-		fos.close();
-		}
 		
 	}
+
+
 
 
 

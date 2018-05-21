@@ -1,4 +1,4 @@
-package API_VootKids;
+package API_VootKids_Sprint1;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -171,7 +171,7 @@ public class CreatePin extends GenericMethod
 				fos.close();
 				
 		}
-	    GenericMethod.write2Master(9, "CreatePin", 8);
+	    GenericMethod.write2Master(9, "CreatePin", 8,path1);
 	    softAssert.assertAll();
 	    
 	}
@@ -191,7 +191,7 @@ public class CreatePin extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,7,8,"CreatePin");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,7,8,"CreatePin",path1);
 	}
 	//function for not passing pin
 	public static void NotPassPin(String Uid,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -209,7 +209,7 @@ public class CreatePin extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,7,8,"CreatePin");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,7,8,"CreatePin",path1);
 	}
 	
 	

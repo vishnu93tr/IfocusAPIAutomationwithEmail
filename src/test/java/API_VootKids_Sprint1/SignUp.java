@@ -1,4 +1,4 @@
-package API_VootKids;
+package API_VootKids_Sprint1;
 
 import static org.hamcrest.Matchers.is;
 
@@ -26,11 +26,14 @@ import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 
-import API_VootKids.GenericMethod;
+import API_VootKids_Sprint1.GenericMethod;
 
 public class SignUp extends GenericMethod
 {
 	static String str;
+	static String str1;
+	static int flag;
+	static int flag1;
 	static String key2test;
 	static String Value2test;
 	static String TestType;
@@ -144,13 +147,19 @@ public class SignUp extends GenericMethod
 				resp1.prettyPrint();//printing the response
 				resp1.then().assertThat().statusCode(200);//Checking the status code
 				
-				if(TestType.equals("Positive")) //Logic for positive TC
+				if(TestType.equals("Positive"))//logic to test for positive TC
 				{
-					String[] Keys = key2test.split(",");
+					flag=1;//assigning flag=1 for not getting any garbage value
+					String[] Keys = key2test.split(",");//split function for separating the keys to test
 					for (int j=0; j < Keys.length; j++)
 					{
-						resp1.then().body(Keys[j], is(IsNull.notNullValue()));
+						str=String.valueOf(resp1.then().extract().path(Keys[j]));//extracting the key value
+						if(str.equals("null"))//checking the key value is null or not
+						{
+							flag=0;//assigning to 0 for failing the TC
+						}
 						
+						System.out.println(str+"and the value of flag is: "+flag);
 					}
 				}
 				else //Logic for negative TC
@@ -173,15 +182,16 @@ public class SignUp extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(11);
 				Cell cel3=row3.getCell(11, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(TestType.equals("Positive")) //Logic for writing pass/fail for positive TC
+				if(TestType.equals("Positive")) //logic to write pass/fail for positive TC
 				{
-					String[] Keys = key2test.split(",");
-					for (int j=0; j < Keys.length; j++)
+					if(flag==0)
 					{
-						resp1.then().body(Keys[j], is(IsNull.notNullValue()));
-						
+						cel3.setCellValue("Fail");
 					}
-					cel3.setCellValue("Pass");
+					else 
+					{
+						cel3.setCellValue("Pass");
+					}
 				}
 				else if(TestType.equals("Negative")) ////Logic for writing pass/fail for negative TC
 				{	
@@ -206,7 +216,7 @@ public class SignUp extends GenericMethod
 				fos.close();
 				
 		}
-	    GenericMethod.write2Master(1, "SignUp", 11);
+	    GenericMethod.write2Master(1, "SignUp", 11,path1);
 	    softAssert.assertAll();
 	    
 	    
@@ -230,7 +240,7 @@ public class SignUp extends GenericMethod
 		resp1.then().assertThat().statusCode(200);
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp",path1);
 	}
 	//Funtion for not passing password
 	public static void NotPassPassword(String email,String deviceId,String deviceBrand, String pin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -251,7 +261,7 @@ public class SignUp extends GenericMethod
 		resp1.then().assertThat().statusCode(200);
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp",path1);
 	}
 	//Function for not passing deviceId
 	public static void NotPassdeviceId(String email,String password,String deviceBrand, String pin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -272,7 +282,7 @@ public class SignUp extends GenericMethod
 		resp1.then().assertThat().statusCode(200);
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp",path1);
 	}
 	//Function for not passing devicebrand
 	public static void NotPassdeviceBrand(String email,String password,String deviceId, String pin,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -293,7 +303,7 @@ public class SignUp extends GenericMethod
 		resp1.then().assertThat().statusCode(200);
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp",path1);
 	}
 	//Function for passing empty pin
 	public static void emptyPin(String email,String password,String deviceId, String deviceBrand,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -314,6 +324,6 @@ public class SignUp extends GenericMethod
 		resp1.then().assertThat().statusCode(200);
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,10,11,"SignUp",path1);
 	}
 }

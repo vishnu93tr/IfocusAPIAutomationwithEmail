@@ -1,4 +1,4 @@
-package API_VootKids;
+package API_VootKids_Sprint1;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -22,7 +22,7 @@ import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 
-public class ForgotPin extends GenericMethod
+public class ForgotPassword extends GenericMethod
 {
 	static String str;
 	static String key2test;
@@ -30,14 +30,14 @@ public class ForgotPin extends GenericMethod
 	static String TestType;
 	static SoftAssert softAssert = new SoftAssert();
 	@Test
-	public void Forgot_Pin() throws EncryptedDocumentException, InvalidFormatException, IOException
+	public void Forgot_Password() throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
 		//Reading the excel sheet
 		FileInputStream fis=new FileInputStream(path1);
 		Workbook wb=WorkbookFactory.create(fis);
 		//Excel sheet name Create
-		Sheet sh=wb.getSheet("ForgotPIN");
+		Sheet sh=wb.getSheet("ForgotPassword");
 		//count the no. of rows ignoring the 1st row
 		int rowCount = sh.getLastRowNum()-sh.getFirstRowNum();
 		
@@ -60,11 +60,11 @@ public class ForgotPin extends GenericMethod
         		//When email is not passed
         		if(email.equals("NOTPASS"))
 				{
-            		ForgotPin.NotPassEmail(i, URL);
+            		ForgotPassword.NotPassEmail(i, URL);
             		continue;
 				}
 				
-        		//posting request
+        		//Posting Resquest to the server
         		BasicConfigurator.configure();
 				Response resp1=	RestAssured.
 					given().
@@ -76,7 +76,7 @@ public class ForgotPin extends GenericMethod
 					post(URL);
 				
 				resp1.prettyPrint(); //printing the response
-				resp1.then().assertThat().statusCode(200); //checking for status code
+				resp1.then().assertThat().statusCode(200); //checking for status code 
 			
 				str=resp1.then().extract().path(key2test);
 				softAssert.assertEquals(Value2test,str);
@@ -86,7 +86,7 @@ public class ForgotPin extends GenericMethod
 				FileInputStream fis1=new FileInputStream(path1);
 				Workbook wb1=WorkbookFactory.create(fis1);
 		
-				Sheet sh1=wb1.getSheet("ForgotPIN");
+				Sheet sh1=wb1.getSheet("ForgotPassword");
 				Row row1=sh1.getRow(i);
 				row1.createCell(6);
 				Cell cel1=row1.getCell(6, MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -96,7 +96,7 @@ public class ForgotPin extends GenericMethod
 				Row row3=sh1.getRow(i);
 				row3.createCell(7);
 				Cell cel3=row3.getCell(7, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(str.equals(Value2test) )
+				if(str.equals(Value2test) )//logic for writing pass/fail 
 					{
 						cel3.setCellValue("Pass");
 					}
@@ -111,9 +111,10 @@ public class ForgotPin extends GenericMethod
 				fos.close();
 				
 		}
-	    GenericMethod.write2Master(6,"ForgotPIN",7);
+	    GenericMethod.write2Master(4,"ForgotPassword",7,path1);
 	    softAssert.assertAll();
-	}    
+	    
+	}
 	//function for not passing email
 	public static void NotPassEmail(int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
@@ -129,7 +130,7 @@ public class ForgotPin extends GenericMethod
 		resp1.then().assertThat().statusCode(200);
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,6,7,"ForgotPIN");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,6,7,"ForgotPassword",path1);
 	}
 }
 

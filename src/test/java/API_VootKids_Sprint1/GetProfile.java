@@ -1,4 +1,4 @@
-package API_VootKids;
+package API_VootKids_Sprint1;
 
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
@@ -119,7 +119,7 @@ public class GetProfile extends GenericMethod
 				row1.createCell(6);
 				Cell cel1=row1.getCell(6, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cel1.setCellType(CellType.STRING);
-				cel1.setCellValue(resp1.asString());
+				cel1.setCellValue(resp1.asString());//writing the response back to the excel sheet
 		
 				Row row3=sh1.getRow(i);
 				row3.createCell(7);
@@ -154,7 +154,7 @@ public class GetProfile extends GenericMethod
 	    	
         
 	    	
-	   GenericMethod.write2Master(14,"GetChildProfiles",7);
+	   GenericMethod.write2Master(14,"GetChildProfiles",7,path1);
 	    softAssert.assertAll();
         }
 	    
@@ -174,7 +174,7 @@ public class GetProfile extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,6,7,"GetChildProfiles");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,6,7,"GetChildProfiles",path1);
 	}
 }
 

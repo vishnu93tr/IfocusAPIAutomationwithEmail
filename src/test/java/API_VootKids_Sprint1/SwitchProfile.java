@@ -1,4 +1,4 @@
-package API_VootKids;
+package API_VootKids_Sprint1;
 
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
@@ -29,6 +29,9 @@ import com.jayway.restassured.response.Response;
 public class SwitchProfile extends GenericMethod
 {
 	static String str;
+	static String str1;
+	static int flag;
+	static int flag1;
 	static String key2test;
 	static String Value2test;
 	static String TestType;
@@ -108,13 +111,19 @@ public class SwitchProfile extends GenericMethod
 				resp1.prettyPrint();//printing the response
 				resp1.then().assertThat().statusCode(200);//checking for statuscode=200
 				
-				if(TestType.equals("Positive"))//logic for checking validation on positive scenarios
+				if(TestType.equals("Positive"))//logic to test for positive TC
 				{
-					String[] Keys = key2test.split(",");//storing the validation keys in array
+					flag=1;//assigning flag=1 for not getting any garbage value
+					String[] Keys = key2test.split(",");//split function for separating the keys to test
 					for (int j=0; j < Keys.length; j++)
 					{
-						resp1.then().body("$", hasKey(Keys[j]));
-						resp1.then().body(Keys[j], is(IsNull.notNullValue()));//checking the array values in response not null
+						str=String.valueOf(resp1.then().extract().path(Keys[j]));//extracting the key value
+						if(str.equals("null"))//checking the key value is null or not
+						{
+							flag=0;//assigning to 0 for failing the TC
+						}
+						
+						System.out.println(str+"and the value of flag is: "+flag);
 					}
 				}
 				else
@@ -132,20 +141,21 @@ public class SwitchProfile extends GenericMethod
 				row1.createCell(8);
 				Cell cel1=row1.getCell(8, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cel1.setCellType(CellType.STRING);
-				cel1.setCellValue(resp1.asString());
+				cel1.setCellValue(resp1.asString()); //writing the response back to the excel sheet
 		
 				Row row3=sh1.getRow(i);
 				row3.createCell(9);
 				Cell cel3=row3.getCell(9, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-				if(TestType.equals("Positive")) //logic for writting pass/fail in positive TC
+				if(TestType.equals("Positive")) //logic to write pass/fail for positive TC
 				{
-					String[] Keys = key2test.split(",");
-					for (int j=0; j < Keys.length; j++)
+					if(flag==0)
 					{
-						resp1.then().body(Keys[j], is(IsNull.notNullValue()));
-						
+						cel3.setCellValue("Fail");
 					}
-					cel3.setCellValue("Pass");
+					else 
+					{
+						cel3.setCellValue("Pass");
+					}
 				}
 				else if(TestType.equals("Negative"))//logic for writting pass/fail for negative scenarios
 				{
@@ -165,7 +175,7 @@ public class SwitchProfile extends GenericMethod
 				fos.close();
 				
 		}
-	    GenericMethod.write2Master(8,"SwitchProfile", 9);
+	    GenericMethod.write2Master(8,"SwitchProfile", 9,path1); //calling the generic method for writing back to the master sheet
 	    softAssert.assertAll();
 	 
 	}
@@ -186,7 +196,7 @@ public class SwitchProfile extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SwitchProfile");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SwitchProfile",path1); 
 	}
 	//function for not passing childprofileId
 	public static void NotPassChildProfileId(String Uid,String deviceId,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -205,7 +215,7 @@ public class SwitchProfile extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SwitchProfile");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SwitchProfile",path1);//calling generic method to write response and status
 	}
 	//function for not passing deviceId
 	public static void NotPassDeviceId(String Uid,String childProfileId,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -224,7 +234,7 @@ public class SwitchProfile extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SwitchProfile");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SwitchProfile",path1);//calling generic method to write response and status
 	}
 	
 }

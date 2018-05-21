@@ -7,7 +7,7 @@
       <class name="API_VootKids_Sprint2.Watch"/>
       <class name="API_VootKids_Sprint2.kidscharacters"/>
       <class name="API_VootKids_Sprint2.GetTrayMediaList"/>
-      <class name="API_VootKids_Sprint2.Watch_history"/>
+      <class name="API_VootKids_Sprint2.WatchHistory"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

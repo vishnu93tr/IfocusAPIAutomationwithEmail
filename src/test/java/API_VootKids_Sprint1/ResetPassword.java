@@ -1,4 +1,4 @@
-package API_VootKids;
+package API_VootKids_Sprint1;
 
 import static org.hamcrest.Matchers.is;
 
@@ -157,7 +157,7 @@ public class ResetPassword  extends GenericMethod
 				fos.close();
 				
 		}
-	    GenericMethod.write2Master(5,"ResetPassword",9);
+	    GenericMethod.write2Master(5,"ResetPassword",9,path1);
 	    softAssert.assertAll();
 	}
 	//function for not passing email
@@ -177,7 +177,7 @@ public class ResetPassword  extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPassword");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPassword",path1);
 	}
 	//function for not passing old password
 	public static void NotPassOldPassword(String email,String newPassword,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -196,7 +196,7 @@ public class ResetPassword  extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPassword");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPassword",path1);
 	}
 	//function for not passing new password
 	public static void NotPassNewPassword(String email,String oldPassword,int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -215,7 +215,7 @@ public class ResetPassword  extends GenericMethod
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
 		
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPassword");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"ResetPassword",path1);
 	}
 	
 }

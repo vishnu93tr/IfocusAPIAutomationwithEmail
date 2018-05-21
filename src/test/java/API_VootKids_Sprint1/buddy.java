@@ -1,4 +1,4 @@
-package API_VootKids;
+package API_VootKids_Sprint1;
 
 public class buddy {
 	
@@ -8,7 +8,8 @@ public class buddy {
 	public String getIcon() {
 		return icon;
 	}
-	public void setIcon(String icon) {
+	public void setIcon(String icon)
+	{
 		this.icon = icon;
 	}
 	public String getColor() {

@@ -3,6 +3,7 @@ package API_VootKids_Sprint2;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.poi.EncryptedDocumentException;
@@ -22,7 +23,9 @@ import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 
-public class GetTrayMediaList extends ParentMethod {
+
+
+public class GetTrayMediaList extends API_VootKids_Sprint1.GenericMethod {
 	
 	static String str;
 	static String key2test;
@@ -31,6 +34,9 @@ public class GetTrayMediaList extends ParentMethod {
 	static String limit;
 	static String offSet;
 	static String moduleId;
+	static Integer counter;
+	static String singleVar;
+	static Boolean bool;
 	static SoftAssert softAssert = new SoftAssert();
 	
 	@Test
@@ -38,7 +44,7 @@ public class GetTrayMediaList extends ParentMethod {
 		BasicConfigurator.configure();
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
 		//Reading the excel sheet
-		FileInputStream fis=new FileInputStream(path1);
+		FileInputStream fis=new FileInputStream(path2);
 		Workbook wb=WorkbookFactory.create(fis);
 		//Excel sheet name Create
 		Sheet sh=wb.getSheet("gettraymedialist");
@@ -98,56 +104,62 @@ public class GetTrayMediaList extends ParentMethod {
              resp1.prettyPrint();
              if(TestType.equals("Positive")) 
              {	
-            	 int size = resp1.body().path("assets.items.size()");
-            	 System.out.println(size);
-            	 for (int j=0;j<size;j++) 
-            	 {
-				String profile=resp1.jsonPath().get("assets.items["+j+"].profile");
-				System.out.println(profile);
-				softAssert.assertNotNull(profile);
-				
-				String mId=resp1.jsonPath().get("assets.items["+j+"].mId");
-				System.out.println(mId);
-				softAssert.assertNotNull(mId);
-				
-				int mediaType=resp1.jsonPath().get("assets.items["+j+"].mediaType");
-				System.out.println(mediaType);
-				softAssert.assertNotNull(mediaType);
-				
-				String contentType=resp1.jsonPath().get("assets.items["+j+"].contentType");
-				System.out.println(contentType);
-				softAssert.assertNotNull(contentType);
-				
-				
-				
-				int duration=resp1.jsonPath().get("assets.items["+j+"].duration");
-				System.out.println(duration);
-				softAssert.assertNotNull(duration);
-				
-				String title=resp1.jsonPath().get("assets.items["+j+"].title");
-				System.out.println(title);
-				softAssert.assertNotNull(title);
-				
-				
-				String desc=resp1.jsonPath().get("assets.items["+j+"].desc");
-				System.out.println(desc);
-				softAssert.assertNotNull(desc);
-				
-				String imgURL=resp1.jsonPath().get("assets.items["+j+"].imgURL");
-				System.out.println(imgURL);
-				softAssert.assertNotNull(imgURL);
+            	 ArrayList<String> expectedType = new ArrayList<String>();
+					expectedType.add("String");
+					expectedType.add("String");
+					expectedType.add("String");
+					expectedType.add("Integer");
+					expectedType.add("String");
+					expectedType.add("String");
+					expectedType.add("Integer");
+					expectedType.add("String");
+					expectedType.add("String");
+					expectedType.add("String");
+					
+					ArrayList<String> myDatatype = new ArrayList<String>();
+					
+					int sizeOfList = resp1.body().path("assets.items.size()");//taking the size of the array profiles
+					System.out.println(sizeOfList);
+					//logic for testing keys null or not
+					String[] Keys = Value2test.split(",");
+					
+					for (int k=0; k <sizeOfList ; k++)
+					{
+						//logic to test dynamic keytoTest from excel and to check the keys are null or not null
+						//one needs to directly update keys in excel,no need to modify code
+						myDatatype.removeAll(myDatatype);//using the arraylist for next time, to get next item datatype
+						counter=1;
+						for (int j=0;j<Keys.length;j++) 
+						{
+							singleVar=resp1.jsonPath().get(key2test+"["+k+"]."+Keys[j]).toString();
+							Class<? extends Object> channelnameDatatype=resp1.jsonPath().get(key2test+"["+k+"]."+Keys[j]).getClass();
+							String type=channelnameDatatype.getSimpleName();//extracting the datatype
+							myDatatype.add(type);//append the elements into arraylist
+							if(singleVar.equals("null")) 
+							{
+								counter=0;
+							}
+							System.out.println(singleVar);
+							softAssert.assertNotNull(singleVar);
+							
+						}
+						System.out.println(myDatatype);//print the arraylist of response datatype
+						System.out.println(expectedType);
+						bool=myDatatype.equals(expectedType);
+						System.out.println(bool);
+						
+					}
 			
-			str= resp1.jsonPath().get(key2test);
-			softAssert.assertEquals(Value2test,str);		
+				
 		}		
-	}
+	
              else {
  	 
             	 str= resp1.jsonPath().get(key2test);
             	 softAssert.assertEquals(Value2test,str);	
 			
 			}
-             FileInputStream fis1=new FileInputStream(path1);
+             FileInputStream fis1=new FileInputStream(path2);
              Workbook wb1=WorkbookFactory.create(fis1);
 
 		Sheet sh1=wb1.getSheet("gettraymedialist");
@@ -161,25 +173,39 @@ public class GetTrayMediaList extends ParentMethod {
 		row3.createCell(9);
 		Cell cel3=row3.getCell(9, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 
-
-		if(str.equals(Value2test))
+		if(TestType.equals("Positive"))
 		{
-			cel3.setCellValue("Pass");
-		}
+			if(counter==0 || bool==false)
 		
-		else 
-		{
-			cel3.setCellValue("Fail");
+			{
+				cel3.setCellValue("Fail");
+			}
+			else 
+			{
+				cel3.setCellValue("Pass");
+			}
 		}
+		if(TestType.equals("Negative")) 
+		{
+			if(str.equals(Value2test))
+			{
+				cel3.setCellValue("Pass");
+			}
+			else
+			{
+				cel3.setCellValue("Fail");
+			}
+		}
+	
 		
 		
 
-	FileOutputStream fos=new FileOutputStream(path1);
+	FileOutputStream fos=new FileOutputStream(path2);
 	wb1.write(fos);
 	fos.close();
 	 
    }
-		// ParentMethod.write2Master(5, "gettraymedialist", 9);
+		 API_VootKids_Sprint1.GenericMethod.write2Master(5, "gettraymedialist", 9,path2 );
 		 softAssert.assertAll();
 
 }
@@ -203,7 +229,7 @@ public class GetTrayMediaList extends ParentMethod {
 		System.out.println("str is:"+str);
 		softAssert.assertEquals(Value2test,str);
 		
-		ParentMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"gettraymedialist");
+		API_VootKids_Sprint1.GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"gettraymedialist",path2);
 	}
 	public static void NotPassoffset(int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
@@ -225,7 +251,7 @@ public class GetTrayMediaList extends ParentMethod {
 		System.out.println("str is:"+str);
 		softAssert.assertEquals(Value2test,str);
 		
-		ParentMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"gettraymedialist");
+		API_VootKids_Sprint1.GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"gettraymedialist",path2);
 	}
 	public static void NotPassmoduleId(int i,String URL) throws EncryptedDocumentException, InvalidFormatException, IOException
 	{
@@ -247,7 +273,7 @@ public class GetTrayMediaList extends ParentMethod {
 		System.out.println("str is:"+str);
 		softAssert.assertEquals(Value2test,str);
 		
-		ParentMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"gettraymedialist");
+		API_VootKids_Sprint1.GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"gettraymedialist",path2);
 	}
 	
 	

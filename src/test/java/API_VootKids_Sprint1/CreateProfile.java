@@ -1,4 +1,4 @@
-package API_VootKids;
+package API_VootKids_Sprint1;
 
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.is;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.poi.EncryptedDocumentException;
@@ -42,6 +43,7 @@ public class CreateProfile extends GenericMethod{
 	static String color;
 	static String pin;
 	static String URL;
+	static Integer counter;
 	static SoftAssert softAssert = new SoftAssert();
 		@Test
 		public void Create_Profiles() throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -120,6 +122,7 @@ public class CreateProfile extends GenericMethod{
 		    	{
 					icon="";
 		    	}
+				
 				
 				color=row.getCell(9).getStringCellValue();
 				if(color.equals("EMPTY"))
@@ -238,19 +241,28 @@ public class CreateProfile extends GenericMethod{
 				
 				resp1.prettyPrint();//print the response
 				resp1.then().assertThat().statusCode(200);//checking the statuscode=200
-				
-				if(TestType.equals("Positive"))//logic for positive scenarios to check each item should have profile id value.
+		
+				if(TestType.equals("Positive"))//logic to test for positive TC
 				{
-					String[] Keys = key2test.split(",");
+					
+					//assigning flag=1 for not getting any garbage value
+					String[] Keys = key2test.split(",");//split function for separating the keys to test
 					for (int j=0; j < Keys.length; j++)
 					{
-						resp1.then().body(Keys[j], is(IsNull.notNullValue()));
+						counter=1;
+						str=resp1.then().extract().path(Keys[j]).toString();//extracting the key value
+						if(str.equals("null"))//checking the key value is null or not
+						{
+							counter=0;//assigning to 0 for failing the TC
+							softAssert.assertEquals(str,"SomeValue");
+						}
+						System.out.println(str+"and the value of flag is: "+counter);
 						
 					}
 				}
-				else if(TestType.equals("Negative"))//logic for checking the negative scenarios messages
+				else
 				{
-					str=resp1.then().extract().path(key2test);
+					str=resp1.then().extract().path(key2test); //extracting the value for key to test
 					softAssert.assertEquals(Value2test,str);
 				}
 				//writing into the excel sheet
@@ -262,7 +274,7 @@ public class CreateProfile extends GenericMethod{
 				row1.createCell(14);
 				Cell cel1=row1.getCell(14, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cel1.setCellType(CellType.STRING);
-				cel1.setCellValue(resp1.asString());
+				cel1.setCellValue(resp1.asString()); //printing the response in the excel sheet
 		
 				Row row3=sh1.getRow(i);
 				row3.createCell(15);
@@ -281,22 +293,23 @@ public class CreateProfile extends GenericMethod{
 				}
 				else if(TestType.equals("Positive"))//printing pass/fail logic for positive scenarios 
 				{
-					resp1.then().body(key2test, is(IsNull.notNullValue()));
-					cel3.setCellValue("Pass");
-				}
-				else
-				{
-					cel3.setCellValue("Fail");
+					if(counter==null)
+					{
+						cel3.setCellValue("Fail");
+					}
+					else 
+					{
+						cel3.setCellValue("Pass");
+					}
 				}
 				
-		
 				FileOutputStream fos=new FileOutputStream(path1);
 				wb1.write(fos);
 		
 				fos.close();
 				
 	        }	
-		    GenericMethod.write2Master(11, "CreateProfile", 15);
+		    GenericMethod.write2Master(11, "CreateProfile", 15,path1); //calling generic method for writing in master sheet
 		    softAssert.assertAll();
 		    
 		    
@@ -336,7 +349,7 @@ public static void IconNotPassed(int i) throws EncryptedDocumentException, Inval
 			str=resp1.then().extract().path(key2test);
 			softAssert.assertEquals(Value2test,str);
 			
-			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile",path1);//calling generic method to write status and response	
 			
 			
 			
@@ -358,7 +371,7 @@ public static void NotMandatory(int i) throws EncryptedDocumentException, Invali
 			str=resp1.then().extract().path(key2test);
 			softAssert.assertEquals(Value2test,str);
 			
-			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile",path1);//calling generic method to write status and response		
 			
 			
 			
@@ -395,7 +408,7 @@ public static void UidNotPassed(int i) throws EncryptedDocumentException, Invali
 			str=resp1.then().extract().path(key2test);
 			softAssert.assertEquals(Value2test,str);
 			
-			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile",path1);//calling generic method to write status and response			
 			
 			
 			
@@ -433,7 +446,7 @@ public static void KSNotPassed(int i) throws EncryptedDocumentException, Invalid
 			str=resp1.then().extract().path(key2test);
 			softAssert.assertEquals(Value2test,str);
 			
-			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile",path1);//calling generic method to write status and response			
 			
 }	
 //function for not passing deviceId
@@ -469,7 +482,7 @@ public static void DeviceIdNotPassed(int i) throws EncryptedDocumentException, I
 			str=resp1.then().extract().path(key2test);
 			softAssert.assertEquals(Value2test,str);
 			
-			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile",path1);//calling generic method to write status and response			
 			
 			}
 //function for not passing devicebrand 
@@ -504,7 +517,7 @@ public static void DeviceBrandNotPassed(int i) throws EncryptedDocumentException
 			str=resp1.then().extract().path(key2test);
 			softAssert.assertEquals(Value2test,str);
 			
-			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile",path1);//calling generic method to write status and response		
 			
 			}
 //function for not passing name 
@@ -539,7 +552,7 @@ public static void NameNotPassed(int i) throws EncryptedDocumentException, Inval
 			str=resp1.then().extract().path(key2test);
 			softAssert.assertEquals(Value2test,str);
 			
-			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile",path1);//calling generic method to write status and response			
 			
 			}
 //function for not passing dob
@@ -574,7 +587,7 @@ public static void DOBNotPassed(int i) throws EncryptedDocumentException, Invali
 			str=resp1.then().extract().path(key2test);
 			softAssert.assertEquals(Value2test,str);
 			
-			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile",path1);//calling generic method to write status and response			
 			
 			}
 //function for not passinf color
@@ -610,7 +623,7 @@ public static void ColorNotPassed(int i) throws EncryptedDocumentException, Inva
 			str=resp1.then().extract().path(key2test);
 			softAssert.assertEquals(Value2test,str);
 			
-			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile",path1);//calling generic method to write status and response		
 			
 			}
 //function for passing as empty pin
@@ -647,7 +660,7 @@ public static void PinIsEmpty(int i) throws EncryptedDocumentException, InvalidF
 			str=resp1.then().extract().path(key2test);
 			softAssert.assertEquals(Value2test,str);
 			
-			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile");			
+			GenericMethod.writedata(i, Value2test, TestType, resp1, str, 14, 15, "CreateProfile",path1);//calling generic method to write status and response			
 			
 		}
 

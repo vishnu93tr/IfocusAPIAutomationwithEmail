@@ -1,4 +1,4 @@
-package API_VootKids;
+package API_VootKids_Sprint1;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,19 +22,21 @@ import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 
-public class Config extends GenericMethod
+public class Tabs extends GenericMethod
 {
 	@Test
-	public void config() throws IOException, EncryptedDocumentException, InvalidFormatException 
+	public void tabs() throws IOException, EncryptedDocumentException, InvalidFormatException 
 	{
 		RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
+		//reading from excel sheet
 		FileInputStream fis=new FileInputStream(path1);
 		Workbook wb=WorkbookFactory.create(fis);
-		Sheet sh=wb.getSheet("Config");
+		Sheet sh=wb.getSheet("Tabs");
 		Row row=sh.getRow(1);
-		
+		//fetching the url from sheet
 		String Url=row.getCell(2).getStringCellValue();
 		
+		//posting the request
 		BasicConfigurator.configure();
 		Response resp=	RestAssured.
 						given().
@@ -43,13 +45,14 @@ public class Config extends GenericMethod
 						accept(ContentType.JSON).
 						when().
 						get(Url);
-		resp.then().assertThat().statusCode(200);
 		
+		resp.then().assertThat().statusCode(200);//checking the statuscode=200
 		
+		//writing into the excel sheet
 		FileInputStream fis1=new FileInputStream(path1);
 		Workbook wb1=WorkbookFactory.create(fis1);
 
-		Sheet sh1=wb1.getSheet("Config");
+		Sheet sh1=wb1.getSheet("Tabs");
 		Row row1=sh1.getRow(1);
 		row1.createCell(3);
 		Cell cel1=row1.getCell(3, MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -65,8 +68,7 @@ public class Config extends GenericMethod
 		wb1.write(fos);
 
 		fos.close();
-		
-		GenericMethod.write2Master(12, "Config", 4);
+		GenericMethod.write2Master(15, "Tabs", 4,path1);
 	}
-	
 }
+

@@ -1,4 +1,4 @@
-package API_VootKids;
+package API_VootKids_Sprint1;
 
 import static org.hamcrest.Matchers.is;
 
@@ -39,10 +39,10 @@ public class UpdateProfile extends GenericMethod{
 	static String pin;
 	static String Url;
 	static int StatusCode;
-	
+	static Integer counter;
 	static SoftAssert softAssert = new SoftAssert();
 		@Test
-		public void SignUp_Kids() throws EncryptedDocumentException, InvalidFormatException, IOException
+		public void update_Kids() throws EncryptedDocumentException, InvalidFormatException, IOException
 		{
 			
 			RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
@@ -203,10 +203,23 @@ public class UpdateProfile extends GenericMethod{
 				resp1.prettyPrint(); //printing the response
 				resp1.then().assertThat().statusCode(200);//checking for statuscode=200
 				
-				if(TestType.equals("Positive"))//logic for validation of positive scenarios
+				if(TestType.equals("Positive"))//logic to test for positive TC
 				{
-					str=resp1.then().extract().path(key2test);
-					softAssert.assertEquals(Value2test,str);
+					
+					//assigning flag=1 for not getting any garbage value
+					String[] Keys = key2test.split(",");//split function for separating the keys to test
+					for (int j=0; j < Keys.length; j++)
+					{
+						counter=1;
+						str=resp1.then().extract().path(Keys[j]).toString();//extracting the key value
+						if(str.equals("null"))//checking the key value is null or not
+						{
+							counter=0;//assigning to 0 for failing the TC
+							softAssert.assertEquals(str,"SomeValue");
+						}
+						System.out.println(str+"and the value of flag is: "+counter);
+						
+					}
 				}
 				else if(TestType.equals("Negative"))//logic for validation of negative scenarios
 				{
@@ -232,6 +245,8 @@ public class UpdateProfile extends GenericMethod{
 				row3.createCell(13);
 				Cell cel3=row3.getCell(13, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				
+				if(TestType.equals("Negative"))//printing pass/fail logic for negative scenarios
+				{
 					if(str.equals(Value2test))
 					{
 						cel3.setCellValue("Pass");
@@ -240,6 +255,18 @@ public class UpdateProfile extends GenericMethod{
 					{
 						cel3.setCellValue("Fail");
 					}
+				}
+				else if(TestType.equals("Positive"))//printing pass/fail logic for positive scenarios 
+				{
+					if(counter==null)
+					{
+						cel3.setCellValue("Fail");
+					}
+					else 
+					{
+						cel3.setCellValue("Pass");
+					}
+				}
 				
 				
 				FileOutputStream fos=new FileOutputStream(path1);
@@ -248,7 +275,7 @@ public class UpdateProfile extends GenericMethod{
 				fos.close();
 				
 	        }	
-			GenericMethod.write2Master(10, "UpdateProfile",13);
+			GenericMethod.write2Master(10, "UpdateProfile",13,path1);
 		    softAssert.assertAll();
 	        }
 		//fucntion for icon not passed
@@ -282,7 +309,7 @@ public class UpdateProfile extends GenericMethod{
 					str=resp1.then().extract().path(key2test);
 					softAssert.assertEquals(Value2test,str);
 					
-					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile",path1);			
 					
 					
 					
@@ -317,7 +344,7 @@ public class UpdateProfile extends GenericMethod{
 					str=resp1.then().extract().path(key2test);
 					softAssert.assertEquals(Value2test,str);
 					
-					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile",path1);			
 					
 					
 					
@@ -352,7 +379,7 @@ public class UpdateProfile extends GenericMethod{
 					str=resp1.then().extract().path(key2test);
 					softAssert.assertEquals(Value2test,str);
 					
-					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile",path1);			
 					
 		}
 		//function for name not pass
@@ -385,7 +412,7 @@ public class UpdateProfile extends GenericMethod{
 					str=resp1.then().extract().path(key2test);
 					softAssert.assertEquals(Value2test,str);
 					
-					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile",path1);			
 					
 					}
 		//function for dob not pass
@@ -418,7 +445,7 @@ public class UpdateProfile extends GenericMethod{
 					str=resp1.then().extract().path(key2test);
 					softAssert.assertEquals(Value2test,str);
 					
-					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile",path1);			
 					
 					}
 		//function for color not pass
@@ -452,7 +479,7 @@ public class UpdateProfile extends GenericMethod{
 					str=resp1.then().extract().path(key2test);
 					softAssert.assertEquals(Value2test,str);
 					
-					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile",path1);			
 					
 					}
 		//fucntion for pin not passed
@@ -487,7 +514,7 @@ public class UpdateProfile extends GenericMethod{
 					str=resp1.then().extract().path(key2test);
 					softAssert.assertEquals(Value2test,str);
 					
-					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile");			
+					GenericMethod.writedata(i, Value2test, TestType, resp1, str, 12, 13, "UpdateProfile",path1);			
 					
 					
 					

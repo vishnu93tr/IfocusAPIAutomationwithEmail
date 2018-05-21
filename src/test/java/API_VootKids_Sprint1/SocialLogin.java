@@ -1,11 +1,8 @@
-package API_VootKids;
-
-import static org.hamcrest.Matchers.is;
+package API_VootKids_Sprint1;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import org.apache.log4j.BasicConfigurator;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -16,7 +13,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
-import org.hamcrest.core.IsNull;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -28,6 +24,12 @@ import com.jayway.restassured.response.Response;
 public class SocialLogin extends GenericMethod
 {
 	static String str;
+	static String str1;
+	static int flag;
+	static int flag1;
+	static String ks;
+	static String kID;
+	static String kToken;
 	static String key2test;
 	static String Value2test;
 	static String TestType;
@@ -103,13 +105,19 @@ public class SocialLogin extends GenericMethod
 				
 				if(TestType.equals("Positive"))//logic to test for positive TC
 				{
-					String[] Keys = key2test.split(",");
+					flag=1;//assigning flag=1 for not getting any garbage value
+					String[] Keys = key2test.split(",");//split function for separating the keys to test
 					for (int j=0; j < Keys.length; j++)
 					{
-						resp1.then().body(Keys[j], is(IsNull.notNullValue()));
-						
+						str=String.valueOf(resp1.then().extract().path(Keys[j]));//extracting the key value
+						if(str.equals("null"))//checking the key value is null or not
+						{
+							flag=0;//assigning to 0 for failing the TC
+						}
+						System.out.println(str+"and the value of flag is: "+flag);
 					}
 				}
+
 				else//logic to test for negative TC
 				{
 					str=resp1.then().extract().path(key2test);
@@ -125,20 +133,21 @@ public class SocialLogin extends GenericMethod
 				row1.createCell(8);
 				Cell cel1=row1.getCell(8, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				cel1.setCellType(CellType.STRING);
-				cel1.setCellValue(resp1.asString());
+				cel1.setCellValue(resp1.asString());//writing the response back to the excel
 		
 				Row row3=sh1.getRow(i);
 				row3.createCell(9);
 				Cell cel3=row3.getCell(9, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 				if(TestType.equals("Positive")) //logic to write pass/fail for positive TC
 				{
-					String[] Keys = key2test.split(",");
-					for (int j=0; j < Keys.length; j++)
+					if(flag==0)
 					{
-						resp1.then().body(Keys[j], is(IsNull.notNullValue()));
-						
+						cel3.setCellValue("Fail");
 					}
-					cel3.setCellValue("Pass");
+					else 
+					{
+						cel3.setCellValue("Pass");
+					}
 				}
 				else if(TestType.equals("Negative")) //logic to write pass/fail for negative TC
 				{	
@@ -161,7 +170,7 @@ public class SocialLogin extends GenericMethod
 				fos.close();
 				
 		}
-	    GenericMethod.write2Master(3,"SocialLogin",9);
+	    GenericMethod.write2Master(3,"SocialLogin",9,path1);//calling generic method for writing in master sheet
 	    softAssert.assertAll();
 	    
 	}
@@ -182,7 +191,7 @@ public class SocialLogin extends GenericMethod
 		resp1.then().assertThat().statusCode(200);
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SocialLogin");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SocialLogin",path1);//calling generic method to write status and response 
 	}
 	//function for not passing deviceId
 	public static void NotPassdeviceId(String Uid,int i,String URL,String deviceBrand) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -201,7 +210,7 @@ public class SocialLogin extends GenericMethod
 		resp1.then().assertThat().statusCode(200);
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SocialLogin");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SocialLogin",path1);//calling generic method to write status and response
 	}
 	//function for not passing deviceBrand
 	public static void NotPassdevicebrand(String Uid,int i,String URL,String deviceId) throws EncryptedDocumentException, InvalidFormatException, IOException
@@ -220,6 +229,6 @@ public class SocialLogin extends GenericMethod
 		resp1.then().assertThat().statusCode(200);
 		str=resp1.then().extract().path(key2test);
 		softAssert.assertEquals(Value2test,str);
-		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SocialLogin");
+		GenericMethod.writedata(i, Value2test,TestType, resp1,str,8,9,"SocialLogin",path1);//calling generic method to write status and response
 	}
 }

@@ -1,87 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+<suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="API_VootKids.Login"/>
-      <class name="API_VootKids.ForgotPassword"/>
-      <class name="API_VootKids.UpdateProfile"/>
-      <class name="API_VootKids.ResetPassword"/>
-      <class name="API_VootKids.ResetPin"/>
-      <class name="API_VootKids.CreateProfile"/>
-      <class name="API_VootKids.SwitchProfile"/>
-      <class name="API_VootKids.CreatePin"/>
-      <class name="API_VootKids.GetProfile"/>
-      <class name="API_VootKids.SignUp"/>
-      <class name="API_VootKids.Tabs"/>
-      <class name="API_VootKids.Config"/>
-      <class name="API_VootKids.SocialLogin"/>
-      <class name="API_VootKids.Home"/>
-      <class name="API_VootKids.ForgotPin"/>
+      <class name="API_VootKids_Sprint2.Channel"/>
+      <class name="API_VootKids_Sprint2.Watch"/>
+      <class name="API_VootKids_Sprint2.kidscharacters"/>
+      <class name="API_VootKids_Sprint2.GetTrayMediaList"/>
+      <class name="API_VootKids_Sprint2.WatchHistory"/>
     </classes>
   </test> <!-- Test -->
   <test name="Test(failed)">
     <classes>
-      <class name="API_VootKids.ResetPassword">
+      <class name="API_VootKids_Sprint2.kidscharacters">
         <methods>
-          <include name="reset_Password"/>
+          <include name="kidsCharacters"/>
         </methods>
-      </class> <!-- API_VootKids.ResetPassword -->
-      <class name="API_VootKids.CreatePin">
+      </class> <!-- API_VootKids_Sprint2.kidscharacters -->
+      <class name="API_VootKids_Sprint2.WatchHistory">
         <methods>
-          <include name="CreatePin1"/>
+          <include name="watch_history"/>
         </methods>
-      </class> <!-- API_VootKids.CreatePin -->
-      <class name="API_VootKids.CreateProfile">
+      </class> <!-- API_VootKids_Sprint2.WatchHistory -->
+      <class name="API_VootKids_Sprint2.Channel">
         <methods>
-          <include name="Create_Profiles"/>
+          <include name="Channels_kidsPage"/>
         </methods>
-      </class> <!-- API_VootKids.CreateProfile -->
-      <class name="API_VootKids.UpdateProfile">
+      </class> <!-- API_VootKids_Sprint2.Channel -->
+      <class name="API_VootKids_Sprint2.GetTrayMediaList">
         <methods>
-          <include name="SignUp_Kids"/>
+          <include name="gettraymedialist"/>
         </methods>
-      </class> <!-- API_VootKids.UpdateProfile -->
-      <class name="API_VootKids.ForgotPassword">
+      </class> <!-- API_VootKids_Sprint2.GetTrayMediaList -->
+      <class name="API_VootKids_Sprint2.Watch">
         <methods>
-          <include name="Forgot_Password"/>
+          <include name="watch"/>
         </methods>
-      </class> <!-- API_VootKids.ForgotPassword -->
-      <class name="API_VootKids.Login">
-        <methods>
-          <include name="Login_Kids"/>
-        </methods>
-      </class> <!-- API_VootKids.Login -->
-      <class name="API_VootKids.SocialLogin">
-        <methods>
-          <include name="Social_Login"/>
-        </methods>
-      </class> <!-- API_VootKids.SocialLogin -->
-      <class name="API_VootKids.ForgotPin">
-        <methods>
-          <include name="Forgot_Pin"/>
-        </methods>
-      </class> <!-- API_VootKids.ForgotPin -->
-      <class name="API_VootKids.Home">
-        <methods>
-          <include name="home"/>
-        </methods>
-      </class> <!-- API_VootKids.Home -->
-      <class name="API_VootKids.ResetPin">
-        <methods>
-          <include name="reset_Pin"/>
-        </methods>
-      </class> <!-- API_VootKids.ResetPin -->
-      <class name="API_VootKids.SignUp">
-        <methods>
-          <include name="SignUp_Kids"/>
-        </methods>
-      </class> <!-- API_VootKids.SignUp -->
-      <class name="API_VootKids.SwitchProfile">
-        <methods>
-          <include name="Swith_Profile"/>
-        </methods>
-      </class> <!-- API_VootKids.SwitchProfile -->
+      </class> <!-- API_VootKids_Sprint2.Watch -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
